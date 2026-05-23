@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "+jdRdVA/85E=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Api\\Api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dmant\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.8\\microsoft.aspnetcore.openapi.10.0.8.nupkg.sha512",
+    "C:\\Users\\dmant\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
