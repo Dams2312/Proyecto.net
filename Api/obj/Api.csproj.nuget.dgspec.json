@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Api\\Api.csproj": {}
+    "/home/camper/proyecto.net/Proyecto.net/Api/Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Api\\Api.csproj": {
+    "/home/camper/proyecto.net/Proyecto.net/Api/Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Api\\Api.csproj",
+        "projectUniqueName": "/home/camper/proyecto.net/Proyecto.net/Api/Api.csproj",
         "projectName": "Api",
-        "projectPath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Api\\Api.csproj",
-        "packagesPath": "C:\\Users\\dmant\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Api\\obj\\",
+        "projectPath": "/home/camper/proyecto.net/Proyecto.net/Api/Api.csproj",
+        "packagesPath": "/home/camper/.nuget/packages/",
+        "outputPath": "/home/camper/proyecto.net/Proyecto.net/Api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dmant\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/camper/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -24,13 +24,14 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Application\\Application.csproj": {
-                "projectPath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Application\\Application.csproj"
+              "/home/camper/proyecto.net/Proyecto.net/Application/Application.csproj": {
+                "projectPath": "/home/camper/proyecto.net/Proyecto.net/Application/Application.csproj"
               },
-              "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Infrastructure\\Infrastructure.csproj"
+              "/home/camper/proyecto.net/Proyecto.net/Infrastructure/Infrastructure.csproj": {
+                "projectPath": "/home/camper/proyecto.net/Proyecto.net/Infrastructure/Infrastructure.csproj"
               }
             }
           }
@@ -45,10 +46,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Mapster": {
@@ -87,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.204/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.300/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
@@ -505,17 +507,17 @@
         }
       }
     },
-    "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Application\\Application.csproj": {
+    "/home/camper/proyecto.net/Proyecto.net/Application/Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Application\\Application.csproj",
+        "projectUniqueName": "/home/camper/proyecto.net/Proyecto.net/Application/Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\dmant\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Application\\obj\\",
+        "projectPath": "/home/camper/proyecto.net/Proyecto.net/Application/Application.csproj",
+        "packagesPath": "/home/camper/.nuget/packages/",
+        "outputPath": "/home/camper/proyecto.net/Proyecto.net/Application/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dmant\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/camper/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -525,10 +527,11 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Domain\\Domain.csproj"
+              "/home/camper/proyecto.net/Proyecto.net/Domain/Domain.csproj": {
+                "projectPath": "/home/camper/proyecto.net/Proyecto.net/Domain/Domain.csproj"
               }
             }
           }
@@ -543,10 +546,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "FluentValidation": {
@@ -578,7 +582,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.204/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.300/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -856,17 +860,17 @@
         }
       }
     },
-    "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Domain\\Domain.csproj": {
+    "/home/camper/proyecto.net/Proyecto.net/Domain/Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Domain\\Domain.csproj",
+        "projectUniqueName": "/home/camper/proyecto.net/Proyecto.net/Domain/Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\dmant\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Domain\\obj\\",
+        "projectPath": "/home/camper/proyecto.net/Proyecto.net/Domain/Domain.csproj",
+        "packagesPath": "/home/camper/.nuget/packages/",
+        "outputPath": "/home/camper/proyecto.net/Proyecto.net/Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dmant\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/camper/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -876,6 +880,7 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -890,10 +895,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -911,7 +917,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.204/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.300/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1189,17 +1195,17 @@
         }
       }
     },
-    "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Infrastructure\\Infrastructure.csproj": {
+    "/home/camper/proyecto.net/Proyecto.net/Infrastructure/Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "/home/camper/proyecto.net/Proyecto.net/Infrastructure/Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\dmant\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Infrastructure\\obj\\",
+        "projectPath": "/home/camper/proyecto.net/Proyecto.net/Infrastructure/Infrastructure.csproj",
+        "packagesPath": "/home/camper/.nuget/packages/",
+        "outputPath": "/home/camper/proyecto.net/Proyecto.net/Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dmant\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/home/camper/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -1209,13 +1215,14 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Application\\Application.csproj": {
-                "projectPath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Application\\Application.csproj"
+              "/home/camper/proyecto.net/Proyecto.net/Application/Application.csproj": {
+                "projectPath": "/home/camper/proyecto.net/Proyecto.net/Application/Application.csproj"
               },
-              "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Domain\\Domain.csproj"
+              "/home/camper/proyecto.net/Proyecto.net/Domain/Domain.csproj": {
+                "projectPath": "/home/camper/proyecto.net/Proyecto.net/Domain/Domain.csproj"
               }
             }
           }
@@ -1230,10 +1237,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Mapster": {
@@ -1279,7 +1287,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.204/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.300/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
