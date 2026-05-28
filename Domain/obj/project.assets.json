@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
     "net10.0": {}
   },
@@ -8,19 +8,19 @@
     "net10.0": []
   },
   "packageFolders": {
-    "C:\\Users\\dmant\\.nuget\\packages\\": {}
+    "/home/camper/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Domain\\Domain.csproj",
+      "projectUniqueName": "/home/camper/proyecto.net/Proyecto.net/Domain/Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Domain\\Domain.csproj",
-      "packagesPath": "C:\\Users\\dmant\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dmant\\OneDrive\\Documentos\\proyectCshap\\ProyectoNet\\TheProyectNet\\Domain\\obj\\",
+      "projectPath": "/home/camper/proyecto.net/Proyecto.net/Domain/Domain.csproj",
+      "packagesPath": "/home/camper/.nuget/packages/",
+      "outputPath": "/home/camper/proyecto.net/Proyecto.net/Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\dmant\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "/home/camper/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
@@ -30,6 +30,7 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {}
         }
@@ -44,10 +45,11 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.200"
+      "SdkAnalysisLevel": "10.0.300"
     },
     "frameworks": {
       "net10.0": {
+        "framework": "net10.0",
         "targetAlias": "net10.0",
         "imports": [
           "net461",
@@ -65,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.204/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/10.0.300/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
