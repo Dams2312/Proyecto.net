@@ -16,6 +16,19 @@ public sealed class WarrantyConfiguration : IEntityTypeConfiguration<Domain.Enti
             .HasColumnName("id")
             .ValueGeneratedOnAdd();
 
+        // FKs COMO GUID, NO NECESITAN HasConversion
+        builder.Property(x => x.OrderId)
+            .HasColumnName("orden_id")
+            .IsRequired();
+
+        builder.Property(x => x.ServiceTypeId)
+            .HasColumnName("tipo_servicio_id")
+            .IsRequired();
+
+        builder.Property(x => x.MechanicId)
+            .HasColumnName("mecanico_id")
+            .IsRequired();
+
         builder.Property(x => x.FechaInicio)
             .HasConversion(
                 x => x.Value,
@@ -34,7 +47,8 @@ public sealed class WarrantyConfiguration : IEntityTypeConfiguration<Domain.Enti
             .HasConversion(
                 x => x == null ? null : x.Value,
                 x => x == null ? null : WarrantyCondiciones.Create(x))
-            .HasColumnName("condiciones");
+            .HasColumnName("condiciones")
+            .HasColumnType("text");
 
         builder.Property(x => x.Estado)
             .HasConversion(
@@ -44,7 +58,21 @@ public sealed class WarrantyConfiguration : IEntityTypeConfiguration<Domain.Enti
             .HasMaxLength(20)
             .IsRequired();
 
-        // OrderId, ServiceTypeId y MechanicId no existen en la entidad
-        // El SQL las tiene pero el dominio no las expone — no se mapean
+        builder.HasIndex(x => x.OrderId).HasDatabaseName("idx_garantia_orden");
+
+        builder.HasOne<Domain.Entities.OrderService.OrderService>()
+            .WithMany()
+            .HasForeignKey(x => x.OrderId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<Domain.Entities.ServiceType.ServiceType>()
+            .WithMany()
+            .HasForeignKey(x => x.ServiceTypeId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<Domain.Entities.Users.User>()
+            .WithMany()
+            .HasForeignKey(x => x.MechanicId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

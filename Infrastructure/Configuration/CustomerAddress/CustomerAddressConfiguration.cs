@@ -16,9 +16,13 @@ public sealed class CustomerAddressConfiguration : IEntityTypeConfiguration<Doma
             .HasColumnName("id")
             .ValueGeneratedOnAdd();
 
-        // FK directa como Guid → cliente_id
+        // FKs COMO GUID, NO NECESITAN HasConversion
         builder.Property(x => x.CustomerId)
             .HasColumnName("cliente_id")
+            .IsRequired();
+
+        builder.Property(x => x.CityId)
+            .HasColumnName("ciudad_id")
             .IsRequired();
 
         builder.Property(x => x.Street)
@@ -36,12 +40,14 @@ public sealed class CustomerAddressConfiguration : IEntityTypeConfiguration<Doma
             .HasColumnName("principal")
             .IsRequired();
 
-        // ciudad_id no existe en la entidad → ignorar (el SQL sí la tiene pero la entidad no la expone)
-
-        // FK → cliente (ON DELETE CASCADE según SQL)
         builder.HasOne<Domain.Entities.Customers.Customer>()
             .WithMany()
             .HasForeignKey(x => x.CustomerId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne<Domain.Entities.Citys.City>()
+            .WithMany()
+            .HasForeignKey(x => x.CityId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
