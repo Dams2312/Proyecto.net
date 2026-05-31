@@ -1,15 +1,14 @@
-using Domain.Entities.Roles;
 using Domain.ValueObject.Role;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.Roles;
+namespace Infrastructure.Configuration.Role;
 
-public sealed class RoleConfiguration : IEntityTypeConfiguration<Role>
+public sealed class RoleConfiguration : IEntityTypeConfiguration<Domain.Entities.Roles.Role>
 {
-    public void Configure(EntityTypeBuilder<Role> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.Roles.Role> builder)
     {
-        builder.ToTable("Role");
+        builder.ToTable("rol");
 
         builder.HasKey(x => x.Id);
 
@@ -21,7 +20,7 @@ public sealed class RoleConfiguration : IEntityTypeConfiguration<Role>
             .HasConversion(
                 x => x.Value,
                 x => RoleName.Create(x))
-            .HasColumnName("name")
+            .HasColumnName("nombre")
             .HasMaxLength(50)
             .IsRequired();
 
@@ -29,10 +28,10 @@ public sealed class RoleConfiguration : IEntityTypeConfiguration<Role>
             .HasConversion(
                 x => x.Value,
                 x => RoleDescription.Create(x))
-            .HasColumnName("description")
-            .HasMaxLength(200);
+            .HasColumnName("descripcion");
 
         builder.HasIndex(x => x.Name)
-            .IsUnique();
+            .IsUnique()
+            .HasDatabaseName("uq_rol_nombre");
     }
 }

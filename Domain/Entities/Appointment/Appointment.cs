@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Domain.common;
 using Domain.ValueObject.Appointment;
 
@@ -9,33 +6,51 @@ namespace Domain.Entities.Appointment;
 
 public sealed class Appointment : BaseEntity<Guid>
 {
-    public AppointmentVehicleId VehicleId { get; private set; }
-    public AppointmentServiceTypeId ServiceTypeId { get; private set; }
-    public AppointmentReceptionistId ReceptionistId { get; private set; }
+    // FK COMO GUID
+    public Guid VehicleId { get; private set; }
+
+    public Guid ServiceTypeId { get; private set; }
+
+    public Guid ReceptionistId { get; private set; }
+
     public AppointmentDate Date { get; private set; }
+
     public AppointmentStartTime StartTime { get; private set; }
+
     public AppointmentEndTime EndTime { get; private set; }
+
     public AppointmentStatus Status { get; private set; }
+
     public AppointmentObservations Observations { get; private set; }
 
     private Appointment() { }
 
     public Appointment(
-        AppointmentVehicleId vehicleId,
-        AppointmentServiceTypeId serviceTypeId,
-        AppointmentReceptionistId receptionistId,
+        Guid vehicleId,
+        Guid serviceTypeId,
+        Guid receptionistId,
         AppointmentDate date,
         AppointmentStartTime startTime,
         AppointmentEndTime endTime,
         AppointmentStatus status,
         AppointmentObservations observations)
     {
+        if (vehicleId == Guid.Empty)
+            throw new ArgumentException("El vehículo es obligatorio.", nameof(vehicleId));
+
+        if (serviceTypeId == Guid.Empty)
+            throw new ArgumentException("El tipo de servicio es obligatorio.", nameof(serviceTypeId));
+
+        if (receptionistId == Guid.Empty)
+            throw new ArgumentException("El recepcionista es obligatorio.", nameof(receptionistId));
+
         if (endTime.Value < startTime.Value)
             throw new ArgumentException("La hora de fin no puede ser anterior a la hora de inicio.");
 
-        VehicleId = vehicleId ?? throw new ArgumentNullException(nameof(vehicleId));
-        ServiceTypeId = serviceTypeId ?? throw new ArgumentNullException(nameof(serviceTypeId));
-        ReceptionistId = receptionistId ?? throw new ArgumentNullException(nameof(receptionistId));
+        VehicleId = vehicleId;
+        ServiceTypeId = serviceTypeId;
+        ReceptionistId = receptionistId;
+
         Date = date ?? throw new ArgumentNullException(nameof(date));
         StartTime = startTime ?? throw new ArgumentNullException(nameof(startTime));
         EndTime = endTime ?? throw new ArgumentNullException(nameof(endTime));
@@ -43,19 +58,28 @@ public sealed class Appointment : BaseEntity<Guid>
         Observations = observations ?? throw new ArgumentNullException(nameof(observations));
     }
 
-    public void UpdateVehicleId(AppointmentVehicleId vehicleId)
+    public void UpdateVehicleId(Guid vehicleId)
     {
-        VehicleId = vehicleId ?? throw new ArgumentNullException(nameof(vehicleId));
+        if (vehicleId == Guid.Empty)
+            throw new ArgumentException("El vehículo es obligatorio.", nameof(vehicleId));
+
+        VehicleId = vehicleId;
     }
 
-    public void UpdateServiceTypeId(AppointmentServiceTypeId serviceTypeId)
+    public void UpdateServiceTypeId(Guid serviceTypeId)
     {
-        ServiceTypeId = serviceTypeId ?? throw new ArgumentNullException(nameof(serviceTypeId));
+        if (serviceTypeId == Guid.Empty)
+            throw new ArgumentException("El tipo de servicio es obligatorio.", nameof(serviceTypeId));
+
+        ServiceTypeId = serviceTypeId;
     }
 
-    public void UpdateReceptionistId(AppointmentReceptionistId receptionistId)
+    public void UpdateReceptionistId(Guid receptionistId)
     {
-        ReceptionistId = receptionistId ?? throw new ArgumentNullException(nameof(receptionistId));
+        if (receptionistId == Guid.Empty)
+            throw new ArgumentException("El recepcionista es obligatorio.", nameof(receptionistId));
+
+        ReceptionistId = receptionistId;
     }
 
     public void UpdateDate(AppointmentDate date)

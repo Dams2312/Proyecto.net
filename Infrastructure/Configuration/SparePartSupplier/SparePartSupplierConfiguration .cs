@@ -1,49 +1,48 @@
-using Domain.Entities.SparePartSupplier;
 using Domain.ValueObject.SparePartSupplier;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.SparePartSuppliers;
+namespace Infrastructure.Configuration.SparePartSupplier;
 
-public sealed class SparePartSupplierConfiguration : IEntityTypeConfiguration<SparePartSupplier>
+public sealed class SparePartSupplierConfiguration : IEntityTypeConfiguration<Domain.Entities.SparePartSupplier.SparePartSupplier>
 {
-    public void Configure(EntityTypeBuilder<SparePartSupplier> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.SparePartSupplier.SparePartSupplier> builder)
     {
-        builder.ToTable("SparePartSupplier");
+        builder.ToTable("repuesto_proveedor");
 
-        builder.HasKey(x => x.Id);
-
-        builder.Property(x => x.Id)
-            .HasColumnName("id")
-            .ValueGeneratedOnAdd();
+        builder.HasKey(x => new { x.SparePartId, x.SupplierId });
 
         builder.Property(x => x.SparePartId)
-            .HasConversion(
-                x => x.Value,
-                x => SparePartSupplierSparePartId.Create(x))
-            .HasColumnName("spare_part_id")
+            .HasConversion(x => x.Value, x => SparePartSupplierSparePartId.Create(x))
+            .HasColumnName("repuesto_id")
             .IsRequired();
 
         builder.Property(x => x.SupplierId)
-            .HasConversion(
-                x => x.Value,
-                x => SparePartSupplierSupplierId.Create(x))
-            .HasColumnName("supplier_id")
+            .HasConversion(x => x.Value, x => SparePartSupplierSupplierId.Create(x))
+            .HasColumnName("proveedor_id")
             .IsRequired();
 
         builder.Property(x => x.PurchasePrice)
-            .HasConversion(
-                x => x.Value,
-                x => SparePartSupplierPurchasePrice.Create(x))
-            .HasColumnName("purchase_price")
-            .HasPrecision(18, 2)
+            .HasConversion(x => x.Value, x => SparePartSupplierPurchasePrice.Create(x))
+            .HasColumnName("precio_compra")
+            .HasColumnType("decimal(12,2)")
             .IsRequired();
 
         builder.Property(x => x.Principal)
-            .HasConversion(
-                x => x.Value,
-                x => SparePartSupplierPrincipal.Create(x))
+            .HasConversion(x => x.Value, x => SparePartSupplierPrincipal.Create(x))
             .HasColumnName("principal")
             .IsRequired();
+
+        builder.HasOne<Domain.Entities.SparePart.SparePart>()
+            .WithMany()
+            .HasForeignKey("repuesto_id")
+            .HasPrincipalKey("Id")
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<Domain.Entities.Supplier.Supplier>()
+            .WithMany()
+            .HasForeignKey("proveedor_id")
+            .HasPrincipalKey("Id")
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -1,15 +1,14 @@
-using Domain.Entities.Vehiclemodel;
 using Domain.ValueObject.VehicleModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.VehicleModels;
+namespace Infrastructure.Configuration.VehicleModel;
 
-public sealed class VehicleModelConfiguration : IEntityTypeConfiguration<VehicleModel>
+public sealed class VehicleModelConfiguration : IEntityTypeConfiguration<Domain.Entities.Vehiclemodel.VehicleModel>
 {
-    public void Configure(EntityTypeBuilder<VehicleModel> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.Vehiclemodel.VehicleModel> builder)
     {
-        builder.ToTable("VehicleModel");
+        builder.ToTable("modelo_vehiculo");
 
         builder.HasKey(x => x.Id);
 
@@ -18,30 +17,32 @@ public sealed class VehicleModelConfiguration : IEntityTypeConfiguration<Vehicle
             .ValueGeneratedOnAdd();
 
         builder.Property(x => x.BrandId)
-            .HasConversion(
-                x => x.Value,
-                x => VehicleModelMake.Create(x))
-            .HasColumnName("brand_id")
+            .HasConversion(x => x.Value, x => VehicleModelMake.Create(x))
+            .HasColumnName("marca_id")
             .IsRequired();
 
         builder.Property(x => x.Name)
-            .HasConversion(
-                x => x.Value,
-                x => VehicleModelName.Create(x))
-            .HasColumnName("name")
-            .HasMaxLength(100)
+            .HasConversion(x => x.Value, x => VehicleModelName.Create(x))
+            .HasColumnName("nombre")
+            .HasMaxLength(80)
             .IsRequired();
 
         builder.Property(x => x.YearFrom)
             .HasConversion(
-                x => x!.Value,
-                x => VehicleModelYearFrom.Create(x))
-            .HasColumnName("year_from");
+                x => x == null ? (short?)null : x.Value,
+                x => x == null ? null : VehicleModelYearFrom.Create(x.Value))
+            .HasColumnName("anio_desde");
 
         builder.Property(x => x.YearTo)
             .HasConversion(
-                x => x!.Value,
-                x => VehicleModelYearTo.Create(x))
-            .HasColumnName("year_to");
+                x => x == null ? (short?)null : x.Value,
+                x => x == null ? null : VehicleModelYearTo.Create(x.Value))
+            .HasColumnName("anio_hasta");
+
+        builder.HasOne<Domain.Entities.VehicleMake.VehicleMake>()
+            .WithMany()
+            .HasForeignKey("marca_id")
+            .HasPrincipalKey("Id")
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

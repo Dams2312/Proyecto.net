@@ -4,17 +4,17 @@ namespace Domain.ValueObject.OrderService;
 
 public sealed record OrderServiceReceptionistId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private OrderServiceReceptionistId(int value)
+    private OrderServiceReceptionistId(Guid value)
     {
         Value = value;
     }
 
-    public static OrderServiceReceptionistId Create(int value)
+    public static OrderServiceReceptionistId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del recepcionista debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new OrderServiceReceptionistId(value);
     }

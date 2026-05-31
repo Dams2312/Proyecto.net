@@ -4,17 +4,17 @@ namespace Domain.ValueObject.Invoice;
 
 public sealed record InvoiceStatusId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private InvoiceStatusId(int value)
+    private InvoiceStatusId(Guid value)
     {
         Value = value;
     }
 
-    public static InvoiceStatusId Create(int value)
+    public static InvoiceStatusId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del estado de factura debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new InvoiceStatusId(value);
     }

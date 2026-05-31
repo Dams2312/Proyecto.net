@@ -4,17 +4,17 @@ namespace Domain.ValueObject.OrderMechanic;
 
 public sealed record OrderMechanicOrderId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private OrderMechanicOrderId(int value)
+    private OrderMechanicOrderId(Guid value)
     {
         Value = value;
     }
 
-    public static OrderMechanicOrderId Create(int value)
+    public static OrderMechanicOrderId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id de la orden debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new OrderMechanicOrderId(value);
     }

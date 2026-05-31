@@ -1,15 +1,14 @@
-using Domain.Entities.SpareCategory;
 using Domain.ValueObject.SpareCategory;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.SpareCategories;
+namespace Infrastructure.Configuration.SpareCategory;
 
-public sealed class SpareCategoryConfiguration : IEntityTypeConfiguration<SpareCategory>
+public sealed class SpareCategoryConfiguration : IEntityTypeConfiguration<Domain.Entities.SpareCategory.SpareCategory>
 {
-    public void Configure(EntityTypeBuilder<SpareCategory> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.SpareCategory.SpareCategory> builder)
     {
-        builder.ToTable("SpareCategory");
+        builder.ToTable("categoria_repuesto");
 
         builder.HasKey(x => x.Id);
 
@@ -21,18 +20,19 @@ public sealed class SpareCategoryConfiguration : IEntityTypeConfiguration<SpareC
             .HasConversion(
                 x => x.Value,
                 x => SpareCategoryName.Create(x))
-            .HasColumnName("name")
-            .HasMaxLength(100)
+            .HasColumnName("nombre")
+            .HasMaxLength(80)
             .IsRequired();
 
         builder.Property(x => x.Description)
             .HasConversion(
                 x => x.Value,
                 x => SpareCategoryDescription.Create(x))
-            .HasColumnName("description")
-            .HasMaxLength(300);
+            .HasColumnName("descripcion")
+            .HasColumnType("text");
 
         builder.HasIndex(x => x.Name)
-            .IsUnique();
+            .IsUnique()
+            .HasDatabaseName("uq_categoria_repuesto_nombre");
     }
 }

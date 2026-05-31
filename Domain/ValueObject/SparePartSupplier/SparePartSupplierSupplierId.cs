@@ -4,17 +4,17 @@ namespace Domain.ValueObject.SparePartSupplier;
 
 public sealed record SparePartSupplierSupplierId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private SparePartSupplierSupplierId(int value)
+    private SparePartSupplierSupplierId(Guid value)
     {
         Value = value;
     }
 
-    public static SparePartSupplierSupplierId Create(int value)
+    public static SparePartSupplierSupplierId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del proveedor debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new SparePartSupplierSupplierId(value);
     }

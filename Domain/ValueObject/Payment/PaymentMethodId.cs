@@ -4,20 +4,25 @@ namespace Domain.ValueObject.Payment;
 
 public sealed record PaymentMethodId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private PaymentMethodId(int value)
+    private PaymentMethodId(Guid value)
     {
         Value = value;
     }
 
-    public static PaymentMethodId Create(int value)
+    public static PaymentMethodId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del método de pago debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException(
+                "El id del método de pago es obligatorio.",
+                nameof(value));
 
         return new PaymentMethodId(value);
     }
 
-    public override string ToString() => Value.ToString();
+    public override string ToString()
+    {
+        return Value.ToString();
+    }
 }

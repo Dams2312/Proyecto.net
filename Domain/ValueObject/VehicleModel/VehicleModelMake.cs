@@ -7,17 +7,17 @@ namespace Domain.ValueObject.VehicleModel;
 
 public sealed record VehicleModelMake
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private VehicleModelMake(int value)
+    private VehicleModelMake(Guid value)
     {
         Value = value;
     }
 
-    public static VehicleModelMake Create(int value)
+    public static VehicleModelMake Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id de la marca debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new VehicleModelMake(value);
     }

@@ -1,15 +1,14 @@
-using Domain.Entities.Appointment;
 using Domain.ValueObject.Appointment;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.Appointments;
+namespace Infrastructure.Configuration.Appointment;
 
-public sealed class AppointmentConfiguration : IEntityTypeConfiguration<Appointment>
+public sealed class AppointmentConfiguration : IEntityTypeConfiguration<Domain.Entities.Appointment.Appointment>
 {
-    public void Configure(EntityTypeBuilder<Appointment> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.Appointment.Appointment> builder)
     {
-        builder.ToTable("Appointment");
+        builder.ToTable("cita");
 
         builder.HasKey(x => x.Id);
 
@@ -18,52 +17,43 @@ public sealed class AppointmentConfiguration : IEntityTypeConfiguration<Appointm
             .ValueGeneratedOnAdd();
 
         builder.Property(x => x.VehicleId)
-            .HasConversion(
-                x => x.Value,
-                x => AppointmentVehicleId.Create(x))
-            .HasColumnName("vehicle_id")
-            .IsRequired();
-
-        builder.Property(x => x.ServiceTypeId)
-            .HasConversion(
-                x => x.Value,
-                x => AppointmentServiceTypeId.Create(x))
-            .HasColumnName("service_type_id")
+            .HasColumnName("vehiculo_id")
             .IsRequired();
 
         builder.Property(x => x.ReceptionistId)
-            .HasConversion(
-                x => x.Value,
-                x => AppointmentReceptionistId.Create(x))
-            .HasColumnName("receptionist_id")
+            .HasColumnName("recepcionista_id")
+            .IsRequired();
+
+        builder.Property(x => x.ServiceTypeId)
+            .HasColumnName("tipo_servicio_id")
             .IsRequired();
 
         builder.Property(x => x.Date)
             .HasConversion(
                 x => x.Value,
                 x => AppointmentDate.Create(x))
-            .HasColumnName("date")
+            .HasColumnName("fecha_cita")
             .IsRequired();
 
         builder.Property(x => x.StartTime)
             .HasConversion(
                 x => x.Value,
                 x => AppointmentStartTime.Create(x))
-            .HasColumnName("start_time")
+            .HasColumnName("hora_inicio")
             .IsRequired();
 
         builder.Property(x => x.EndTime)
             .HasConversion(
                 x => x.Value,
                 x => AppointmentEndTime.Create(x))
-            .HasColumnName("end_time")
+            .HasColumnName("hora_fin")
             .IsRequired();
 
         builder.Property(x => x.Status)
             .HasConversion(
                 x => x.Value,
                 x => AppointmentStatus.Create(x))
-            .HasColumnName("status")
+            .HasColumnName("estado")
             .HasMaxLength(20)
             .IsRequired();
 
@@ -71,7 +61,28 @@ public sealed class AppointmentConfiguration : IEntityTypeConfiguration<Appointm
             .HasConversion(
                 x => x.Value,
                 x => AppointmentObservations.Create(x))
-            .HasColumnName("observations")
-            .HasMaxLength(500);
+            .HasColumnName("observaciones")
+            .HasColumnType("text");
+
+        // FK → vehiculo
+        builder.HasOne<Domain.Entities.Vehicle.Vehicle>()
+            .WithMany()
+            .HasForeignKey(x => x.VehicleId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // FK → usuario (recepcionista)
+        builder.HasOne<Domain.Entities.Users.User>()
+            .WithMany()
+            .HasForeignKey(x => x.ReceptionistId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // FK → tipo_servicio
+        builder.HasOne<Domain.Entities.ServiceType.ServiceType>()
+            .WithMany()
+            .HasForeignKey(x => x.ServiceTypeId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(x => x.VehicleId).HasDatabaseName("idx_cita_vehiculo");
+        builder.HasIndex(x => x.Date).HasDatabaseName("idx_cita_fecha");
     }
 }

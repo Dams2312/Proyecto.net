@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Domain.common;
 using Domain.ValueObject.Vehicle;
 
@@ -9,8 +6,8 @@ namespace Domain.Entities.Vehicle;
 
 public sealed class Vehicle : BaseEntity<Guid>
 {
-    public VehicleClientId ClientId { get; private set; }
-    public VehicleModelId ModelId { get; private set; }
+    public Guid ClientId { get; private set; }
+    public Guid ModelId { get; private set; }
     public VehicleVin Vin { get; private set; }
     public VehiclePlate Plate { get; private set; }
     public VehicleYear Year { get; private set; }
@@ -20,16 +17,16 @@ public sealed class Vehicle : BaseEntity<Guid>
     private Vehicle() { }
 
     public Vehicle(
-        VehicleClientId clientId,
-        VehicleModelId modelId,
+        Guid clientId,
+        Guid modelId,
         VehicleVin vin,
         VehiclePlate plate,
         VehicleYear year,
         VehicleColor color,
         VehicleActive active)
     {
-        ClientId = clientId ?? throw new ArgumentNullException(nameof(clientId));
-        ModelId = modelId ?? throw new ArgumentNullException(nameof(modelId));
+        ClientId = clientId == Guid.Empty ? throw new ArgumentException(nameof(clientId)) : clientId;
+        ModelId = modelId == Guid.Empty ? throw new ArgumentException(nameof(modelId)) : modelId;
         Vin = vin ?? throw new ArgumentNullException(nameof(vin));
         Plate = plate ?? throw new ArgumentNullException(nameof(plate));
         Year = year ?? throw new ArgumentNullException(nameof(year));
@@ -37,14 +34,14 @@ public sealed class Vehicle : BaseEntity<Guid>
         Active = active ?? throw new ArgumentNullException(nameof(active));
     }
 
-    public void UpdateClientId(VehicleClientId clientId)
+    public void UpdateClientId(Guid clientId)
     {
-        ClientId = clientId ?? throw new ArgumentNullException(nameof(clientId));
+        ClientId = clientId == Guid.Empty ? throw new ArgumentException(nameof(clientId)) : clientId;
     }
 
-    public void UpdateModelId(VehicleModelId modelId)
+    public void UpdateModelId(Guid modelId)
     {
-        ModelId = modelId ?? throw new ArgumentNullException(nameof(modelId));
+        ModelId = modelId == Guid.Empty ? throw new ArgumentException(nameof(modelId)) : modelId;
     }
 
     public void UpdateVin(VehicleVin vin)

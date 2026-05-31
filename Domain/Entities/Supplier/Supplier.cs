@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Domain.common;
 using Domain.ValueObject.Supplier;
 
@@ -13,7 +10,10 @@ public sealed class Supplier : BaseEntity<Guid>
     public SupplierNit Nit { get; private set; }
     public SupplierEmail Email { get; private set; }
     public SupplierPhone Phone { get; private set; }
-    public SupplierCityId CityId { get; private set; }
+
+    // FK como Guid
+    public Guid CityId { get; private set; }
+
     public SupplierActive Active { get; private set; }
 
     private Supplier() { }
@@ -23,14 +23,19 @@ public sealed class Supplier : BaseEntity<Guid>
         SupplierNit nit,
         SupplierEmail email,
         SupplierPhone phone,
-        SupplierCityId cityId,
+        Guid cityId,
         SupplierActive active)
     {
         Name = name ?? throw new ArgumentNullException(nameof(name));
         Nit = nit ?? throw new ArgumentNullException(nameof(nit));
         Email = email ?? throw new ArgumentNullException(nameof(email));
         Phone = phone ?? throw new ArgumentNullException(nameof(phone));
-        CityId = cityId ?? throw new ArgumentNullException(nameof(cityId));
+
+        if (cityId == Guid.Empty)
+            throw new ArgumentException("El id de la ciudad es obligatorio.", nameof(cityId));
+
+        CityId = cityId;
+
         Active = active ?? throw new ArgumentNullException(nameof(active));
     }
 
@@ -54,9 +59,12 @@ public sealed class Supplier : BaseEntity<Guid>
         Phone = phone ?? throw new ArgumentNullException(nameof(phone));
     }
 
-    public void UpdateCityId(SupplierCityId cityId)
+    public void UpdateCityId(Guid cityId)
     {
-        CityId = cityId ?? throw new ArgumentNullException(nameof(cityId));
+        if (cityId == Guid.Empty)
+            throw new ArgumentException("El id de la ciudad es obligatorio.", nameof(cityId));
+
+        CityId = cityId;
     }
 
     public void UpdateActive(SupplierActive active)

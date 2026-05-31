@@ -1,15 +1,14 @@
-using Domain.Entities.Users;
 using Domain.ValueObject.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.Users;
+namespace Infrastructure.Configuration.User;
 
-public sealed class UserConfiguration : IEntityTypeConfiguration<User>
+public sealed class UserConfiguration : IEntityTypeConfiguration<Domain.Entities.Users.User>
 {
-    public void Configure(EntityTypeBuilder<User> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.Users.User> builder)
     {
-        builder.ToTable("User");
+        builder.ToTable("usuario");
 
         builder.HasKey(x => x.Id);
 
@@ -17,77 +16,57 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .HasColumnName("id")
             .ValueGeneratedOnAdd();
 
-        builder.Property(x => x.Code)
-            .HasConversion(
-                x => x.Value,
-                x => UsersCode.Create(x))
-            .HasColumnName("code")
-            .HasMaxLength(20)
-            .IsRequired();
+        builder.Ignore(x => x.Code);
 
-        builder.Property(x => x.Names)
-            .HasConversion(
-                x => x.Value,
-                x => UsersNames.Create(x))
-            .HasColumnName("names")
-            .HasMaxLength(100)
-            .IsRequired();
-
-        builder.Property(x => x.Surnames)
-            .HasConversion(
-                x => x.Value,
-                x => UsersSurnames.Create(x))
-            .HasColumnName("surnames")
-            .HasMaxLength(100)
+        builder.Property(x => x.RoleId)
+            .HasConversion(x => x.Value, x => UsersrolId.Create(x))
+            .HasColumnName("rol_id")
             .IsRequired();
 
         builder.Property(x => x.Mail)
-            .HasConversion(
-                x => x.Value,
-                x => UsersMail.Create(x))
-            .HasColumnName("mail")
+            .HasConversion(x => x.Value, x => UsersMail.Create(x))
+            .HasColumnName("correo")
             .HasMaxLength(150)
             .IsRequired();
 
         builder.Property(x => x.Password)
-            .HasConversion(
-                x => x.Value,
-                x => UsersPassword.Create(x))
-            .HasColumnName("password")
-            .HasMaxLength(256)
+            .HasConversion(x => x.Value, x => UsersPassword.Create(x))
+            .HasColumnName("password_hash")
+            .HasMaxLength(255)
+            .IsRequired();
+
+        builder.Property(x => x.Names)
+            .HasConversion(x => x.Value, x => UsersNames.Create(x))
+            .HasColumnName("nombres")
+            .HasMaxLength(100)
+            .IsRequired();
+
+        builder.Property(x => x.Surnames)
+            .HasConversion(x => x.Value, x => UsersSurnames.Create(x))
+            .HasColumnName("apellidos")
+            .HasMaxLength(100)
             .IsRequired();
 
         builder.Property(x => x.Active)
-            .HasConversion(
-                x => x.Value,
-                x => UsersActive.Create(x))
-            .HasColumnName("active")
+            .HasConversion(x => x.Value, x => UsersActive.Create(x))
+            .HasColumnName("activo")
             .IsRequired();
 
         builder.Property(x => x.CreateDate)
-            .HasConversion(
-                x => x.Value,
-                x => UsersCreateDate.Create(x))
-            .HasColumnName("create_date")
+            .HasConversion(x => x.Value, x => UsersCreateDate.Create(x))
+            .HasColumnName("fecha_creacion")
             .IsRequired();
 
         builder.Property(x => x.FinishDate)
-            .HasConversion(
-                x => x.Value,
-                x => UsersFinishDate.Create(x))
-            .HasColumnName("finish_date");
+            .HasConversion(x => x.Value, x => UsersFinishDate.Create(x))
+            .HasColumnName("fecha_fin");
 
-        builder.Property(x => x.RoleId)
-            .HasConversion(
-                x => x.Value,
-                x => UsersrolId.Create(x))
-            .HasColumnName("role_id")
-            .IsRequired();
+        builder.HasIndex(x => x.Mail).IsUnique();
 
-        builder.HasIndex(x => x.Mail)
-            .IsUnique();
-
-        builder.HasIndex(x => x.Code)
-            .IsUnique();
+        builder.HasOne<Domain.Entities.Roles.Role>()
+            .WithMany()
+            .HasForeignKey("rol_id")
+            .HasPrincipalKey("Id")
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

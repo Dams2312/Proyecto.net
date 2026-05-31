@@ -4,17 +4,17 @@ namespace Domain.ValueObject.OrderServiceType;
 
 public sealed record OrderServiceTypeServiceTypeId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private OrderServiceTypeServiceTypeId(int value)
+    private OrderServiceTypeServiceTypeId(Guid value)
     {
         Value = value;
     }
 
-    public static OrderServiceTypeServiceTypeId Create(int value)
+    public static OrderServiceTypeServiceTypeId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del tipo de servicio debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new OrderServiceTypeServiceTypeId(value);
     }

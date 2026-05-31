@@ -1,15 +1,15 @@
-using Domain.Entities.MechanicTask;
 using Domain.ValueObject.MechanicTask;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Infrastructure.Configuration.MechanicTasks;
+namespace Infrastructure.Configuration.MechanicTask;
 
-public sealed class MechanicTaskConfiguration : IEntityTypeConfiguration<MechanicTask>
+public sealed class MechanicTaskConfiguration : IEntityTypeConfiguration<Domain.Entities.MechanicTask.MechanicTask>
 {
-    public void Configure(EntityTypeBuilder<MechanicTask> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.MechanicTask.MechanicTask> builder)
     {
-        builder.ToTable("MechanicTask");
+        builder.ToTable("tarea_mecanico");
 
         builder.HasKey(x => x.Id);
 
@@ -18,66 +18,83 @@ public sealed class MechanicTaskConfiguration : IEntityTypeConfiguration<Mechani
             .ValueGeneratedOnAdd();
 
         builder.Property(x => x.OrderId)
-            .HasConversion(
-                x => x.Value,
-                x => MechanicTaskOrderId.Create(x))
-            .HasColumnName("order_id")
+            .HasConversion(x => x.Value, x => MechanicTaskOrderId.Create(x))
+            .HasColumnName("orden_id")
             .IsRequired();
 
         builder.Property(x => x.MechanicId)
-            .HasConversion(
-                x => x.Value,
-                x => MechanicTaskMechanicId.Create(x))
-            .HasColumnName("mechanic_id")
+            .HasConversion(x => x.Value, x => MechanicTaskMechanicId.Create(x))
+            .HasColumnName("mecanico_id")
             .IsRequired();
+
+        var serviceTypeConverter = new ValueConverter<MechanicTaskServiceTypeId?, Guid?>(
+            v => v == null ? (Guid?)null : v.Value,
+            v => v == null ? null : MechanicTaskServiceTypeId.Create(v.Value));
 
         builder.Property(x => x.ServiceTypeId)
-            .HasConversion(
-                x => x.Value,
-                x => MechanicTaskServiceTypeId.Create(x))
-            .HasColumnName("service_type_id")
-            .IsRequired();
+            .HasConversion(serviceTypeConverter)
+            .HasColumnName("tipo_servicio_id");
 
         builder.Property(x => x.Description)
-            .HasConversion(
-                x => x.Value,
-                x => MechanicTaskDescription.Create(x))
-            .HasColumnName("description")
-            .HasMaxLength(500)
+            .HasConversion(x => x.Value, x => MechanicTaskDescription.Create(x))
+            .HasColumnName("descripcion")
+            .HasColumnType("text")
+            .IsRequired();
+
+        builder.Property(x => x.HoursWorked)
+            .HasConversion(x => x.Value, x => MechanicTaskHoursWorked.Create(x))
+            .HasColumnName("horas_trabajadas")
+            .HasColumnType("decimal(5,2)")
+            .IsRequired();
+
+        builder.Property(x => x.HourlyCost)
+            .HasConversion(x => x.Value, x => MechanicTaskHourlyCost.Create(x))
+            .HasColumnName("costo_hora")
+            .HasColumnType("decimal(10,2)")
             .IsRequired();
 
         builder.Property(x => x.Status)
-            .HasConversion(
-                x => x.Value,
-                x => MechanicTaskStatus.Create(x))
-            .HasColumnName("status")
+            .HasConversion(x => x.Value, x => MechanicTaskStatus.Create(x))
+            .HasColumnName("estado")
             .HasMaxLength(20)
             .IsRequired();
 
+        var fechaInicioConverter = new ValueConverter<MechanicTaskFechaInicio?, DateTime?>(
+            v => v == null ? (DateTime?)null : v.Value,
+            v => v == null ? null : MechanicTaskFechaInicio.Create(v.Value));
+
         builder.Property(x => x.FechaInicio)
-            .HasConversion(
-                x => x!.Value,
-                x => MechanicTaskFechaInicio.Create(x))
+            .HasConversion(fechaInicioConverter)
             .HasColumnName("fecha_inicio");
 
+        var fechaFinConverter = new ValueConverter<MechanicTaskFechaFin?, DateTime?>(
+            v => v == null ? (DateTime?)null : v.Value,
+            v => v == null ? null : MechanicTaskFechaFin.Create(v.Value));
+
         builder.Property(x => x.FechaFin)
-            .HasConversion(
-                x => x!.Value,
-                x => MechanicTaskFechaFin.Create(x))
+            .HasConversion(fechaFinConverter)
             .HasColumnName("fecha_fin");
 
-        builder.Property(x => x.HoursWorked)
-            .HasConversion(
-                x => x.Value,
-                x => MechanicTaskHoursWorked.Create(x))
-            .HasColumnName("hours_worked")
-            .HasPrecision(6, 2);
+        builder.HasIndex(x => x.OrderId).HasDatabaseName("idx_tarea_orden");
+        builder.HasIndex(x => x.MechanicId).HasDatabaseName("idx_tarea_mecanico");
 
-        builder.Property(x => x.HourlyCost)
-            .HasConversion(
-                x => x.Value,
-                x => MechanicTaskHourlyCost.Create(x))
-            .HasColumnName("hourly_cost")
-            .HasPrecision(18, 2);
+        builder.HasOne<Domain.Entities.OrderService.OrderService>()
+            .WithMany()
+            .HasForeignKey("orden_id")
+            .HasPrincipalKey("Id")
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne<Domain.Entities.Users.User>()
+            .WithMany()
+            .HasForeignKey("mecanico_id")
+            .HasPrincipalKey("Id")
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<Domain.Entities.ServiceType.ServiceType>()
+            .WithMany()
+            .HasForeignKey("tipo_servicio_id")
+            .HasPrincipalKey("Id")
+            .IsRequired(false)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

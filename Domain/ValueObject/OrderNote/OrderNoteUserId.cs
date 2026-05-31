@@ -4,17 +4,17 @@ namespace Domain.ValueObject.OrderNote;
 
 public sealed record OrderNoteUserId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private OrderNoteUserId(int value)
+    private OrderNoteUserId(Guid value)
     {
         Value = value;
     }
 
-    public static OrderNoteUserId Create(int value)
+    public static OrderNoteUserId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del usuario debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new OrderNoteUserId(value);
     }

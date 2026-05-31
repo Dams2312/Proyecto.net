@@ -1,15 +1,14 @@
-using Domain.Entities.Purchase;
 using Domain.ValueObject.Purchase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.Purchases;
+namespace Infrastructure.Configuration.Purchase;
 
-public sealed class PurchaseConfiguration : IEntityTypeConfiguration<Purchase>
+public sealed class PurchaseConfiguration : IEntityTypeConfiguration<Domain.Entities.Purchase.Purchase>
 {
-    public void Configure(EntityTypeBuilder<Purchase> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.Purchase.Purchase> builder)
     {
-        builder.ToTable("Purchase");
+        builder.ToTable("compra");
 
         builder.HasKey(x => x.Id);
 
@@ -17,48 +16,50 @@ public sealed class PurchaseConfiguration : IEntityTypeConfiguration<Purchase>
             .HasColumnName("id")
             .ValueGeneratedOnAdd();
 
-        builder.Property(x => x.Date)
-            .HasConversion(
-                x => x.Value,
-                x => PurchaseDate.Create(x))
-            .HasColumnName("date")
-            .IsRequired();
-
         builder.Property(x => x.SupplierId)
-            .HasConversion(
-                x => x.Value,
-                x => PurchaseSupplierId.Create(x))
-            .HasColumnName("supplier_id")
+            .HasConversion(x => x.Value, x => PurchaseSupplierId.Create(x))
+            .HasColumnName("proveedor_id")
             .IsRequired();
 
         builder.Property(x => x.UserId)
-            .HasConversion(
-                x => x.Value,
-                x => PurchaseUserId.Create(x))
-            .HasColumnName("user_id")
+            .HasConversion(x => x.Value, x => PurchaseUserId.Create(x))
+            .HasColumnName("usuario_id")
+            .IsRequired();
+
+        builder.Property(x => x.Date)
+            .HasConversion(x => x.Value, x => PurchaseDate.Create(x))
+            .HasColumnName("fecha_compra")
+            .IsRequired();
+
+        builder.Property(x => x.Total)
+            .HasConversion(x => x.Value, x => PurchaseTotal.Create(x))
+            .HasColumnName("total")
+            .HasColumnType("decimal(14,2)")
             .IsRequired();
 
         builder.Property(x => x.Status)
-            .HasConversion(
-                x => x.Value,
-                x => PurchaseStatus.Create(x))
-            .HasColumnName("status")
+            .HasConversion(x => x.Value, x => PurchaseStatus.Create(x))
+            .HasColumnName("estado")
             .HasMaxLength(20)
             .IsRequired();
 
         builder.Property(x => x.Observations)
             .HasConversion(
-                x => x.Value,
-                x => PurchaseObservations.Create(x))
-            .HasColumnName("observations")
-            .HasMaxLength(500);
+                x => x == null ? null : x.Value,
+                x => x == null ? null : PurchaseObservations.Create(x))
+            .HasColumnName("observaciones")
+            .HasColumnType("text");
 
-        builder.Property(x => x.Total)
-            .HasConversion(
-                x => x.Value,
-                x => PurchaseTotal.Create(x))
-            .HasColumnName("total")
-            .HasPrecision(18, 2)
-            .IsRequired();
+        builder.HasOne<Domain.Entities.Supplier.Supplier>()
+            .WithMany()
+            .HasForeignKey("proveedor_id")
+            .HasPrincipalKey("Id")
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<Domain.Entities.Users.User>()
+            .WithMany()
+            .HasForeignKey("usuario_id")
+            .HasPrincipalKey("Id")
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

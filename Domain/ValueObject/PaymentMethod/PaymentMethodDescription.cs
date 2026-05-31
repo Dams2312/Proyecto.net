@@ -14,7 +14,7 @@ public sealed record PaymentMethodDescription
     public static PaymentMethodDescription Create(string? value)
     {
         if (string.IsNullOrWhiteSpace(value))
-            return new PaymentMethodDescription(null);
+            return new PaymentMethodDescription((string?)null);
 
         value = value.Trim();
 

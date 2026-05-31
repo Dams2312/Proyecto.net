@@ -1,15 +1,14 @@
-using Domain.Entities.Warranty;
 using Domain.ValueObject.Warranty;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.Warranties;
+namespace Infrastructure.Configuration.Warranty;
 
-public sealed class WarrantyConfiguration : IEntityTypeConfiguration<Warranty>
+public sealed class WarrantyConfiguration : IEntityTypeConfiguration<Domain.Entities.Warranty.Warranty>
 {
-    public void Configure(EntityTypeBuilder<Warranty> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.Warranty.Warranty> builder)
     {
-        builder.ToTable("Warranty");
+        builder.ToTable("garantia");
 
         builder.HasKey(x => x.Id);
 
@@ -31,6 +30,12 @@ public sealed class WarrantyConfiguration : IEntityTypeConfiguration<Warranty>
             .HasColumnName("fecha_vencimiento")
             .IsRequired();
 
+        builder.Property(x => x.Condiciones)
+            .HasConversion(
+                x => x == null ? null : x.Value,
+                x => x == null ? null : WarrantyCondiciones.Create(x))
+            .HasColumnName("condiciones");
+
         builder.Property(x => x.Estado)
             .HasConversion(
                 x => x.Value,
@@ -39,11 +44,7 @@ public sealed class WarrantyConfiguration : IEntityTypeConfiguration<Warranty>
             .HasMaxLength(20)
             .IsRequired();
 
-        builder.Property(x => x.Condiciones)
-            .HasConversion(
-                x => x.Value,
-                x => WarrantyCondiciones.Create(x))
-            .HasColumnName("condiciones")
-            .HasMaxLength(1000);
+        // OrderId, ServiceTypeId y MechanicId no existen en la entidad
+        // El SQL las tiene pero el dominio no las expone — no se mapean
     }
 }

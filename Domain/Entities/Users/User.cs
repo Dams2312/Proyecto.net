@@ -9,7 +9,7 @@ namespace Domain.Entities.Users;
 
 public sealed class User : BaseEntity<Guid>
 {
-    public UsersCode Code { get; private set; }
+    public UsersCode Code { get; private set; } 
     public UsersNames Names { get; private set; }
     public UsersSurnames Surnames { get; private set; }
     public UsersMail Mail { get; private set; }

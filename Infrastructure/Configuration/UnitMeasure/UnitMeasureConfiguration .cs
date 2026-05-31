@@ -1,15 +1,14 @@
-using Domain.Entities.UnitMeasure;
 using Domain.ValueObject.UnitMeasure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.UnitMeasures;
+namespace Infrastructure.Configuration.UnitMeasure;
 
-public sealed class UnitMeasureConfiguration : IEntityTypeConfiguration<UnitMeasure>
+public sealed class UnitMeasureConfiguration : IEntityTypeConfiguration<Domain.Entities.UnitMeasure.UnitMeasure>
 {
-    public void Configure(EntityTypeBuilder<UnitMeasure> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.UnitMeasure.UnitMeasure> builder)
     {
-        builder.ToTable("UnitMeasure");
+        builder.ToTable("unidad_medida");
 
         builder.HasKey(x => x.Id);
 
@@ -21,7 +20,7 @@ public sealed class UnitMeasureConfiguration : IEntityTypeConfiguration<UnitMeas
             .HasConversion(
                 x => x.Value,
                 x => UnitMeasureName.Create(x))
-            .HasColumnName("name")
+            .HasColumnName("nombre")
             .HasMaxLength(50)
             .IsRequired();
 
@@ -29,11 +28,11 @@ public sealed class UnitMeasureConfiguration : IEntityTypeConfiguration<UnitMeas
             .HasConversion(
                 x => x.Value,
                 x => UnitMeasureAbbreviation.Create(x))
-            .HasColumnName("abbreviation")
+            .HasColumnName("abreviatura")
             .HasMaxLength(10)
             .IsRequired();
 
-        builder.HasIndex(x => x.Abbreviation)
-            .IsUnique();
+        builder.HasIndex(x => x.Name).IsUnique();
+        builder.HasIndex(x => x.Abbreviation).IsUnique();
     }
 }

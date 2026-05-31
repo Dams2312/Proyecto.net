@@ -6,50 +6,83 @@ namespace Domain.Entities.Invoice;
 
 public sealed class Invoice : BaseEntity<Guid>
 {
-    public InvoiceOrderId OrderId { get; private set; }
-    public InvoiceStatusId StatusId { get; private set; }
-    public InvoiceUserId UserId { get; private set; }
+    // FK COMO GUID
+    public Guid OrderId { get; private set; }
+
+    // FK COMO GUID
+    public Guid StatusId { get; private set; }
+
+    // FK COMO GUID
+    public Guid UserId { get; private set; }
+
     public InvoiceCostoRepuestos CostoRepuestos { get; private set; }
+
     public InvoiceManoDeObra ManoDeObra { get; private set; }
+
     public InvoiceImpuestoPct ImpuestoPct { get; private set; }
+
     public InvoiceDescuento Descuento { get; private set; }
+
     public InvoiceTotal Total { get; private set; }
 
     private Invoice() { }
 
     public Invoice(
-        InvoiceOrderId orderId,
-        InvoiceStatusId statusId,
-        InvoiceUserId userId,
+        Guid orderId,
+        Guid statusId,
+        Guid userId,
         InvoiceCostoRepuestos costoRepuestos,
         InvoiceManoDeObra manoDeObra,
         InvoiceImpuestoPct impuestoPct,
         InvoiceDescuento descuento,
         InvoiceTotal total)
     {
-        OrderId = orderId ?? throw new ArgumentNullException(nameof(orderId));
-        StatusId = statusId ?? throw new ArgumentNullException(nameof(statusId));
-        UserId = userId ?? throw new ArgumentNullException(nameof(userId));
+        if (orderId == Guid.Empty)
+            throw new ArgumentException("La orden es obligatoria.", nameof(orderId));
+
+        if (statusId == Guid.Empty)
+            throw new ArgumentException("El estado es obligatorio.", nameof(statusId));
+
+        if (userId == Guid.Empty)
+            throw new ArgumentException("El usuario es obligatorio.", nameof(userId));
+
+        OrderId = orderId;
+        StatusId = statusId;
+        UserId = userId;
+
         CostoRepuestos = costoRepuestos ?? throw new ArgumentNullException(nameof(costoRepuestos));
+
         ManoDeObra = manoDeObra ?? throw new ArgumentNullException(nameof(manoDeObra));
+
         ImpuestoPct = impuestoPct ?? throw new ArgumentNullException(nameof(impuestoPct));
+
         Descuento = descuento ?? throw new ArgumentNullException(nameof(descuento));
+
         Total = total ?? throw new ArgumentNullException(nameof(total));
     }
 
-    public void UpdateOrderId(InvoiceOrderId orderId)
+    public void UpdateOrderId(Guid orderId)
     {
-        OrderId = orderId ?? throw new ArgumentNullException(nameof(orderId));
+        if (orderId == Guid.Empty)
+            throw new ArgumentException("La orden es obligatoria.", nameof(orderId));
+
+        OrderId = orderId;
     }
 
-    public void UpdateStatusId(InvoiceStatusId statusId)
+    public void UpdateStatusId(Guid statusId)
     {
-        StatusId = statusId ?? throw new ArgumentNullException(nameof(statusId));
+        if (statusId == Guid.Empty)
+            throw new ArgumentException("El estado es obligatorio.", nameof(statusId));
+
+        StatusId = statusId;
     }
 
-    public void UpdateUserId(InvoiceUserId userId)
+    public void UpdateUserId(Guid userId)
     {
-        UserId = userId ?? throw new ArgumentNullException(nameof(userId));
+        if (userId == Guid.Empty)
+            throw new ArgumentException("El usuario es obligatorio.", nameof(userId));
+
+        UserId = userId;
     }
 
     public void UpdateCostoRepuestos(InvoiceCostoRepuestos costoRepuestos)

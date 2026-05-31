@@ -4,17 +4,17 @@ namespace Domain.ValueObject.OrderDetail;
 
 public sealed record OrderDetailSparePartId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private OrderDetailSparePartId(int value)
+    private OrderDetailSparePartId(Guid value)
     {
         Value = value;
     }
 
-    public static OrderDetailSparePartId Create(int value)
+    public static OrderDetailSparePartId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del repuesto debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new OrderDetailSparePartId(value);
     }

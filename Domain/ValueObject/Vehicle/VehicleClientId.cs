@@ -4,17 +4,17 @@ namespace Domain.ValueObject.Vehicle;
 
 public sealed record VehicleClientId
 {
-    public int Value { get; }
+    public Guid Value { get; }  // ✅ Cambia int → Guid
 
-    private VehicleClientId(int value)
+    private VehicleClientId(Guid value)
     {
         Value = value;
     }
 
-    public static VehicleClientId Create(int value)
+    public static VehicleClientId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del cliente debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id del cliente no puede ser vacío.", nameof(value));
 
         return new VehicleClientId(value);
     }

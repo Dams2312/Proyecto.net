@@ -7,15 +7,15 @@ namespace Domain.ValueObject.Department;
 
 public sealed record DepartmentCountryId
 {
-    public int Value { get; }
-    private DepartmentCountryId(int value)
+    public Guid Value { get; }
+    private DepartmentCountryId(Guid value)
     {
         Value = value;
     }
-    public static DepartmentCountryId Create(int value)
+    public static DepartmentCountryId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El ID del país debe ser un número positivo.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new DepartmentCountryId(value);
     }

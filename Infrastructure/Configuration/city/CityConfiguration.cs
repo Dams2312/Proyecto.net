@@ -1,46 +1,37 @@
 using Domain.Entities.Citys;
-using Domain.ValueObject.City;
+using Domain.Entities.Departments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.Citys;
+namespace Infrastructure.Configuration.city;
 
 public sealed class CityConfiguration : IEntityTypeConfiguration<City>
 {
     public void Configure(EntityTypeBuilder<City> builder)
     {
-        builder.ToTable("City");
+        builder.ToTable("ciudad");
 
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id)
-            .HasColumnName("id")
-            .ValueGeneratedOnAdd();
+            .HasColumnName("id");
 
         builder.Property(x => x.Name)
-            .HasConversion(
-                x => x.Value,
-                x => CityName.Create(x))
-            .HasColumnName("name")
+            .HasColumnName("nombre")
             .HasMaxLength(100)
             .IsRequired();
 
+        builder.Property(x => x.DepartmentId)
+            .HasColumnName("departamento_id")
+            .IsRequired();
+
         builder.Property(x => x.Code)
-            .HasConversion(
-                x => x.Value,
-                x => CityCode.Create(x))
-            .HasColumnName("code")
-            .HasMaxLength(10)
-            .IsRequired();
+            .HasColumnName("codigo")
+            .HasMaxLength(20);
 
-        builder.Property(x => x.CountryId)
-            .HasConversion(
-                x => x.Value,
-                x => CityCountryId.Create(x))
-            .HasColumnName("country_id")
-            .IsRequired();
-
-        builder.HasIndex(x => x.Code)
-            .IsUnique();
+        builder.HasOne<Domain.Entities.Departments.Department>()            
+            .WithMany()
+            .HasForeignKey(x => x.DepartmentId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

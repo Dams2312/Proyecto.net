@@ -1,15 +1,14 @@
-using Domain.Entities.CustomerEmails;
 using Domain.ValueObject.CustomerEmail;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.CustomerEmails;
+namespace Infrastructure.Configuration.CustomerEmail;
 
-public sealed class CustomerEmailConfiguration : IEntityTypeConfiguration<CustomerEmail>
+public sealed class CustomerEmailConfiguration : IEntityTypeConfiguration<Domain.Entities.CustomerEmails.CustomerEmail>
 {
-    public void Configure(EntityTypeBuilder<CustomerEmail> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.CustomerEmails.CustomerEmail> builder)
     {
-        builder.ToTable("CustomerEmail");
+        builder.ToTable("cliente_correo");
 
         builder.HasKey(x => x.Id);
 
@@ -17,18 +16,16 @@ public sealed class CustomerEmailConfiguration : IEntityTypeConfiguration<Custom
             .HasColumnName("id")
             .ValueGeneratedOnAdd();
 
+        // FK directa como Guid → cliente_id
         builder.Property(x => x.CustomerId)
-            .HasConversion(
-                x => x.Value,
-                x => EmailCustomerId.Create(x))
-            .HasColumnName("customer_id")
+            .HasColumnName("cliente_id")
             .IsRequired();
 
         builder.Property(x => x.Address)
             .HasConversion(
                 x => x.Value,
                 x => CustomerEmailAddress.Create(x))
-            .HasColumnName("address")
+            .HasColumnName("correo")
             .HasMaxLength(150)
             .IsRequired();
 
@@ -36,10 +33,13 @@ public sealed class CustomerEmailConfiguration : IEntityTypeConfiguration<Custom
             .HasConversion(
                 x => x.Value,
                 x => CustomerEmailPrimary.Create(x))
-            .HasColumnName("primary")
+            .HasColumnName("principal")
             .IsRequired();
 
-        builder.HasIndex(x => x.Address)
-            .IsUnique();
+        // FK → cliente (ON DELETE CASCADE según SQL)
+        builder.HasOne<Domain.Entities.Customers.Customer>()
+            .WithMany()
+            .HasForeignKey(x => x.CustomerId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

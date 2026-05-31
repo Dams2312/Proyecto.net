@@ -4,17 +4,17 @@ namespace Domain.ValueObject.MechanicTask;
 
 public sealed record MechanicTaskMechanicId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private MechanicTaskMechanicId(int value)
+    private MechanicTaskMechanicId(Guid value)
     {
         Value = value;
     }
 
-    public static MechanicTaskMechanicId Create(int value)
+    public static MechanicTaskMechanicId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del mecánico debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new MechanicTaskMechanicId(value);
     }

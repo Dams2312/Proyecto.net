@@ -18,7 +18,7 @@ public static class DependencyInjection
     {
         services.AddDbContext<AppDbContext>(options =>
         {
-            string connectionString = configuration.GetConnectionString("Postgres")!;
+            string connectionString = configuration.GetConnectionString("DefaultConnection")!;
             options.UseNpgsql(connectionString);
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         });

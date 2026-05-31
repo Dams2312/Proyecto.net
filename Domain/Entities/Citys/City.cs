@@ -1,31 +1,34 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Domain.common;
-using Domain.ValueObject.City;
 
 namespace Domain.Entities.Citys;
 
 public sealed class City : BaseEntity<Guid>
 {
-    public CityName Name { get; private set; }
-    public CityCountryId CountryId { get; private set; }
-    public CityCode Code { get; private set; }
+    public string Name { get; private set; }
+
+    public Guid DepartmentId { get; private set; }
+
+    public string Code { get; private set; }
+
     private City() { }
-    public City( CityName name, CityCountryId countryId, CityCode code) 
+
+    public City(
+        string name,
+        Guid departmentId,
+        string code)
     {
-        Name = name ?? throw new ArgumentNullException(nameof(name));
-        CountryId = countryId ?? throw new ArgumentNullException(nameof(countryId));
-        Code = code ?? throw new ArgumentNullException(nameof(code));
-    }
-    public void UpdateName(CityName name)
-    {
-        Name = name ?? throw new ArgumentNullException(nameof(name));
+        Name = name;
+        DepartmentId = departmentId;
+        Code = code;
     }
 
-    public void UpdateCountry(CityCountryId countryId)
+    public void UpdateName(string name)
     {
-        CountryId = countryId ?? throw new ArgumentNullException(nameof(countryId));
+        Name = name;
+    }
+
+    public void UpdateDepartment(Guid departmentId)
+    {
+        DepartmentId = departmentId;
     }
 }

@@ -1,15 +1,14 @@
-using Domain.Entities.Departments;
 using Domain.ValueObject.Department;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.Departments;
+namespace Infrastructure.Configuration.Department;
 
-public sealed class DepartmentConfiguration : IEntityTypeConfiguration<Department>
+public sealed class DepartmentConfiguration : IEntityTypeConfiguration<Domain.Entities.Departments.Department>
 {
-    public void Configure(EntityTypeBuilder<Department> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.Departments.Department> builder)
     {
-        builder.ToTable("Department");
+        builder.ToTable("departamento");
 
         builder.HasKey(x => x.Id);
 
@@ -17,30 +16,26 @@ public sealed class DepartmentConfiguration : IEntityTypeConfiguration<Departmen
             .HasColumnName("id")
             .ValueGeneratedOnAdd();
 
-        builder.Property(x => x.Code)
-            .HasConversion(
-                x => x.Value,
-                x => DepartmentCode.Create(x))
-            .HasColumnName("code")
-            .HasMaxLength(10)
-            .IsRequired();
-
         builder.Property(x => x.Name)
             .HasConversion(
                 x => x.Value,
                 x => DepartmentName.Create(x))
-            .HasColumnName("name")
+            .HasColumnName("nombre")
             .HasMaxLength(100)
             .IsRequired();
 
+        // codigo no existe en la tabla departamento del SQL → ignorar
+        builder.Ignore(x => x.Code);
+
+        // FK directa como Guid → pais_id
         builder.Property(x => x.CountryId)
-            .HasConversion(
-                x => x.Value,
-                x => DepartmentCountryId.Create(x))
-            .HasColumnName("country_id")
+            .HasColumnName("pais_id")
             .IsRequired();
 
-        builder.HasIndex(x => x.Code)
-            .IsUnique();
+        // FK → pais
+        builder.HasOne<Domain.Entities.Countries.Country>()
+            .WithMany()
+            .HasForeignKey(x => x.CountryId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

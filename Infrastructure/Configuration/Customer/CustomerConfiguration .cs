@@ -1,15 +1,14 @@
-using Domain.Entities.Customers;
 using Domain.ValueObject.Customer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.Customers;
+namespace Infrastructure.Configuration.Customer;
 
-public sealed class CustomerConfiguration : IEntityTypeConfiguration<Customer>
+public sealed class CustomerConfiguration : IEntityTypeConfiguration<Domain.Entities.Customers.Customer>
 {
-    public void Configure(EntityTypeBuilder<Customer> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.Customers.Customer> builder)
     {
-        builder.ToTable("Customer");
+        builder.ToTable("cliente");
 
         builder.HasKey(x => x.Id);
 
@@ -21,7 +20,7 @@ public sealed class CustomerConfiguration : IEntityTypeConfiguration<Customer>
             .HasConversion(
                 x => x.Value,
                 x => CustomerNames.Create(x))
-            .HasColumnName("names")
+            .HasColumnName("nombres")
             .HasMaxLength(100)
             .IsRequired();
 
@@ -29,41 +28,42 @@ public sealed class CustomerConfiguration : IEntityTypeConfiguration<Customer>
             .HasConversion(
                 x => x.Value,
                 x => CustomersSurnames.Create(x))
-            .HasColumnName("surnames")
+            .HasColumnName("apellidos")
             .HasMaxLength(100)
-            .IsRequired();
-
-        builder.Property(x => x.DocumentNumber)
-            .HasConversion(
-                x => x.Value,
-                x => CustomerDocumentNumber.Create(x))
-            .HasColumnName("document_number")
-            .HasMaxLength(20)
             .IsRequired();
 
         builder.Property(x => x.DocumentType)
             .HasConversion(
                 x => x.Value,
                 x => CustomersDocumentType.Create(x))
-            .HasColumnName("document_type")
+            .HasColumnName("tipo_documento")
             .HasMaxLength(20)
             .IsRequired();
 
-        builder.Property(x => x.Active)
+        builder.Property(x => x.DocumentNumber)
             .HasConversion(
                 x => x.Value,
-                x => CustomerActive.Create(x))
-            .HasColumnName("active")
+                x => CustomerDocumentNumber.Create(x))
+            .HasColumnName("num_documento")
+            .HasMaxLength(30)
             .IsRequired();
 
         builder.Property(x => x.RegistrationDate)
             .HasConversion(
                 x => x.Value,
                 x => CustomerRegistrationDate.Create(x))
-            .HasColumnName("registration_date")
+            .HasColumnName("fecha_registro")
+            .IsRequired();
+
+        builder.Property(x => x.Active)
+            .HasConversion(
+                x => x.Value,
+                x => CustomerActive.Create(x))
+            .HasColumnName("activo")
             .IsRequired();
 
         builder.HasIndex(x => x.DocumentNumber)
-            .IsUnique();
+            .IsUnique()
+            .HasDatabaseName("uq_cliente_num_documento");
     }
 }

@@ -4,17 +4,17 @@ namespace Domain.ValueObject.Vehicle;
 
 public sealed record VehicleModelId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private VehicleModelId(int value)
+    private VehicleModelId(Guid value)
     {
         Value = value;
     }
 
-    public static VehicleModelId Create(int value)
+    public static VehicleModelId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del modelo debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id del modelo no puede estar vacío.", nameof(value));
 
         return new VehicleModelId(value);
     }

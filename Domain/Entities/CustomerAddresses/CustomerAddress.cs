@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Domain.common;
 using Domain.ValueObject.CustomerAddress;
 
@@ -9,22 +6,35 @@ namespace Domain.Entities.CustomerAddresses;
 
 public sealed class CustomerAddress : BaseEntity<Guid>
 {
-    public AddressCustomerId CustomerId { get; private set; }
+    // FK COMO GUID
+    public Guid CustomerId { get; private set; }
+
     public CustomerAddressStreet Street { get; private set; }
+
     public CustomerAddressPrimary Primary { get; private set; }
 
     private CustomerAddress() { }
 
-    public CustomerAddress(AddressCustomerId customerId, CustomerAddressStreet street, CustomerAddressPrimary primary)
+    public CustomerAddress(
+        Guid customerId,
+        CustomerAddressStreet street,
+        CustomerAddressPrimary primary)
     {
-        CustomerId = customerId ?? throw new ArgumentNullException(nameof(customerId));
+        if (customerId == Guid.Empty)
+            throw new ArgumentException("El id del cliente es obligatorio.", nameof(customerId));
+
+        CustomerId = customerId;
+
         Street = street ?? throw new ArgumentNullException(nameof(street));
         Primary = primary ?? throw new ArgumentNullException(nameof(primary));
     }
 
-    public void UpdateCustomerId(AddressCustomerId customerId)
+    public void UpdateCustomerId(Guid customerId)
     {
-        CustomerId = customerId ?? throw new ArgumentNullException(nameof(customerId));
+        if (customerId == Guid.Empty)
+            throw new ArgumentException("El id del cliente es obligatorio.", nameof(customerId));
+
+        CustomerId = customerId;
     }
 
     public void UpdateStreet(CustomerAddressStreet street)

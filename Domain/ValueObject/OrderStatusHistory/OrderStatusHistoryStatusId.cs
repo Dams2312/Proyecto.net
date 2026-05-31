@@ -4,17 +4,17 @@ namespace Domain.ValueObject.OrderStatusHistory;
 
 public sealed record OrderStatusHistoryStatusId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private OrderStatusHistoryStatusId(int value)
+    private OrderStatusHistoryStatusId(Guid value)
     {
         Value = value;
     }
 
-    public static OrderStatusHistoryStatusId Create(int value)
+    public static OrderStatusHistoryStatusId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del estado debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new OrderStatusHistoryStatusId(value);
     }

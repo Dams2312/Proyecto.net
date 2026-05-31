@@ -1,15 +1,14 @@
-using Domain.Entities.PaymentMethod;
 using Domain.ValueObject.PaymentMethod;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.PaymentMethods;
+namespace Infrastructure.Configuration.PaymentMethod;
 
-public sealed class PaymentMethodConfiguration : IEntityTypeConfiguration<PaymentMethod>
+public sealed class PaymentMethodConfiguration : IEntityTypeConfiguration<Domain.Entities.PaymentMethod.PaymentMethod>
 {
-    public void Configure(EntityTypeBuilder<PaymentMethod> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.PaymentMethod.PaymentMethod> builder)
     {
-        builder.ToTable("PaymentMethod");
+        builder.ToTable("metodo_pago");
 
         builder.HasKey(x => x.Id);
 
@@ -21,18 +20,20 @@ public sealed class PaymentMethodConfiguration : IEntityTypeConfiguration<Paymen
             .HasConversion(
                 x => x.Value,
                 x => PaymentMethodName.Create(x))
-            .HasColumnName("name")
+            .HasColumnName("nombre")
             .HasMaxLength(50)
             .IsRequired();
 
+        // descripcion es nullable en el SQL
         builder.Property(x => x.Description)
             .HasConversion(
-                x => x.Value,
-                x => PaymentMethodDescription.Create(x))
-            .HasColumnName("description")
-            .HasMaxLength(200);
+                x => x == null ? null : x.Value,
+                x => x == null ? null : PaymentMethodDescription.Create(x))
+            .HasColumnName("descripcion")
+            .HasColumnType("text");
 
         builder.HasIndex(x => x.Name)
-            .IsUnique();
+            .IsUnique()
+            .HasDatabaseName("uq_metodo_pago_nombre");
     }
-}   
+}

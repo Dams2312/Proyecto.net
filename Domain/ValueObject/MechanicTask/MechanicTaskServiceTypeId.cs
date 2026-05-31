@@ -4,20 +4,20 @@ namespace Domain.ValueObject.MechanicTask;
 
 public sealed record MechanicTaskServiceTypeId
 {
-    public int? Value { get; }
+    public Guid Value { get; }
 
-    private MechanicTaskServiceTypeId(int? value)
+    private MechanicTaskServiceTypeId(Guid value)
     {
         Value = value;
     }
 
-    public static MechanicTaskServiceTypeId Create(int? value)
+    public static MechanicTaskServiceTypeId Create(Guid value)
     {
-        if (value.HasValue && value.Value <= 0)
-            throw new ArgumentException("El id del tipo de servicio debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id del tipo de servicio debe ser un Guid válido.", nameof(value));
 
         return new MechanicTaskServiceTypeId(value);
     }
 
-    public override string ToString() => Value?.ToString() ?? string.Empty;
+    public override string ToString() => Value.ToString();
 }

@@ -1,15 +1,14 @@
-using Domain.Entities.Supplier;
 using Domain.ValueObject.Supplier;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.Suppliers;
+namespace Infrastructure.Configuration.Supplier;
 
-public sealed class SupplierConfiguration : IEntityTypeConfiguration<Supplier>
+public sealed class SupplierConfiguration : IEntityTypeConfiguration<Domain.Entities.Supplier.Supplier>
 {
-    public void Configure(EntityTypeBuilder<Supplier> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.Supplier.Supplier> builder)
     {
-        builder.ToTable("Supplier");
+        builder.ToTable("proveedor");
 
         builder.HasKey(x => x.Id);
 
@@ -21,7 +20,7 @@ public sealed class SupplierConfiguration : IEntityTypeConfiguration<Supplier>
             .HasConversion(
                 x => x.Value,
                 x => SupplierName.Create(x))
-            .HasColumnName("name")
+            .HasColumnName("nombre")
             .HasMaxLength(150)
             .IsRequired();
 
@@ -30,40 +29,42 @@ public sealed class SupplierConfiguration : IEntityTypeConfiguration<Supplier>
                 x => x.Value,
                 x => SupplierNit.Create(x))
             .HasColumnName("nit")
-            .HasMaxLength(20)
-            .IsRequired();
-
-        builder.Property(x => x.Email)
-            .HasConversion(
-                x => x.Value,
-                x => SupplierEmail.Create(x))
-            .HasColumnName("email")
-            .HasMaxLength(150)
+            .HasMaxLength(30)
             .IsRequired();
 
         builder.Property(x => x.Phone)
             .HasConversion(
                 x => x.Value,
                 x => SupplierPhone.Create(x))
-            .HasColumnName("phone")
-            .HasMaxLength(20)
-            .IsRequired();
+            .HasColumnName("telefono")
+            .HasMaxLength(20);
 
-        builder.Property(x => x.CityId)
+        builder.Property(x => x.Email)
             .HasConversion(
                 x => x.Value,
-                x => SupplierCityId.Create(x))
-            .HasColumnName("city_id")
+                x => SupplierEmail.Create(x))
+            .HasColumnName("correo")
+            .HasMaxLength(150);
+
+        builder.Property(x => x.CityId)
+            .HasColumnName("ciudad_id")
             .IsRequired();
 
         builder.Property(x => x.Active)
             .HasConversion(
                 x => x.Value,
                 x => SupplierActive.Create(x))
-            .HasColumnName("active")
+            .HasColumnName("activo")
             .IsRequired();
 
         builder.HasIndex(x => x.Nit)
-            .IsUnique();
+            .IsUnique()
+            .HasDatabaseName("uq_proveedor_nit");
+
+        builder.HasOne<Domain.Entities.Citys.City>()
+            .WithMany()
+            .HasForeignKey(x => x.CityId)
+            .HasConstraintName("fk_proveedor_ciudad")
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -1,15 +1,14 @@
-using Domain.Entities.Payment;
 using Domain.ValueObject.Payment;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.Payments;
+namespace Infrastructure.Configuration.Payment;
 
-public sealed class PaymentConfiguration : IEntityTypeConfiguration<Payment>
+public sealed class PaymentConfiguration : IEntityTypeConfiguration<Domain.Entities.Payment.Payment>
 {
-    public void Configure(EntityTypeBuilder<Payment> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.Payment.Payment> builder)
     {
-        builder.ToTable("Payment");
+        builder.ToTable("pago");
 
         builder.HasKey(x => x.Id);
 
@@ -18,17 +17,19 @@ public sealed class PaymentConfiguration : IEntityTypeConfiguration<Payment>
             .ValueGeneratedOnAdd();
 
         builder.Property(x => x.InvoiceId)
-            .HasConversion(
-                x => x.Value,
-                x => PaymentInvoiceId.Create(x))
-            .HasColumnName("invoice_id")
+            .HasColumnName("factura_id")
             .IsRequired();
 
         builder.Property(x => x.PaymentMethodId)
+            .HasColumnName("metodo_pago_id")
+            .IsRequired();
+
+        builder.Property(x => x.Monto)
             .HasConversion(
                 x => x.Value,
-                x => PaymentMethodId.Create(x))
-            .HasColumnName("payment_method_id")
+                x => PaymentMonto.Create(x))
+            .HasColumnName("monto")
+            .HasColumnType("decimal(12,2)")
             .IsRequired();
 
         builder.Property(x => x.FechaPago)
@@ -38,18 +39,10 @@ public sealed class PaymentConfiguration : IEntityTypeConfiguration<Payment>
             .HasColumnName("fecha_pago")
             .IsRequired();
 
-        builder.Property(x => x.Monto)
-            .HasConversion(
-                x => x.Value,
-                x => PaymentMonto.Create(x))
-            .HasColumnName("monto")
-            .HasPrecision(18, 2)
-            .IsRequired();
-
         builder.Property(x => x.Referencia)
             .HasConversion(
-                x => x.Value,
-                x => PaymentReferencia.Create(x))
+                x => x == null ? null : x.Value,
+                x => x == null ? null : PaymentReferencia.Create(x))
             .HasColumnName("referencia")
             .HasMaxLength(100);
 
@@ -60,5 +53,18 @@ public sealed class PaymentConfiguration : IEntityTypeConfiguration<Payment>
             .HasColumnName("estado")
             .HasMaxLength(20)
             .IsRequired();
+
+        builder.HasIndex(x => x.InvoiceId)
+            .HasDatabaseName("idx_pago_factura");
+
+        builder.HasOne<Domain.Entities.Invoice.Invoice>()
+            .WithMany()
+            .HasForeignKey(x => x.InvoiceId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<Domain.Entities.PaymentMethod.PaymentMethod>()
+            .WithMany()
+            .HasForeignKey(x => x.PaymentMethodId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

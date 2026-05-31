@@ -1,17 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace Domain.ValueObject.City;
 
 public sealed record CityCode
 {
-    public string Value { get; }
+    public string Value { get; private set; } = default!;
+
+    private CityCode() { } // <- EF Core
+
     private CityCode(string value)
     {
         Value = value;
     }
+
     public static CityCode Create(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
@@ -24,5 +23,6 @@ public sealed record CityCode
 
         return new CityCode(normalized);
     }
+
     public override string ToString() => Value;
 }

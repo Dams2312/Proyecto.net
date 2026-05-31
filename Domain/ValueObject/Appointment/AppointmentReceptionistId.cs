@@ -4,17 +4,17 @@ namespace Domain.ValueObject.Appointment;
 
 public sealed record AppointmentReceptionistId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private AppointmentReceptionistId(int value)
+    private AppointmentReceptionistId(Guid value)
     {
         Value = value;
     }
 
-    public static AppointmentReceptionistId Create(int value)
+    public static AppointmentReceptionistId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del recepcionista debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new AppointmentReceptionistId(value);
     }

@@ -1,15 +1,14 @@
-using Domain.Entities.OrderStatusHistory;
 using Domain.ValueObject.OrderStatusHistory;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.OrderStatusHistories;
+namespace Infrastructure.Configuration.OrderStatusHistory;
 
-public sealed class OrderStatusHistoryConfiguration : IEntityTypeConfiguration<OrderStatusHistory>
+public sealed class OrderStatusHistoryConfiguration : IEntityTypeConfiguration<Domain.Entities.OrderStatusHistory.OrderStatusHistory>
 {
-    public void Configure(EntityTypeBuilder<OrderStatusHistory> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.OrderStatusHistory.OrderStatusHistory> builder)
     {
-        builder.ToTable("OrderStatusHistory");
+        builder.ToTable("historial_estado_orden");
 
         builder.HasKey(x => x.Id);
 
@@ -18,31 +17,43 @@ public sealed class OrderStatusHistoryConfiguration : IEntityTypeConfiguration<O
             .ValueGeneratedOnAdd();
 
         builder.Property(x => x.OrderId)
-            .HasConversion(
-                x => x.Value,
-                x => OrderStatusHistoryOrderId.Create(x))
-            .HasColumnName("order_id")
+            .HasConversion(x => x.Value, x => OrderStatusHistoryOrderId.Create(x))
+            .HasColumnName("orden_id")
             .IsRequired();
 
         builder.Property(x => x.StatusId)
-            .HasConversion(
-                x => x.Value,
-                x => OrderStatusHistoryStatusId.Create(x))
-            .HasColumnName("status_id")
+            .HasConversion(x => x.Value, x => OrderStatusHistoryStatusId.Create(x))
+            .HasColumnName("estado_id")
             .IsRequired();
 
         builder.Property(x => x.UserId)
-            .HasConversion(
-                x => x.Value,
-                x => OrderStatusHistoryUserId.Create(x))
-            .HasColumnName("user_id")
+            .HasConversion(x => x.Value, x => OrderStatusHistoryUserId.Create(x))
+            .HasColumnName("usuario_id")
             .IsRequired();
 
         builder.Property(x => x.FechaCambio)
-            .HasConversion(
-                x => x.Value,
-                x => OrderStatusHistoryFechaCambio.Create(x))
+            .HasConversion(x => x.Value, x => OrderStatusHistoryFechaCambio.Create(x))
             .HasColumnName("fecha_cambio")
             .IsRequired();
+
+        builder.HasIndex(x => x.OrderId).HasDatabaseName("idx_heo_orden");
+
+        builder.HasOne<Domain.Entities.OrderService.OrderService>()
+            .WithMany()
+            .HasForeignKey("orden_id")
+            .HasPrincipalKey("Id")
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne<Domain.Entities.OrderStatus.OrderStatus>()
+            .WithMany()
+            .HasForeignKey("estado_id")
+            .HasPrincipalKey("Id")
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<Domain.Entities.Users.User>()
+            .WithMany()
+            .HasForeignKey("usuario_id")
+            .HasPrincipalKey("Id")
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -1,15 +1,14 @@
-using Domain.Entities.InvoiceStatus;
 using Domain.ValueObject.InvoiceStatus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Configuration.InvoiceStatuses;
+namespace Infrastructure.Configuration.InvoiceStatus;
 
-public sealed class InvoiceStatusConfiguration : IEntityTypeConfiguration<InvoiceStatus>
+public sealed class InvoiceStatusConfiguration : IEntityTypeConfiguration<Domain.Entities.InvoiceStatus.InvoiceStatus>
 {
-    public void Configure(EntityTypeBuilder<InvoiceStatus> builder)
+    public void Configure(EntityTypeBuilder<Domain.Entities.InvoiceStatus.InvoiceStatus> builder)
     {
-        builder.ToTable("InvoiceStatus");
+        builder.ToTable("estado_factura");
 
         builder.HasKey(x => x.Id);
 
@@ -21,11 +20,12 @@ public sealed class InvoiceStatusConfiguration : IEntityTypeConfiguration<Invoic
             .HasConversion(
                 x => x.Value,
                 x => InvoiceStatusName.Create(x))
-            .HasColumnName("name")
+            .HasColumnName("nombre")
             .HasMaxLength(50)
             .IsRequired();
 
         builder.HasIndex(x => x.Name)
-            .IsUnique();
+            .IsUnique()
+            .HasDatabaseName("uq_estado_factura_nombre");
     }
 }

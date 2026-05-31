@@ -4,17 +4,17 @@ namespace Domain.ValueObject.Purchase;
 
 public sealed record PurchaseUserId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private PurchaseUserId(int value)
+    private PurchaseUserId(Guid value)
     {
         Value = value;
     }
 
-    public static PurchaseUserId Create(int value)
+    public static PurchaseUserId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del usuario debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new PurchaseUserId(value);
     }

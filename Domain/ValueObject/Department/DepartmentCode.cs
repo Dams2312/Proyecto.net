@@ -7,7 +7,7 @@ namespace Domain.ValueObject.Department;
 
 public sealed record DepartmentCode
 {
-    public string Value { get; }
+    public string Value { get; private set; } = default!;
 
     private DepartmentCode(string value)
     {

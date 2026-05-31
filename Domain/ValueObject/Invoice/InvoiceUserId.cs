@@ -4,17 +4,17 @@ namespace Domain.ValueObject.Invoice;
 
 public sealed record InvoiceUserId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private InvoiceUserId(int value)
+    private InvoiceUserId(Guid value)
     {
         Value = value;
     }
 
-    public static InvoiceUserId Create(int value)
+    public static InvoiceUserId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del usuario debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new InvoiceUserId(value);
     }

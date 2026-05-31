@@ -7,17 +7,17 @@ namespace Domain.ValueObject.CustomerAddress;
 
 public sealed record CustomerCityId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private CustomerCityId(int value)
+    private CustomerCityId(Guid value)
     {
         Value = value;
     }
 
-    public static CustomerCityId Create(int value)
+    public static CustomerCityId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id de la ciudad debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new CustomerCityId(value);
     }

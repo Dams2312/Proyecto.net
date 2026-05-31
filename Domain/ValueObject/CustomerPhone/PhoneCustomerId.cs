@@ -7,17 +7,17 @@ namespace Domain.ValueObject.CustomerPhone;
 
 public sealed record PhoneCustomerId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private PhoneCustomerId(int value)
+    private PhoneCustomerId(Guid value)
     {
         Value = value;
     }
 
-    public static PhoneCustomerId Create(int value)
+    public static PhoneCustomerId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del cliente debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new PhoneCustomerId(value);
     }

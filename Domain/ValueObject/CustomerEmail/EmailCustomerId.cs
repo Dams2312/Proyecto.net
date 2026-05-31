@@ -7,21 +7,20 @@ namespace Domain.ValueObject.CustomerEmail;
 
 public sealed record EmailCustomerId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private EmailCustomerId(int value)
+    private EmailCustomerId(Guid value)
     {
         Value = value;
     }
 
-    public static EmailCustomerId Create(int value)
+    public static EmailCustomerId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del cliente debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new EmailCustomerId(value);
     }
 
     public override string ToString() => Value.ToString();
-}    
-
+}

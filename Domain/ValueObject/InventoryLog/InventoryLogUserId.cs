@@ -4,17 +4,17 @@ namespace Domain.ValueObject.InventoryLog;
 
 public sealed record InventoryLogUserId
 {
-    public int Value { get; }
+    public Guid Value { get; }
 
-    private InventoryLogUserId(int value)
+    private InventoryLogUserId(Guid value)
     {
         Value = value;
     }
 
-    public static InventoryLogUserId Create(int value)
+    public static InventoryLogUserId Create(Guid value)
     {
-        if (value <= 0)
-            throw new ArgumentException("El id del usuario debe ser mayor a 0.", nameof(value));
+        if (value == Guid.Empty)
+            throw new ArgumentException("El id debe ser un Guid válido.", nameof(value));
 
         return new InventoryLogUserId(value);
     }
