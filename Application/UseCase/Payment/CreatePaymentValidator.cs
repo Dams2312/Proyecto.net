@@ -1,0 +1,38 @@
+using FluentValidation;
+
+namespace Application.UseCases.Payment;
+
+public sealed class CreatePaymentValidator
+    : AbstractValidator<CreatePayment>
+{
+    public CreatePaymentValidator()
+    {
+        RuleFor(x => x.InvoiceId)
+            .GreaterThan(0)
+            .WithMessage("El id de la factura debe ser mayor a 0.");
+
+        RuleFor(x => x.PaymentMethodId)
+            .GreaterThan(0)
+            .WithMessage("El id del método de pago debe ser mayor a 0.");
+
+        RuleFor(x => x.FechaPago)
+            .NotEqual(default(DateTime))
+            .WithMessage("La fecha de pago es obligatoria.");
+
+        RuleFor(x => x.Monto)
+            .GreaterThan(0)
+            .WithMessage("El monto debe ser mayor a 0.");
+
+        RuleFor(x => x.Referencia)
+            .NotEmpty()
+            .WithMessage("La referencia es obligatoria.")
+            .MaximumLength(100)
+            .WithMessage("La referencia no puede superar los 100 caracteres.");
+
+        RuleFor(x => x.Estado)
+            .NotEmpty()
+            .WithMessage("El estado es obligatorio.")
+            .MaximumLength(50)
+            .WithMessage("El estado no puede superar los 50 caracteres.");
+    }
+}

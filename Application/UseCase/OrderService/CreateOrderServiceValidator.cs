@@ -1,0 +1,46 @@
+using FluentValidation;
+
+namespace Application.UseCases.OrderService;
+
+public sealed class CreateOrderServiceValidator
+    : AbstractValidator<CreateOrderService>
+{
+    public CreateOrderServiceValidator()
+    {
+        RuleFor(x => x.VehicleId)
+            .GreaterThan(0)
+            .WithMessage("El id del vehículo debe ser mayor a 0.");
+
+        RuleFor(x => x.ReceptionistId)
+            .GreaterThan(0)
+            .WithMessage("El id del recepcionista debe ser mayor a 0.");
+
+        RuleFor(x => x.StatusId)
+            .GreaterThan(0)
+            .WithMessage("El id del estado debe ser mayor a 0.");
+
+        RuleFor(x => x.KilometrajeIngreso)
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("El kilometraje de ingreso no puede ser negativo.");
+
+        RuleFor(x => x.FechaIngreso)
+            .NotEqual(default(DateOnly))
+            .WithMessage("La fecha de ingreso es obligatoria.");
+
+        RuleFor(x => x.FechaEstimada)
+            .Must((model, fecha) => !fecha.HasValue || fecha.Value >= model.FechaIngreso)
+            .WithMessage("La fecha estimada no puede ser anterior a la fecha de ingreso.");
+
+        RuleFor(x => x.FechaEntregaReal)
+            .Must((model, fecha) => !fecha.HasValue || fecha.Value >= model.FechaIngreso)
+            .WithMessage("La fecha de entrega real no puede ser anterior a la fecha de ingreso.");
+
+        RuleFor(x => x.AppointmentId)
+            .Must(v => !v.HasValue || v.Value > 0)
+            .WithMessage("El id de la cita debe ser mayor a 0.");
+
+        RuleFor(x => x.Observaciones)
+            .MaximumLength(1000)
+            .WithMessage("Las observaciones no pueden superar los 1000 caracteres.");
+    }
+}
