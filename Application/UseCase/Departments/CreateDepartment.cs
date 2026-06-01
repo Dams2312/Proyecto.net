@@ -5,5 +5,5 @@ namespace Application.UseCases.Departments;
 public sealed record CreateDepartment(
     string Code,
     string Name,
-    int CountryId
+    Guid CountryId
 ) : IRequest<Guid>;

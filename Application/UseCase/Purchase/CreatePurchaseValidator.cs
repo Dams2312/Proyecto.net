@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 
 namespace Application.UseCases.Purchase;
@@ -12,11 +13,11 @@ public sealed class CreatePurchaseValidator
             .WithMessage("La fecha es obligatoria.");
 
         RuleFor(x => x.SupplierId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del proveedor debe ser mayor a 0.");
 
         RuleFor(x => x.UserId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del usuario debe ser mayor a 0.");
 
         RuleFor(x => x.Status)

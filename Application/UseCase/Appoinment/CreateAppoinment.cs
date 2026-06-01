@@ -4,9 +4,9 @@ using MediatR;
 namespace Application.UseCases.Appoinment;
 
 public sealed record CreateAppoinment(
-    int VehicleId,
-    int ServiceTypeId,
-    int ReceptionistId,
+    Guid VehicleId,
+    Guid ServiceTypeId,
+    Guid ReceptionistId,
     DateOnly Date,
     TimeOnly StartTime,
     TimeOnly EndTime,

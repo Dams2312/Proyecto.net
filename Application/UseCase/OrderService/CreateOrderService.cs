@@ -3,13 +3,13 @@ using MediatR;
 namespace Application.UseCases.OrderService;
 
 public sealed record CreateOrderService(
-    int VehicleId,
-    int ReceptionistId,
-    int StatusId,
+    Guid VehicleId,
+    Guid ReceptionistId,
+    Guid StatusId,
     int KilometrajeIngreso,
     DateOnly FechaIngreso,
     DateOnly? FechaEstimada,
     DateOnly? FechaEntregaReal,
-    int? AppointmentId,
+    Guid? AppointmentId,
     string Observaciones
 ) : IRequest<Guid>;

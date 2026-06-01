@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 
 namespace Application.UseCases.Citys;
@@ -13,9 +14,9 @@ public sealed class CreateCityValidator
             .MaximumLength(100)
             .WithMessage("El nombre de la ciudad no puede superar los 100 caracteres.");
 
-        RuleFor(x => x.CountryId)
-            .GreaterThan(0)
-            .WithMessage("El id del país debe ser un número positivo.");
+        RuleFor(x => x.DepartmentId)
+            .NotEqual(Guid.Empty)
+            .WithMessage("El id del departamento es obligatorio.");
 
         RuleFor(x => x.Code)
             .NotEmpty()

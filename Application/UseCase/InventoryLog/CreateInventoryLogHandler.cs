@@ -20,7 +20,7 @@ public sealed class CreateInventoryLogHandler
         CreateInventoryLog request,
         CancellationToken ct)
     {
-        var sparePartId = InventoryLogSparePartId.Create(request.SparePartId);
+        var sparePartId = request.SparePartId;
 
         var quantity = InventoryLogQuantity.Create(request.Quantity);
 
@@ -28,13 +28,13 @@ public sealed class CreateInventoryLogHandler
 
         var typeMovement = InventoryLogTypeMovement.Create(request.TypeMovement);
 
-        var userId = InventoryLogUserId.Create(request.UserId);
+        var userId = request.UserId;
 
         var fecha = InventoryLogFecha.Create(request.Fecha);
 
-        var orderId = InventoryLogOrderId.Create(request.OrderId);
+        var orderId = request.OrderId;
 
-        var purchaseId = InventoryLogPurchaseId.Create(request.PurchaseId);
+        var purchaseId = request.PurchaseId;
 
         var motivo = InventoryLogMotivo.Create(request.Motivo);
 

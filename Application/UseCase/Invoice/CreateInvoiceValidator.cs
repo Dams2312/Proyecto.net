@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 
 namespace Application.UseCases.Invoice;
@@ -8,15 +9,15 @@ public sealed class CreateInvoiceValidator
     public CreateInvoiceValidator()
     {
         RuleFor(x => x.OrderId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id de la orden debe ser mayor a 0.");
 
         RuleFor(x => x.StatusId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del estado de la factura debe ser mayor a 0.");
 
         RuleFor(x => x.UserId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del usuario debe ser mayor a 0.");
 
         RuleFor(x => x.CostoRepuestos)

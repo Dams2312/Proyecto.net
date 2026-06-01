@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 
 namespace Application.UseCases.OrderStatusHistory;
@@ -8,15 +9,15 @@ public sealed class CreateOrderStatusHistoryValidator
     public CreateOrderStatusHistoryValidator()
     {
         RuleFor(x => x.OrderId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id de la orden debe ser mayor a 0.");
 
         RuleFor(x => x.StatusId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del estado debe ser mayor a 0.");
 
         RuleFor(x => x.UserId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del usuario debe ser mayor a 0.");
 
         RuleFor(x => x.FechaCambio)

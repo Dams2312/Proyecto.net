@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 
 namespace Application.UseCases.Payment;
@@ -8,11 +9,11 @@ public sealed class CreatePaymentValidator
     public CreatePaymentValidator()
     {
         RuleFor(x => x.InvoiceId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id de la factura debe ser mayor a 0.");
 
         RuleFor(x => x.PaymentMethodId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del método de pago debe ser mayor a 0.");
 
         RuleFor(x => x.FechaPago)

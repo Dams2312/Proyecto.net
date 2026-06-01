@@ -23,12 +23,10 @@ public sealed class CreateDepartmentHandler
 
         var name = DepartmentName.Create(request.Name);
 
-        var countryId = DepartmentCountryId.Create(request.CountryId);
-
         var department = new Department(
             code,
             name,
-            countryId);
+            request.CountryId);
 
         await _uow.Departments.AddAsync(department, ct);
 

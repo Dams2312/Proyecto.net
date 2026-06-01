@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 
 namespace Application.UseCases.OrderService;
@@ -8,15 +9,15 @@ public sealed class CreateOrderServiceValidator
     public CreateOrderServiceValidator()
     {
         RuleFor(x => x.VehicleId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del vehículo debe ser mayor a 0.");
 
         RuleFor(x => x.ReceptionistId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del recepcionista debe ser mayor a 0.");
 
         RuleFor(x => x.StatusId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del estado debe ser mayor a 0.");
 
         RuleFor(x => x.KilometrajeIngreso)

@@ -3,6 +3,6 @@ using MediatR;
 namespace Application.UseCases.OrderServiceType;
 
 public sealed record CreateOrderServiceType(
-    int OrderId,
-    int ServiceTypeId
+    Guid OrderId,
+    Guid ServiceTypeId
 ) : IRequest<Guid>;

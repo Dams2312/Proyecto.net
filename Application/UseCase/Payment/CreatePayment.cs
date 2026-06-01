@@ -3,8 +3,8 @@ using MediatR;
 namespace Application.UseCases.Payment;
 
 public sealed record CreatePayment(
-    int InvoiceId,
-    int PaymentMethodId,
+    Guid InvoiceId,
+    Guid PaymentMethodId,
     DateTime FechaPago,
     decimal Monto,
     string Referencia,

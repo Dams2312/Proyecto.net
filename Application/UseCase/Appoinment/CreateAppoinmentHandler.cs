@@ -22,9 +22,9 @@ public sealed class CreateAppoinmentHandler
         CreateAppoinment request,
         CancellationToken ct)
     {
-        var vehicleId = AppointmentVehicleId.Create(request.VehicleId);
-        var serviceTypeId = AppointmentServiceTypeId.Create(request.ServiceTypeId);
-        var receptionistId = AppointmentReceptionistId.Create(request.ReceptionistId);
+        var vehicleId = request.VehicleId;
+        var serviceTypeId = request.ServiceTypeId;
+        var receptionistId = request.ReceptionistId;
         var date = AppointmentDate.Create(request.Date);
         var startTime = AppointmentStartTime.Create(request.StartTime);
         var endTime = AppointmentEndTime.Create(request.EndTime);
@@ -41,7 +41,7 @@ public sealed class CreateAppoinmentHandler
             status,
             observations);
 
-        await _uow.Appointment.AddAsync(appointment, ct);
+        await _uow.Appointments.AddAsync(appointment, ct);
         await _uow.SaveChangesAsync(ct);
 
         return appointment.Id;

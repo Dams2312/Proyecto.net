@@ -4,8 +4,8 @@ namespace Application.UseCases.Purchase;
 
 public sealed record CreatePurchase(
     DateOnly Date,
-    int SupplierId,
-    int UserId,
+    Guid SupplierId,
+    Guid UserId,
     string Status,
     string Observations,
     decimal Total

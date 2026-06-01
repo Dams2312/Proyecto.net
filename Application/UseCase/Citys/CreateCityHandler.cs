@@ -23,12 +23,12 @@ public sealed class CreateCityHandler
         CancellationToken ct)
     {
         var name = CityName.Create(request.Name);
-        var countryId = CityCountryId.Create(request.CountryId);
+        var countryId = request.DepartmentId;
         var code = CityCode.Create(request.Code);
 
         var city = new City(name, countryId, code);
 
-        await _uow.Citys.AddAsync(city, ct);
+        await _uow.Cities.AddAsync(city, ct);
         await _uow.SaveChangesAsync(ct);
 
         return city.Id;

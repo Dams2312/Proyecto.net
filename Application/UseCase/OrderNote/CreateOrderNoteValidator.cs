@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 
 namespace Application.UseCases.OrderNote;
@@ -8,11 +9,11 @@ public sealed class CreateOrderNoteValidator
     public CreateOrderNoteValidator()
     {
         RuleFor(x => x.OrderId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id de la orden debe ser mayor a 0.");
 
         RuleFor(x => x.UserId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del usuario debe ser mayor a 0.");
 
         RuleFor(x => x.Content)

@@ -20,11 +20,11 @@ public sealed class CreateInvoiceHandler
         CreateInvoice request,
         CancellationToken ct)
     {
-        var orderId = InvoiceOrderId.Create(request.OrderId);
+        var orderId = request.OrderId;
 
-        var statusId = InvoiceStatusId.Create(request.StatusId);
+        var statusId = request.StatusId;
 
-        var userId = InvoiceUserId.Create(request.UserId);
+        var userId = request.UserId;
 
         var costoRepuestos = InvoiceCostoRepuestos.Create(request.CostoRepuestos);
 

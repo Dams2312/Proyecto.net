@@ -20,9 +20,9 @@ public sealed class CreatePaymentHandler
         CreatePayment request,
         CancellationToken ct)
     {
-        var invoiceId = PaymentInvoiceId.Create(request.InvoiceId);
+        var invoiceId = request.InvoiceId;
 
-        var paymentMethodId = PaymentMethodId.Create(request.PaymentMethodId);
+        var paymentMethodId = request.PaymentMethodId;
 
         var fechaPago = PaymentFechaPago.Create(request.FechaPago);
 

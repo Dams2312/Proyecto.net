@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 
 namespace Application.UseCases.InventoryLog;
@@ -8,7 +9,7 @@ public sealed class CreateInventoryLogValidator
     public CreateInventoryLogValidator()
     {
         RuleFor(x => x.SparePartId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del repuesto debe ser mayor a 0.");
 
         RuleFor(x => x.Quantity)
@@ -26,7 +27,7 @@ public sealed class CreateInventoryLogValidator
             .WithMessage("El tipo de movimiento no es válido. Debe ser 'entrada', 'salida' o 'ajuste'.");
 
         RuleFor(x => x.UserId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del usuario debe ser mayor a 0.");
 
         RuleFor(x => x.Fecha)

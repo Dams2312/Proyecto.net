@@ -3,9 +3,9 @@ using MediatR;
 namespace Application.UseCases.MechanicTask;
 
 public sealed record CreateMechanicTask(
-    int OrderId,
-    int MechanicId,
-    int ServiceTypeId,
+    Guid OrderId,
+    Guid MechanicId,
+    Guid ServiceTypeId,
     string Description,
     decimal HourlyCost,
     decimal HoursWorked,

@@ -4,6 +4,8 @@ using MediatR;
 namespace Application.UseCases.Audit;
 
 public sealed record CreateAudit(
+    Guid UserId,
+    Guid EntidadId,
     string TipoAccion,
     string Entidad,
     string? DatosNuevos,

@@ -3,13 +3,13 @@ using MediatR;
 namespace Application.UseCases.InventoryLog;
 
 public sealed record CreateInventoryLog(
-    int SparePartId,
+    Guid SparePartId,
     int Quantity,
     int StockResultante,
     string TypeMovement,
-    int UserId,
+    Guid UserId,
     DateTime Fecha,
-    int? OrderId,
-    int? PurchaseId,
+    Guid OrderId,
+    Guid PurchaseId,
     string Motivo
 ) : IRequest<Guid>;

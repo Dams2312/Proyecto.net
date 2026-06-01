@@ -3,7 +3,7 @@ using MediatR;
 namespace Application.UseCases.MileageHistory;
 
 public sealed record CreateMileageHistory(
-    int VehicleId,
+    Guid VehicleId,
     int Kilometraje,
     DateOnly Date,
     string Source

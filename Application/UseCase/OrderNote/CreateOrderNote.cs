@@ -3,8 +3,8 @@ using MediatR;
 namespace Application.UseCases.OrderNote;
 
 public sealed record CreateOrderNote(
-    int OrderId,
-    int UserId,
+    Guid OrderId,
+    Guid UserId,
     string Content,
     DateTime FechaNota
 ) : IRequest<Guid>;

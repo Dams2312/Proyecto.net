@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 
 namespace Application.UseCases.Departments;
@@ -22,7 +23,7 @@ public sealed class CreateDepartmentValidator
             .WithMessage("El nombre del departamento no puede superar los 100 caracteres.");
 
         RuleFor(x => x.CountryId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El ID del país debe ser un número positivo.");
     }
 }

@@ -3,9 +3,9 @@ using MediatR;
 namespace Application.UseCases.Invoice;
 
 public sealed record CreateInvoice(
-    int OrderId,
-    int StatusId,
-    int UserId,
+    Guid OrderId,
+    Guid StatusId,
+    Guid UserId,
     decimal CostoRepuestos,
     decimal ManoDeObra,
     decimal ImpuestoPct,

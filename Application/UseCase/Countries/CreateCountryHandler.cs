@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.Country;
+using Domain.Entities.Countries;
 using Domain.ValueObject.Country;
 using MediatR;
 
@@ -25,7 +25,7 @@ public sealed class CreateCountryHandler
         var name = CountryName.Create(request.Name);
         var code = CountryCode.Create(request.Code);
 
-        var country = new Country(name, code);
+        var country = new Country(code, name);
 
         await _uow.Countries.AddAsync(country, ct);
         await _uow.SaveChangesAsync(ct);

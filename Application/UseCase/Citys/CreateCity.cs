@@ -5,6 +5,6 @@ namespace Application.UseCases.Citys;
 
 public sealed record CreateCity(
     string Name,
-    int CountryId,
+    Guid DepartmentId,
     string Code
 ) : IRequest<Guid>;

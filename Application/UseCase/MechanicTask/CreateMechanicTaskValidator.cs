@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 
 namespace Application.UseCases.MechanicTask;
@@ -8,15 +9,15 @@ public sealed class CreateMechanicTaskValidator
     public CreateMechanicTaskValidator()
     {
         RuleFor(x => x.OrderId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id de la orden debe ser mayor a 0.");
 
         RuleFor(x => x.MechanicId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del mecánico debe ser mayor a 0.");
 
         RuleFor(x => x.ServiceTypeId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del tipo de servicio debe ser mayor a 0.");
 
         RuleFor(x => x.Description)

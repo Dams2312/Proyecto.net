@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 
 namespace Application.UseCases.PurchaseDetail;
@@ -8,12 +9,12 @@ public sealed class CreatePurchaseDetailValidator
     public CreatePurchaseDetailValidator()
     {
         RuleFor(x => x.PurchaseId)
-            .GreaterThan(0)
-            .WithMessage("El id de la compra debe ser mayor a 0.");
+            .NotEqual(Guid.Empty)
+            .WithMessage("El id de la compra es obligatorio.");
 
         RuleFor(x => x.SparePartId)
-            .GreaterThan(0)
-            .WithMessage("El id del repuesto debe ser mayor a 0.");
+            .NotEqual(Guid.Empty)
+            .WithMessage("El id del repuesto es obligatorio.");
 
         RuleFor(x => x.Quantity)
             .GreaterThan(0)

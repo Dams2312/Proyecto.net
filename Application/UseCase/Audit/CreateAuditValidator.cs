@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 
 namespace Application.UseCases.Audit;
@@ -7,6 +8,14 @@ public sealed class CreateAuditValidator
 {
     public CreateAuditValidator()
     {
+        RuleFor(x => x.UserId)
+            .NotEqual(Guid.Empty)
+            .WithMessage("El id del usuario es obligatorio.");
+
+        RuleFor(x => x.EntidadId)
+            .NotEqual(Guid.Empty)
+            .WithMessage("El id de la entidad auditada es obligatorio.");
+
         RuleFor(x => x.TipoAccion)
             .NotEmpty()
             .WithMessage("El tipo de acción es obligatorio.")

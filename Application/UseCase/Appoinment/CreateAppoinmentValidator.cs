@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 
 namespace Application.UseCases.Appoinment;
@@ -8,15 +9,15 @@ public sealed class CreateAppoinmentValidator
     public CreateAppoinmentValidator()
     {
         RuleFor(x => x.VehicleId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del vehículo debe ser mayor a 0.");
 
         RuleFor(x => x.ServiceTypeId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del tipo de servicio debe ser mayor a 0.");
 
         RuleFor(x => x.ReceptionistId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id del recepcionista debe ser mayor a 0.");
 
         RuleFor(x => x.Date)

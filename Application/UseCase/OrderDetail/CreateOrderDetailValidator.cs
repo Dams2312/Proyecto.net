@@ -1,3 +1,4 @@
+using System;
 using FluentValidation;
 
 namespace Application.UseCases.OrderDetail;
@@ -8,12 +9,12 @@ public sealed class CreateOrderDetailValidator
     public CreateOrderDetailValidator()
     {
         RuleFor(x => x.OrderId)
-            .GreaterThan(0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id de la orden debe ser mayor a 0.");
 
         RuleFor(x => x.SparePartId)
-            .GreaterThan(0)
-            .WithMessage("El id del repuesto debe ser mayor a 0.");
+            .NotEqual(Guid.Empty)
+            .WithMessage("El id del repuesto es obligatorio.");
 
         RuleFor(x => x.Quantity)
             .GreaterThan(0)
