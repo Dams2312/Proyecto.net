@@ -35,11 +35,11 @@ public sealed class CreateInventoryLogValidator
             .WithMessage("La fecha del movimiento es obligatoria.");
 
         RuleFor(x => x.OrderId)
-            .Must(v => !v.HasValue || v.Value > 0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id de la orden debe ser mayor a 0.");
 
         RuleFor(x => x.PurchaseId)
-            .Must(v => !v.HasValue || v.Value > 0)
+            .NotEqual(Guid.Empty)
             .WithMessage("El id de la compra debe ser mayor a 0.");
 
         RuleFor(x => x.Motivo)

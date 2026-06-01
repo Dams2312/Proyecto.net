@@ -47,8 +47,8 @@ public sealed class CityRepository : ICity
             var normalized = search.Trim().ToLower();
 
             query = query.Where(x =>
-                x.Name.Value.Contains(normalized) ||
-                x.Code.Value.Contains(normalized));
+                x.Name.Contains(normalized) ||
+                x.Code.Contains(normalized));
         }
 
         return await query
@@ -68,8 +68,8 @@ public sealed class CityRepository : ICity
             var normalized = search.Trim().ToLower();
 
             query = query.Where(x =>
-                x.Name.Value.Contains(normalized) ||
-                x.Code.Value.Contains(normalized));
+                x.Name.Contains(normalized) ||
+                x.Code.Contains(normalized));
         }
 
         return query.CountAsync(ct);

@@ -22,9 +22,9 @@ public sealed class CreateCityHandler
         CreateCity request,
         CancellationToken ct)
     {
-        var name = CityName.Create(request.Name);
+        var name = request.Name;
         var countryId = request.DepartmentId;
-        var code = CityCode.Create(request.Code);
+        var code = request.Code;
 
         var city = new City(name, countryId, code);
 

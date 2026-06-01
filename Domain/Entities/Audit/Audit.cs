@@ -36,4 +36,34 @@ public sealed class Audit : BaseEntity<Guid>
         DatosNuevos     = datosNuevos;
         IpOrigen        = ipOrigen;
     }
+
+    public void UpdateEntidad(AuditEntidad entidad)
+    {
+        Entidad = entidad ?? throw new ArgumentNullException(nameof(entidad));
+    }
+
+    public void UpdateFecha(AuditFecha fecha)
+    {
+        Fecha = fecha ?? throw new ArgumentNullException(nameof(fecha));
+    }
+
+    public void UpdateTipoAccion(AuditTipoAccion tipoAccion)
+    {
+        TipoAccion = tipoAccion ?? throw new ArgumentNullException(nameof(tipoAccion));
+    }
+
+    public void UpdateDatosAnteriores(AuditDatosAnteriores? datosAnteriores)
+    {
+        DatosAnteriores = datosAnteriores;
+    }
+
+    public void UpdateDatosNuevos(AuditDatosNuevos? datosNuevos)
+    {
+        DatosNuevos = datosNuevos;
+    }
+
+    public void UpdateIpOrigen(AuditIpOrigen? ipOrigen)
+    {
+        IpOrigen = ipOrigen;
+    }
 }

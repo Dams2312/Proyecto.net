@@ -34,4 +34,41 @@ public sealed class Payment : BaseEntity<Guid>
         Referencia = referencia;
         Estado = estado;
     }
+
+    public void UpdateInvoiceId(Guid invoiceId)
+    {
+        if (invoiceId == Guid.Empty)
+            throw new ArgumentException("La factura es obligatoria.", nameof(invoiceId));
+
+        InvoiceId = invoiceId;
+    }
+
+    public void UpdatePaymentMethodId(Guid paymentMethodId)
+    {
+        if (paymentMethodId == Guid.Empty)
+            throw new ArgumentException("El método de pago es obligatorio.", nameof(paymentMethodId));
+
+        PaymentMethodId = paymentMethodId;
+    }
+
+    public void UpdateFechaPago(PaymentFechaPago fechaPago)
+    {
+        FechaPago = fechaPago ?? throw new ArgumentNullException(nameof(fechaPago));
+    }
+
+    public void UpdateMonto(PaymentMonto monto)
+    {
+        Monto = monto ?? throw new ArgumentNullException(nameof(monto));
+    }
+
+    public void UpdateReferencia(PaymentReferencia referencia)
+    {
+        Referencia = referencia ?? throw new ArgumentNullException(nameof(referencia));
+    }
+
+    public void UpdateEstado(PaymentEstado estado)
+    {
+        Estado = estado ?? throw new ArgumentNullException(nameof(estado));
+    }
+
 }

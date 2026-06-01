@@ -31,4 +31,12 @@ public sealed class City : BaseEntity<Guid>
     {
         DepartmentId = departmentId;
     }
+
+    public void UpdateCode(string code)
+    {
+        if (string.IsNullOrWhiteSpace(code))
+            throw new ArgumentException("El código de la ciudad es obligatorio.", nameof(code));
+
+        Code = code;
+    }
 }

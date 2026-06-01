@@ -37,7 +37,8 @@ public sealed class CreateOrderServiceValidator
             .WithMessage("La fecha de entrega real no puede ser anterior a la fecha de ingreso.");
 
         RuleFor(x => x.AppointmentId)
-            .Must(v => !v.HasValue || v.Value > 0)
+            .NotEqual(Guid.Empty)
+            .When(x => x.AppointmentId.HasValue)
             .WithMessage("El id de la cita debe ser mayor a 0.");
 
         RuleFor(x => x.Observaciones)

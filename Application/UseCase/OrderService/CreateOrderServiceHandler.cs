@@ -38,9 +38,7 @@ public sealed class CreateOrderServiceHandler
             ? OrderServiceFechaEntregaReal.Create(request.FechaEntregaReal.Value)
             : null;
 
-        var appointmentId = request.AppointmentId.HasValue
-            ? OrderServiceAppointmentId.Create(request.AppointmentId.Value)
-            : null;
+        var appointmentId = request.AppointmentId;
 
         var observaciones = OrderServiceObservaciones.Create(request.Observaciones);
 
