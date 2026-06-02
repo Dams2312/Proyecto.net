@@ -1,13 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.MileageHistory;
 using MediatR;
+using MileageHistoryEntity = Domain.Entities.MileageHistory.MileageHistory;
 
-namespace Application.UseCases.MileageHistory;
+namespace Application.UseCase.MileageHistory;
 
 public sealed class GetMileageHistoryByIdHandler
-    : IRequestHandler<GetMileageHistoryById, MileageHistory>
+    : IRequestHandler<GetMileageHistoryById, MileageHistoryEntity>
 {
     private readonly IUnitOfWork _uow;
 
@@ -16,15 +16,16 @@ public sealed class GetMileageHistoryByIdHandler
         _uow = uow;
     }
 
-    public async Task<MileageHistory> Handle(
+    public async Task<MileageHistoryEntity> Handle(
         GetMileageHistoryById request,
         CancellationToken ct)
     {
         var entity = await _uow.MileageHistories.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("MileageHistory no encontrado.");
+            throw new KeyNotFoundException("MileageHistoryEntity no encontrado.");
 
         return entity;
     }
 }
+

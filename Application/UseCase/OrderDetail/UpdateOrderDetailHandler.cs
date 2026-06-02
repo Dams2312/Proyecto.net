@@ -1,11 +1,11 @@
+using Domain.ValueObject.OrderDetail;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.OrderDetail;
-using Domain.ValueObject.OrderDetail;
 using MediatR;
+using OrderDetailEntity = Domain.Entities.OrderDetail.OrderDetail;
 
-namespace Application.UseCases.OrderDetail;
+namespace Application.UseCase.OrderDetail;
 
 public sealed class UpdateOrderDetailHandler
     : IRequestHandler<UpdateOrderDetail, Unit>
@@ -24,12 +24,12 @@ public sealed class UpdateOrderDetailHandler
         var entity = await _uow.OrderDetails.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderDetail no encontrado.");
+            throw new KeyNotFoundException("OrderDetailEntity no encontrado.");
 
         entity.UpdateOrderId(OrderDetailOrderId.Create(request.OrderId));
         entity.UpdateSparePartId(OrderDetailSparePartId.Create(request.SparePartId));
         entity.UpdateQuantity(OrderDetailQuantity.Create(request.Quantity));
-        entity.UpdateUnitPrice(OrderDetailPriceSnapshot.Create(request.UnitPrice));
+        entity.UpdatePriceSnapshot(OrderDetailPriceSnapshot.Create(request.UnitPrice));
 
         await _uow.OrderDetails.UpdateAsync(entity, ct);
         await _uow.SaveChangesAsync(ct);
@@ -37,3 +37,4 @@ public sealed class UpdateOrderDetailHandler
         return Unit.Value;
     }
 }
+

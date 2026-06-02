@@ -1,9 +1,9 @@
 using System;
-using Domain.Entities.Purchase;
 using MediatR;
+using PurchaseEntity = Domain.Entities.Purchase.Purchase;
 
-namespace Application.UseCases.Purchase;
+namespace Application.UseCase.Purchase;
 
 public sealed record GetPurchaseById(
     Guid Id
-) : IRequest<Purchase>;
+) : IRequest<PurchaseEntity>;

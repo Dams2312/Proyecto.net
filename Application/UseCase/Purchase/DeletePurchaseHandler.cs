@@ -2,8 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using PurchaseEntity = Domain.Entities.Purchase.Purchase;
 
-namespace Application.UseCases.Purchase;
+namespace Application.UseCase.Purchase;
 
 public sealed class DeletePurchaseHandler
     : IRequestHandler<DeletePurchase, Unit>
@@ -22,7 +23,7 @@ public sealed class DeletePurchaseHandler
         var entity = await _uow.Purchases.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("Purchase no encontrado.");
+            throw new KeyNotFoundException("PurchaseEntity no encontrado.");
 
         await _uow.Purchases.RemoveAsync(entity, ct);
         await _uow.SaveChangesAsync(ct);
@@ -30,3 +31,4 @@ public sealed class DeletePurchaseHandler
         return Unit.Value;
     }
 }
+

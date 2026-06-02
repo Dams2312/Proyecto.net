@@ -1,7 +1,8 @@
 using System;
 using FluentValidation;
+using PurchaseEntity = Domain.Entities.Purchase.Purchase;
 
-namespace Application.UseCases.Purchase;
+namespace Application.UseCase.Purchase;
 
 public sealed class CreatePurchaseValidator
     : AbstractValidator<CreatePurchase>

@@ -1,12 +1,13 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.Entities.Appointment;
 using Domain.ValueObject.Appointment;
 using MediatR;
+using AppointmentEntity = Domain.Entities.Appointment.Appointment;
 
-namespace Application.UseCases.Appoinment;
+namespace Application.UseCase.AppointmentEntity;
 
 public sealed class CreateAppoinmentHandler
     : IRequestHandler<CreateAppoinment, Guid>
@@ -47,3 +48,4 @@ public sealed class CreateAppoinmentHandler
         return appointment.Id;
     }
 }
+

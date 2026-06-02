@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
@@ -6,8 +6,9 @@ using Domain.Entities.Audit;
 using Domain.ValueObject.Audit;
 using MediatR;
 using AuditEntity = Domain.Entities.Audit.Audit;
+using Audit = Domain.Entities.Audit.Audit;
 
-namespace Application.UseCases.Audit;
+namespace Application.UseCase.Audit;
 
 public sealed class CreateAuditHandler
     : IRequestHandler<CreateAudit, Guid>
@@ -46,3 +47,4 @@ public sealed class CreateAuditHandler
         return audit.Id;
     }
 }
+

@@ -1,10 +1,11 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.Entities.Citys;
 using MediatR;
+using City = Domain.Entities.Citys.City;
 
-namespace Application.UseCases.Citys;
+namespace Application.UseCase.Citys;
 
 public sealed class GetCityByIdHandler
     : IRequestHandler<GetCityById, City>
@@ -28,3 +29,4 @@ public sealed class GetCityByIdHandler
         return city;
     }
 }
+

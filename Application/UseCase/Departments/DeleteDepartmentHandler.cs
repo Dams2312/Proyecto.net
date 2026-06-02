@@ -1,9 +1,10 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using Department = Domain.Entities.Departments.Department;
 
-namespace Application.UseCases.Departments;
+namespace Application.UseCase.Departament;
 
 public sealed class DeleteDepartmentHandler
     : IRequestHandler<DeleteDepartment, Unit>
@@ -30,3 +31,4 @@ public sealed class DeleteDepartmentHandler
         return Unit.Value;
     }
 }
+

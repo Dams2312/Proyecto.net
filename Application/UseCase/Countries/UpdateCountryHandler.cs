@@ -1,11 +1,12 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.ValueObject.Country;
 using MediatR;
+using Country = Domain.Entities.Countries.Country;
 
-namespace Application.UseCases.Countries;
+namespace Application.UseCase.Countries;
 
 public sealed class UpdateCountryHandler
     : IRequestHandler<UpdateCountry, Unit>
@@ -35,3 +36,4 @@ public sealed class UpdateCountryHandler
         return Unit.Value;
     }
 }
+

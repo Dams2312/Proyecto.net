@@ -1,9 +1,10 @@
 using System;
-using Domain.Entities.OrderNote;
 using MediatR;
+using OrderNoteEntity = Domain.Entities.OrderNote.OrderNote;
 
-namespace Application.UseCases.OrderNote;
+namespace Application.UseCase.OrderNote;
 
 public sealed record GetOrderNoteById(
     Guid Id
-) : IRequest<OrderNote>;
+) : IRequest<OrderNoteEntity>;
+

@@ -1,6 +1,7 @@
 using MediatR;
+using OrderDetailEntity = Domain.Entities.OrderDetail.OrderDetail;
 
-namespace Application.UseCases.OrderDetail;
+namespace Application.UseCase.OrderDetail;
 
 public sealed record CreateOrderDetail(
     Guid OrderId,

@@ -1,10 +1,9 @@
-using Application.Abstractions;
-using Domain.Entities.InvoiceStatus;
 using Domain.ValueObject.InvoiceStatus;
+using Application.Abstractions;
 using MediatR;
 using InvoiceStatusEntity = Domain.Entities.InvoiceStatus.InvoiceStatus;
 
-namespace Application.UseCases.InvoiceStatus;
+namespace Application.UseCase.InvoiceStatus;
 
 public sealed class CreateInvoiceStatusHandler
     : IRequestHandler<CreateInvoiceStatus, Guid>

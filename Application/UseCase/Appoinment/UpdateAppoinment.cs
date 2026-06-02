@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using MediatR;
+using AppointmentEntity = Domain.Entities.Appointment.Appointment;
 
-namespace Application.UseCases.Appoinment;
+namespace Application.UseCase.AppointmentEntity;
 
 public sealed record UpdateAppoinment(
     Guid Id,
@@ -14,3 +15,4 @@ public sealed record UpdateAppoinment(
     string Status,
     string? Observations
 ) : IRequest<Unit>;
+

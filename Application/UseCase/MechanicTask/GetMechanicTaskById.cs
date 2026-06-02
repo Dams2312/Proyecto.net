@@ -1,9 +1,10 @@
 using System;
-using Domain.Entities.MechanicTask;
 using MediatR;
+using MechanicTaskEntity = Domain.Entities.MechanicTask.MechanicTask;
 
-namespace Application.UseCases.MechanicTask;
+namespace Application.UseCase.MechanicTask;
 
 public sealed record GetMechanicTaskById(
     Guid Id
-) : IRequest<MechanicTask>;
+) : IRequest<MechanicTaskEntity>;
+

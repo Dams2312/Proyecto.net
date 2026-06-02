@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.MileageHistory;
 using MediatR;
+using MileageHistoryEntity = Domain.Entities.MileageHistory.MileageHistory;
 
-namespace Application.UseCases.MileageHistory;
+namespace Application.UseCase.MileageHistory;
 
 public sealed class GetMileageHistoriesPagedHandler
-    : IRequestHandler<GetMileageHistoriesPaged, IReadOnlyList<MileageHistory>>
+    : IRequestHandler<GetMileageHistoriesPaged, IReadOnlyList<MileageHistoryEntity>>
 {
     private readonly IUnitOfWork _uow;
 
@@ -17,7 +17,7 @@ public sealed class GetMileageHistoriesPagedHandler
         _uow = uow;
     }
 
-    public async Task<IReadOnlyList<MileageHistory>> Handle(
+    public async Task<IReadOnlyList<MileageHistoryEntity>> Handle(
         GetMileageHistoriesPaged request,
         CancellationToken ct)
     {
@@ -28,3 +28,4 @@ public sealed class GetMileageHistoriesPagedHandler
             ct);
     }
 }
+

@@ -1,6 +1,7 @@
-using FluentValidation;
+﻿using FluentValidation;
+using Country = Domain.Entities.Countries.Country;
 
-namespace Application.UseCases.Countries;
+namespace Application.UseCase.Countries;
 
 public sealed class CreateCountryValidator
     : AbstractValidator<CreateCountry>
@@ -9,16 +10,17 @@ public sealed class CreateCountryValidator
     {
         RuleFor(x => x.Name)
             .NotEmpty()
-            .WithMessage("El nombre del país es obligatorio.")
+            .WithMessage("El nombre del paÃ­s es obligatorio.")
             .MinimumLength(2)
-            .WithMessage("El nombre del país debe tener al menos 2 caracteres.")
+            .WithMessage("El nombre del paÃ­s debe tener al menos 2 caracteres.")
             .MaximumLength(100)
-            .WithMessage("El nombre del país no puede superar los 100 caracteres.");
+            .WithMessage("El nombre del paÃ­s no puede superar los 100 caracteres.");
 
         RuleFor(x => x.Code)
             .NotEmpty()
-            .WithMessage("El código del país es obligatorio.")
+            .WithMessage("El cÃ³digo del paÃ­s es obligatorio.")
             .Length(3)
-            .WithMessage("El código del país debe tener exactamente 3 caracteres.");
+            .WithMessage("El cÃ³digo del paÃ­s debe tener exactamente 3 caracteres.");
     }
 }
+

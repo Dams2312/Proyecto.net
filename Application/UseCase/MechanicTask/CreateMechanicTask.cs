@@ -1,6 +1,7 @@
 using MediatR;
+using MechanicTaskEntity = Domain.Entities.MechanicTask.MechanicTask;
 
-namespace Application.UseCases.MechanicTask;
+namespace Application.UseCase.MechanicTask;
 
 public sealed record CreateMechanicTask(
     Guid OrderId,

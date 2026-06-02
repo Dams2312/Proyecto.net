@@ -2,8 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using OrderStatusEntity = Domain.Entities.OrderStatus.OrderStatus;
 
-namespace Application.UseCases.OrderStatus;
+namespace Application.UseCase.OrderStatus;
 
 public sealed class DeleteOrderStatusHandler
     : IRequestHandler<DeleteOrderStatus, Unit>
@@ -22,7 +23,7 @@ public sealed class DeleteOrderStatusHandler
         var entity = await _uow.OrderStatuses.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderStatus no encontrado.");
+            throw new KeyNotFoundException("OrderStatusEntity no encontrado.");
 
         await _uow.OrderStatuses.RemoveAsync(entity, ct);
         await _uow.SaveChangesAsync(ct);
@@ -30,3 +31,4 @@ public sealed class DeleteOrderStatusHandler
         return Unit.Value;
     }
 }
+

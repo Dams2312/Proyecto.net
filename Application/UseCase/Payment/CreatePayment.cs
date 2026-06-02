@@ -1,6 +1,7 @@
 using MediatR;
+using PaymentEntity = Domain.Entities.Payment.Payment;
 
-namespace Application.UseCases.Payment;
+namespace Application.UseCase.Payment;
 
 public sealed record CreatePayment(
     Guid InvoiceId,

@@ -1,7 +1,8 @@
 using System;
 using MediatR;
+using OrderNoteEntity = Domain.Entities.OrderNote.OrderNote;
 
-namespace Application.UseCases.OrderNote;
+namespace Application.UseCase.OrderNote;
 
 public sealed record UpdateOrderNote(
     Guid Id,
@@ -10,3 +11,4 @@ public sealed record UpdateOrderNote(
     DateTime FechaNota,
     string Content
 ) : IRequest<Unit>;
+

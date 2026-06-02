@@ -1,10 +1,9 @@
-using Application.Abstractions;
-using Domain.Entities.Payment;
 using Domain.ValueObject.Payment;
+using Application.Abstractions;
 using MediatR;
 using PaymentEntity = Domain.Entities.Payment.Payment;
 
-namespace Application.UseCases.Payment;
+namespace Application.UseCase.Payment;
 
 public sealed class CreatePaymentHandler
     : IRequestHandler<CreatePayment, Guid>

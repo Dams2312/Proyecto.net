@@ -1,13 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.InventoryLog;
 using MediatR;
+using InventoryLogEntity = Domain.Entities.InventoryLog.InventoryLog;
 
-namespace Application.UseCases.InventoryLog;
+namespace Application.UseCase.InventoryLog;
 
 public sealed class GetInventoryLogByIdHandler
-    : IRequestHandler<GetInventoryLogById, InventoryLog>
+    : IRequestHandler<GetInventoryLogById, InventoryLogEntity>
 {
     private readonly IUnitOfWork _uow;
 
@@ -16,15 +16,16 @@ public sealed class GetInventoryLogByIdHandler
         _uow = uow;
     }
 
-    public async Task<InventoryLog> Handle(
+    public async Task<InventoryLogEntity> Handle(
         GetInventoryLogById request,
         CancellationToken ct)
     {
         var entity = await _uow.InventoryLogs.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("InventoryLog no encontrado.");
+            throw new KeyNotFoundException("InventoryLogEntity no encontrado.");
 
         return entity;
     }
 }
+

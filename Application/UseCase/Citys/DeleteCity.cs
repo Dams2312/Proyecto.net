@@ -1,8 +1,10 @@
-using System;
+﻿using System;
 using MediatR;
+using City = Domain.Entities.Citys.City;
 
-namespace Application.UseCases.Citys;
+namespace Application.UseCase.Citys;
 
 public sealed record DeleteCity(
     Guid Id
 ) : IRequest<Unit>;
+

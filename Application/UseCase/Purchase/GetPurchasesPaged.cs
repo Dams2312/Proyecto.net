@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using Domain.Entities.Purchase;
 using MediatR;
+using PurchaseEntity = Domain.Entities.Purchase.Purchase;
 
-namespace Application.UseCases.Purchase;
+namespace Application.UseCase.Purchase;
 
 public sealed record GetPurchasesPaged(
     int Page,
     int PageSize,
     string? Search
-) : IRequest<IReadOnlyList<Purchase>>;
+) : IRequest<IReadOnlyList<PurchaseEntity>>;

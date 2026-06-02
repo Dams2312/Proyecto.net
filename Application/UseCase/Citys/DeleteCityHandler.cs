@@ -1,9 +1,10 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using City = Domain.Entities.Citys.City;
 
-namespace Application.UseCases.Citys;
+namespace Application.UseCase.Citys;
 
 public sealed class DeleteCityHandler
     : IRequestHandler<DeleteCity, Unit>
@@ -30,3 +31,4 @@ public sealed class DeleteCityHandler
         return Unit.Value;
     }
 }
+

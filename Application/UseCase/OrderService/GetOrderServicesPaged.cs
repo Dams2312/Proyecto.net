@@ -1,11 +1,12 @@
 using System.Collections.Generic;
-using Domain.Entities.OrderService;
 using MediatR;
+using OrderServiceEntity = Domain.Entities.OrderService.OrderService;
 
-namespace Application.UseCases.OrderService;
+namespace Application.UseCase.OrderService;
 
 public sealed record GetOrderServicesPaged(
     int Page,
     int PageSize,
     string? Search
-) : IRequest<IReadOnlyList<OrderService>>;
+) : IRequest<IReadOnlyList<OrderServiceEntity>>;
+

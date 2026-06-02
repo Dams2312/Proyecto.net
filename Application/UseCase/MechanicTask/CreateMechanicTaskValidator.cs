@@ -1,7 +1,8 @@
 using System;
 using FluentValidation;
+using MechanicTaskEntity = Domain.Entities.MechanicTask.MechanicTask;
 
-namespace Application.UseCases.MechanicTask;
+namespace Application.UseCase.MechanicTask;
 
 public sealed class CreateMechanicTaskValidator
     : AbstractValidator<CreateMechanicTask>
@@ -14,7 +15,7 @@ public sealed class CreateMechanicTaskValidator
 
         RuleFor(x => x.MechanicId)
             .NotEqual(Guid.Empty)
-            .WithMessage("El id del mecánico debe ser mayor a 0.");
+            .WithMessage("El id del mecÃ¡nico debe ser mayor a 0.");
 
         RuleFor(x => x.ServiceTypeId)
             .NotEqual(Guid.Empty)
@@ -22,9 +23,9 @@ public sealed class CreateMechanicTaskValidator
 
         RuleFor(x => x.Description)
             .NotEmpty()
-            .WithMessage("La descripción es obligatoria.")
+            .WithMessage("La descripciÃ³n es obligatoria.")
             .MaximumLength(500)
-            .WithMessage("La descripción no puede superar los 500 caracteres.");
+            .WithMessage("La descripciÃ³n no puede superar los 500 caracteres.");
 
         RuleFor(x => x.HourlyCost)
             .GreaterThanOrEqualTo(0)

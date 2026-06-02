@@ -1,7 +1,8 @@
 using System;
 using MediatR;
+using OrderStatusHistoryEntity = Domain.Entities.OrderStatusHistory.OrderStatusHistory;
 
-namespace Application.UseCases.OrderStatusHistory;
+namespace Application.UseCase.OrderStatusHistory;
 
 public sealed record UpdateOrderStatusHistory(
     Guid Id,
@@ -10,3 +11,4 @@ public sealed record UpdateOrderStatusHistory(
     Guid UserId,
     DateTime FechaCambio
 ) : IRequest<Unit>;
+

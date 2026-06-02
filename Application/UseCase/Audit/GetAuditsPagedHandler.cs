@@ -1,11 +1,12 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using AuditEntity = Domain.Entities.Audit.Audit;
 using MediatR;
+using Audit = Domain.Entities.Audit.Audit;
 
-namespace Application.UseCases.Audit;
+namespace Application.UseCase.Audit;
 
 public sealed class GetAuditsPagedHandler
     : IRequestHandler<GetAuditsPaged, IReadOnlyList<AuditEntity>>
@@ -28,3 +29,4 @@ public sealed class GetAuditsPagedHandler
             ct);
     }
 }
+

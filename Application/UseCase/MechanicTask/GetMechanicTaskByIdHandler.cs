@@ -1,13 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.MechanicTask;
 using MediatR;
+using MechanicTaskEntity = Domain.Entities.MechanicTask.MechanicTask;
 
-namespace Application.UseCases.MechanicTask;
+namespace Application.UseCase.MechanicTask;
 
 public sealed class GetMechanicTaskByIdHandler
-    : IRequestHandler<GetMechanicTaskById, MechanicTask>
+    : IRequestHandler<GetMechanicTaskById, MechanicTaskEntity>
 {
     private readonly IUnitOfWork _uow;
 
@@ -16,15 +16,16 @@ public sealed class GetMechanicTaskByIdHandler
         _uow = uow;
     }
 
-    public async Task<MechanicTask> Handle(
+    public async Task<MechanicTaskEntity> Handle(
         GetMechanicTaskById request,
         CancellationToken ct)
     {
         var entity = await _uow.MechanicTasks.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("MechanicTask no encontrado.");
+            throw new KeyNotFoundException("MechanicTaskEntity no encontrado.");
 
         return entity;
     }
 }
+

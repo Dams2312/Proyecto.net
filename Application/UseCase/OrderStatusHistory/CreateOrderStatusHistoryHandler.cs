@@ -1,10 +1,9 @@
-using Application.Abstractions;
-using Domain.Entities.OrderStatusHistory;
 using Domain.ValueObject.OrderStatusHistory;
+using Application.Abstractions;
 using MediatR;
 using OrderStatusHistoryEntity = Domain.Entities.OrderStatusHistory.OrderStatusHistory;
 
-namespace Application.UseCases.OrderStatusHistory;
+namespace Application.UseCase.OrderStatusHistory;
 
 public sealed class CreateOrderStatusHistoryHandler
     : IRequestHandler<CreateOrderStatusHistory, Guid>

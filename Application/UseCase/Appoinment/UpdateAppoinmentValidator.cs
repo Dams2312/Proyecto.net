@@ -1,6 +1,7 @@
-using FluentValidation;
+﻿using FluentValidation;
+using AppointmentEntity = Domain.Entities.Appointment.Appointment;
 
-namespace Application.UseCases.Appoinment;
+namespace Application.UseCase.AppointmentEntity;
 
 public sealed class UpdateAppoinmentValidator
     : AbstractValidator<UpdateAppoinment>
@@ -35,3 +36,4 @@ public sealed class UpdateAppoinmentValidator
             .MaximumLength(2000);
     }
 }
+

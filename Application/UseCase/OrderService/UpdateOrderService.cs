@@ -1,7 +1,8 @@
 using System;
 using MediatR;
+using OrderServiceEntity = Domain.Entities.OrderService.OrderService;
 
-namespace Application.UseCases.OrderService;
+namespace Application.UseCase.OrderService;
 
 public sealed record UpdateOrderService(
     Guid Id,
@@ -15,3 +16,4 @@ public sealed record UpdateOrderService(
     Guid? AppointmentId,
     string Observaciones
 ) : IRequest<Unit>;
+

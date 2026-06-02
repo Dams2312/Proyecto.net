@@ -1,10 +1,9 @@
-using Application.Abstractions;
-using Domain.Entities.OrderServiceType;
 using Domain.ValueObject.OrderServiceType;
+using Application.Abstractions;
 using MediatR;
 using OrderServiceTypeEntity = Domain.Entities.OrderServiceType.OrderServiceType;
 
-namespace Application.UseCases.OrderServiceType;
+namespace Application.UseCase.OrderServiceType;
 
 public sealed class CreateOrderServiceTypeHandler
     : IRequestHandler<CreateOrderServiceType, Guid>

@@ -1,9 +1,10 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using City = Domain.Entities.Citys.City;
 
-namespace Application.UseCases.Citys;
+namespace Application.UseCase.Citys;
 
 public sealed class UpdateCityHandler
     : IRequestHandler<UpdateCity, Unit>
@@ -34,3 +35,4 @@ public sealed class UpdateCityHandler
         return Unit.Value;
     }
 }
+

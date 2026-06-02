@@ -1,8 +1,10 @@
-using System;
+﻿using System;
 using MediatR;
+using Country = Domain.Entities.Countries.Country;
 
-namespace Application.UseCases.Countries;
+namespace Application.UseCase.Countries;
 
 public sealed record DeleteCountry(
     Guid Id
 ) : IRequest<Unit>;
+

@@ -1,10 +1,11 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.ValueObject.Appointment;
 using MediatR;
+using AppointmentEntity = Domain.Entities.Appointment.Appointment;
 
-namespace Application.UseCases.Appoinment;
+namespace Application.UseCase.AppointmentEntity;
 
 public sealed class UpdateAppoinmentHandler
     : IRequestHandler<UpdateAppoinment, Unit>
@@ -40,3 +41,4 @@ public sealed class UpdateAppoinmentHandler
         return Unit.Value;
     }
 }
+

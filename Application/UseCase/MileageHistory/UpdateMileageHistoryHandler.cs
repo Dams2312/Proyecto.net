@@ -1,11 +1,11 @@
+using Domain.ValueObject.MileageHistory;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.MileageHistory;
-using Domain.ValueObject.MileageHistory;
 using MediatR;
+using MileageHistoryEntity = Domain.Entities.MileageHistory.MileageHistory;
 
-namespace Application.UseCases.MileageHistory;
+namespace Application.UseCase.MileageHistory;
 
 public sealed class UpdateMileageHistoryHandler
     : IRequestHandler<UpdateMileageHistory, Unit>
@@ -24,11 +24,11 @@ public sealed class UpdateMileageHistoryHandler
         var entity = await _uow.MileageHistories.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("MileageHistory no encontrado.");
+            throw new KeyNotFoundException("MileageHistoryEntity no encontrado.");
 
         entity.UpdateVehicleId(MileageHistoryVehicleId.Create(request.VehicleId));
         entity.UpdateKilometraje(MileageHistoryKilometraje.Create(request.Kilometraje));
-        entity.UpdateDate(MileageHistoryDate.Create(request.Date));
+        entity.UpdateDate(MileageHistoryDate.Create(DateOnly.FromDateTime(request.Date)));
         entity.UpdateSource(MileageHistorySource.Create(request.Source));
 
         await _uow.MileageHistories.UpdateAsync(entity, ct);
@@ -37,3 +37,4 @@ public sealed class UpdateMileageHistoryHandler
         return Unit.Value;
     }
 }
+

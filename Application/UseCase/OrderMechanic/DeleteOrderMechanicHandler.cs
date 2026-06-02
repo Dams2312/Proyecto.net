@@ -2,8 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using OrderMechanicEntity = Domain.Entities.OrderMechanic.OrderMechanic;
 
-namespace Application.UseCases.OrderMechanic;
+namespace Application.UseCase.OrderMechanic;
 
 public sealed class DeleteOrderMechanicHandler
     : IRequestHandler<DeleteOrderMechanic, Unit>
@@ -22,7 +23,7 @@ public sealed class DeleteOrderMechanicHandler
         var entity = await _uow.OrderMechanics.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderMechanic no encontrado.");
+            throw new KeyNotFoundException("OrderMechanicEntity no encontrado.");
 
         await _uow.OrderMechanics.RemoveAsync(entity, ct);
         await _uow.SaveChangesAsync(ct);
@@ -30,3 +31,4 @@ public sealed class DeleteOrderMechanicHandler
         return Unit.Value;
     }
 }
+

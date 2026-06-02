@@ -1,6 +1,7 @@
 using FluentValidation;
+using PaymentMethodEntity = Domain.Entities.PaymentMethod.PaymentMethod;
 
-namespace Application.UseCases.PaymentMethod;
+namespace Application.UseCase.PaymentMethod;
 
 public sealed class CreatePaymentMethodValidator
     : AbstractValidator<CreatePaymentMethod>
@@ -9,14 +10,14 @@ public sealed class CreatePaymentMethodValidator
     {
         RuleFor(x => x.Name)
             .NotEmpty()
-            .WithMessage("El nombre del método de pago es obligatorio.")
+            .WithMessage("El nombre del mÃ©todo de pago es obligatorio.")
             .MaximumLength(50)
             .WithMessage("El nombre no puede superar los 50 caracteres.");
 
         RuleFor(x => x.Description)
             .NotEmpty()
-            .WithMessage("La descripción del método de pago es obligatorio.")
+            .WithMessage("La descripciÃ³n del mÃ©todo de pago es obligatorio.")
             .MaximumLength(200)
-            .WithMessage("La descripción no puede superar los 200 caracteres.");
+            .WithMessage("La descripciÃ³n no puede superar los 200 caracteres.");
     }
 }

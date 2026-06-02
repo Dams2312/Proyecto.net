@@ -1,10 +1,9 @@
-using Application.Abstractions;
-using Domain.Entities.MileageHistory;
 using Domain.ValueObject.MileageHistory;
+using Application.Abstractions;
 using MediatR;
 using MileageHistoryEntity = Domain.Entities.MileageHistory.MileageHistory;
 
-namespace Application.UseCases.MileageHistory;
+namespace Application.UseCase.MileageHistory;
 
 public sealed class CreateMileageHistoryHandler
     : IRequestHandler<CreateMileageHistory, Guid>

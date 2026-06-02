@@ -1,12 +1,13 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.Entities.Citys;
 using Domain.ValueObject.City;
 using MediatR;
+using City = Domain.Entities.Citys.City;
 
-namespace Application.UseCases.Citys;
+namespace Application.UseCase.Citys;
 
 public sealed class CreateCityHandler
     : IRequestHandler<CreateCity, Guid>
@@ -34,3 +35,4 @@ public sealed class CreateCityHandler
         return city.Id;
     }
 }
+

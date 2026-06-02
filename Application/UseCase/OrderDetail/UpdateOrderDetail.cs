@@ -1,7 +1,8 @@
 using System;
 using MediatR;
+using OrderDetailEntity = Domain.Entities.OrderDetail.OrderDetail;
 
-namespace Application.UseCases.OrderDetail;
+namespace Application.UseCase.OrderDetail;
 
 public sealed record UpdateOrderDetail(
     Guid Id,
@@ -10,3 +11,4 @@ public sealed record UpdateOrderDetail(
     int Quantity,
     decimal UnitPrice
 ) : IRequest<Unit>;
+

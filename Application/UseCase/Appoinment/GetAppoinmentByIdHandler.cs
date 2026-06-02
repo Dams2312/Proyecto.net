@@ -1,10 +1,11 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.Entities.Appointment;
 using MediatR;
+using AppointmentEntity = Domain.Entities.Appointment.Appointment;
 
-namespace Application.UseCases.Appoinment;
+namespace Application.UseCase.AppointmentEntity;
 
 public sealed class GetAppoinmentByIdHandler
     : IRequestHandler<GetAppoinmentById, Appointment>
@@ -28,3 +29,4 @@ public sealed class GetAppoinmentByIdHandler
         return appointment;
     }
 }
+

@@ -1,7 +1,8 @@
 using System;
 using MediatR;
+using MileageHistoryEntity = Domain.Entities.MileageHistory.MileageHistory;
 
-namespace Application.UseCases.MileageHistory;
+namespace Application.UseCase.MileageHistory;
 
 public sealed record UpdateMileageHistory(
     Guid Id,
@@ -10,3 +11,4 @@ public sealed record UpdateMileageHistory(
     DateTime Date,
     string Source
 ) : IRequest<Unit>;
+

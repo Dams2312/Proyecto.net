@@ -1,9 +1,10 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using Country = Domain.Entities.Countries.Country;
 
-namespace Application.UseCases.Countries;
+namespace Application.UseCase.Countries;
 
 public sealed class DeleteCountryHandler
     : IRequestHandler<DeleteCountry, Unit>
@@ -22,7 +23,7 @@ public sealed class DeleteCountryHandler
         var country = await _uow.Countries.GetByIdAsync(request.Id, ct);
 
         if (country is null)
-            throw new KeyNotFoundException("País no encontrado.");
+            throw new KeyNotFoundException("PaÃ­s no encontrado.");
 
         await _uow.Countries.RemoveAsync(country, ct);
         await _uow.SaveChangesAsync(ct);
@@ -30,3 +31,4 @@ public sealed class DeleteCountryHandler
         return Unit.Value;
     }
 }
+

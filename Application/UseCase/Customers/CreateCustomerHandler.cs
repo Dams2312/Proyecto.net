@@ -1,12 +1,13 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.Entities.Customers;
 using Domain.ValueObject.Customer;
 using MediatR;
+using Customer = Domain.Entities.Customers.Customer;
 
-namespace Application.UseCases.Customers;
+namespace Application.UseCase.Customers;
 
 public sealed class CreateCustomerHandler
     : IRequestHandler<CreateCustomer, Guid>
@@ -53,3 +54,4 @@ public sealed class CreateCustomerHandler
         return customer.Id;
     }
 }
+

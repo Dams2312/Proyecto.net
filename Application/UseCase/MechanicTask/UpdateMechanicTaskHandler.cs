@@ -1,11 +1,11 @@
+using Domain.ValueObject.MechanicTask;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.MechanicTask;
-using Domain.ValueObject.MechanicTask;
 using MediatR;
+using MechanicTaskEntity = Domain.Entities.MechanicTask.MechanicTask;
 
-namespace Application.UseCases.MechanicTask;
+namespace Application.UseCase.MechanicTask;
 
 public sealed class UpdateMechanicTaskHandler
     : IRequestHandler<UpdateMechanicTask, Unit>
@@ -24,7 +24,7 @@ public sealed class UpdateMechanicTaskHandler
         var entity = await _uow.MechanicTasks.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("MechanicTask no encontrado.");
+            throw new KeyNotFoundException("MechanicTaskEntity no encontrado.");
 
         entity.UpdateOrderId(MechanicTaskOrderId.Create(request.OrderId));
         entity.UpdateMechanicId(MechanicTaskMechanicId.Create(request.MechanicId));
@@ -42,3 +42,4 @@ public sealed class UpdateMechanicTaskHandler
         return Unit.Value;
     }
 }
+

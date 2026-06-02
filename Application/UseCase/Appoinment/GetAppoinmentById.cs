@@ -1,9 +1,11 @@
-using System;
+﻿using System;
 using Domain.Entities.Appointment;
 using MediatR;
+using AppointmentEntity = Domain.Entities.Appointment.Appointment;
 
-namespace Application.UseCases.Appoinment;
+namespace Application.UseCase.AppointmentEntity;
 
 public sealed record GetAppoinmentById(
     Guid Id
 ) : IRequest<Appointment>;
+

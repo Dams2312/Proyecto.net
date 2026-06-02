@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using Domain.Entities.Payment;
 using MediatR;
+using PaymentEntity = Domain.Entities.Payment.Payment;
 
-namespace Application.UseCases.Payment;
+namespace Application.UseCase.Payment;
 
 public sealed record GetPaymentsPaged(
     int Page,
     int PageSize,
     string? Search
-) : IRequest<IReadOnlyList<Payment>>;
+) : IRequest<IReadOnlyList<PaymentEntity>>;

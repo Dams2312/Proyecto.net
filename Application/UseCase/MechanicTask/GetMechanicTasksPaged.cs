@@ -1,11 +1,12 @@
 using System.Collections.Generic;
-using Domain.Entities.MechanicTask;
 using MediatR;
+using MechanicTaskEntity = Domain.Entities.MechanicTask.MechanicTask;
 
-namespace Application.UseCases.MechanicTask;
+namespace Application.UseCase.MechanicTask;
 
 public sealed record GetMechanicTasksPaged(
     int Page,
     int PageSize,
     string? Search
-) : IRequest<IReadOnlyList<MechanicTask>>;
+) : IRequest<IReadOnlyList<MechanicTaskEntity>>;
+

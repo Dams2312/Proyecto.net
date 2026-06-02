@@ -1,13 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.OrderDetail;
 using MediatR;
+using OrderDetailEntity = Domain.Entities.OrderDetail.OrderDetail;
 
-namespace Application.UseCases.OrderDetail;
+namespace Application.UseCase.OrderDetail;
 
 public sealed class GetOrderDetailByIdHandler
-    : IRequestHandler<GetOrderDetailById, OrderDetail>
+    : IRequestHandler<GetOrderDetailById, OrderDetailEntity>
 {
     private readonly IUnitOfWork _uow;
 
@@ -16,15 +16,16 @@ public sealed class GetOrderDetailByIdHandler
         _uow = uow;
     }
 
-    public async Task<OrderDetail> Handle(
+    public async Task<OrderDetailEntity> Handle(
         GetOrderDetailById request,
         CancellationToken ct)
     {
         var entity = await _uow.OrderDetails.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderDetail no encontrado.");
+            throw new KeyNotFoundException("OrderDetailEntity no encontrado.");
 
         return entity;
     }
 }
+

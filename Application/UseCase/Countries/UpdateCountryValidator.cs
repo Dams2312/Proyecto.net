@@ -1,6 +1,7 @@
-using FluentValidation;
+﻿using FluentValidation;
+using Country = Domain.Entities.Countries.Country;
 
-namespace Application.UseCases.Countries;
+namespace Application.UseCase.Countries;
 
 public sealed class UpdateCountryValidator
     : AbstractValidator<UpdateCountry>
@@ -19,3 +20,4 @@ public sealed class UpdateCountryValidator
             .Length(3);
     }
 }
+

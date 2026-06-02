@@ -1,10 +1,11 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.Entities.Departments;
 using MediatR;
+using Department = Domain.Entities.Departments.Department;
 
-namespace Application.UseCases.Departments;
+namespace Application.UseCase.Departament;
 
 public sealed class GetDepartmentByIdHandler
     : IRequestHandler<GetDepartmentById, Department>
@@ -28,3 +29,4 @@ public sealed class GetDepartmentByIdHandler
         return entity;
     }
 }
+

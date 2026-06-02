@@ -1,10 +1,9 @@
-using Application.Abstractions;
-using Domain.Entities.OrderStatus;
 using Domain.ValueObject.OrderStatus;
+using Application.Abstractions;
 using MediatR;
 using OrderStatusEntity = Domain.Entities.OrderStatus.OrderStatus;
 
-namespace Application.UseCases.OrderStatus;
+namespace Application.UseCase.OrderStatus;
 
 public sealed class CreateOrderStatusHandler
     : IRequestHandler<CreateOrderStatus, Guid>

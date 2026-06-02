@@ -1,7 +1,8 @@
 using System;
 using FluentValidation;
+using OrderMechanicEntity = Domain.Entities.OrderMechanic.OrderMechanic;
 
-namespace Application.UseCases.OrderMechanic;
+namespace Application.UseCase.OrderMechanic;
 
 public sealed class CreateOrderMechanicValidator
     : AbstractValidator<CreateOrderMechanic>
@@ -14,10 +15,10 @@ public sealed class CreateOrderMechanicValidator
 
         RuleFor(x => x.MechanicId)
             .NotEqual(Guid.Empty)
-            .WithMessage("El id del mecánico debe ser mayor a 0.");
+            .WithMessage("El id del mecÃ¡nico debe ser mayor a 0.");
 
         RuleFor(x => x.FechaAsignacion)
             .NotEqual(default(DateOnly))
-            .WithMessage("La fecha de asignación es obligatoria.");
+            .WithMessage("La fecha de asignaciÃ³n es obligatoria.");
     }
 }

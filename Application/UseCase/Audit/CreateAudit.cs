@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using MediatR;
+using Audit = Domain.Entities.Audit.Audit;
 
-namespace Application.UseCases.Audit;
+namespace Application.UseCase.Audit;
 
 public sealed record CreateAudit(
     Guid UserId,
@@ -12,3 +13,4 @@ public sealed record CreateAudit(
     string? DatosAnteriores,
     string? IpOrigen
 ) : IRequest<Guid>;
+

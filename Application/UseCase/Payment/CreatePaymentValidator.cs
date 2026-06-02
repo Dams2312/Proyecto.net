@@ -1,7 +1,8 @@
 using System;
 using FluentValidation;
+using PaymentEntity = Domain.Entities.Payment.Payment;
 
-namespace Application.UseCases.Payment;
+namespace Application.UseCase.Payment;
 
 public sealed class CreatePaymentValidator
     : AbstractValidator<CreatePayment>
@@ -14,7 +15,7 @@ public sealed class CreatePaymentValidator
 
         RuleFor(x => x.PaymentMethodId)
             .NotEqual(Guid.Empty)
-            .WithMessage("El id del método de pago debe ser mayor a 0.");
+            .WithMessage("El id del mÃ©todo de pago debe ser mayor a 0.");
 
         RuleFor(x => x.FechaPago)
             .NotEqual(default(DateTime))

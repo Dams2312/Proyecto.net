@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.PaymentMethod;
 using MediatR;
+using PaymentMethodEntity = Domain.Entities.PaymentMethod.PaymentMethod;
 
-namespace Application.UseCases.PaymentMethod;
+namespace Application.UseCase.PaymentMethod;
 
 public sealed class GetPaymentMethodsPagedHandler
-    : IRequestHandler<GetPaymentMethodsPaged, IReadOnlyList<PaymentMethod>>
+    : IRequestHandler<GetPaymentMethodsPaged, IReadOnlyList<PaymentMethodEntity>>
 {
     private readonly IUnitOfWork _uow;
 
@@ -17,7 +17,7 @@ public sealed class GetPaymentMethodsPagedHandler
         _uow = uow;
     }
 
-    public async Task<IReadOnlyList<PaymentMethod>> Handle(
+    public async Task<IReadOnlyList<PaymentMethodEntity>> Handle(
         GetPaymentMethodsPaged request,
         CancellationToken ct)
     {
@@ -28,3 +28,4 @@ public sealed class GetPaymentMethodsPagedHandler
             ct);
     }
 }
+

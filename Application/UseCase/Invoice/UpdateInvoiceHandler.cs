@@ -1,11 +1,11 @@
+using Domain.ValueObject.Invoice;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.Invoice;
-using Domain.ValueObject.Invoice;
 using MediatR;
+using InvoiceEntity = Domain.Entities.Invoice.Invoice;
 
-namespace Application.UseCases.Invoice;
+namespace Application.UseCase.Invoice;
 
 public sealed class UpdateInvoiceHandler
     : IRequestHandler<UpdateInvoice, Unit>
@@ -24,7 +24,7 @@ public sealed class UpdateInvoiceHandler
         var entity = await _uow.Invoices.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("Invoice no encontrado.");
+            throw new KeyNotFoundException("InvoiceEntity no encontrado.");
 
         entity.UpdateOrderId(request.OrderId);
         entity.UpdateStatusId(request.StatusId);
@@ -41,3 +41,4 @@ public sealed class UpdateInvoiceHandler
         return Unit.Value;
     }
 }
+

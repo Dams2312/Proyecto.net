@@ -1,9 +1,10 @@
 using System;
-using Domain.Entities.MileageHistory;
 using MediatR;
+using MileageHistoryEntity = Domain.Entities.MileageHistory.MileageHistory;
 
-namespace Application.UseCases.MileageHistory;
+namespace Application.UseCase.MileageHistory;
 
 public sealed record GetMileageHistoryById(
     Guid Id
-) : IRequest<MileageHistory>;
+) : IRequest<MileageHistoryEntity>;
+

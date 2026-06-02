@@ -1,6 +1,6 @@
 using Api.Dtos.Appointment;
 using Application.Abstractions;
-using Application.UseCase.Appoinment;
+using Application.UseCase.AppointmentEntity;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -76,7 +76,7 @@ public sealed class AppointmentsController : BaseApiController
         [FromBody] CreateAppointmentRequest request,
         CancellationToken ct)
     {
-        var command = _mapper.Map<CreateAppointment>(request);
+        var command = _mapper.Map<CreateAppoinment>(request);
         var id = await _sender.Send(command, ct);
 
         var item = await _uow.Appointments.GetByIdAsync(id, ct);
@@ -97,7 +97,7 @@ public sealed class AppointmentsController : BaseApiController
         var entity = await _uow.Appointments.GetByIdAsync(id, ct);
         if (entity is null) return NotFound();
 
-        var command = _mapper.Map<UpdateAppointment>(request);
+        var command = _mapper.Map<UpdateAppoinment>(request);
         await _sender.Send(command, ct);
 
         return NoContent();

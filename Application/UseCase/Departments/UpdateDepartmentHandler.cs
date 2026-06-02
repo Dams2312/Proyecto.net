@@ -1,11 +1,12 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.Entities.Departments;
 using Domain.ValueObject.Department;
 using MediatR;
+using Department = Domain.Entities.Departments.Department;
 
-namespace Application.UseCases.Departments;
+namespace Application.UseCase.Departament;
 
 public sealed class UpdateDepartmentHandler
     : IRequestHandler<UpdateDepartment, Unit>
@@ -28,7 +29,7 @@ public sealed class UpdateDepartmentHandler
 
         entity.UpdateCode(DepartmentCode.Create(request.Code));
         entity.UpdateName(DepartmentName.Create(request.Name));
-        entity.UpdateCountryId(request.CountryId);
+        entity.UpdateCountry(request.CountryId);
 
         await _uow.Departments.UpdateAsync(entity, ct);
         await _uow.SaveChangesAsync(ct);
@@ -36,3 +37,4 @@ public sealed class UpdateDepartmentHandler
         return Unit.Value;
     }
 }
+

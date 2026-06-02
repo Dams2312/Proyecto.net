@@ -1,7 +1,8 @@
 using System;
 using MediatR;
+using MechanicTaskEntity = Domain.Entities.MechanicTask.MechanicTask;
 
-namespace Application.UseCases.MechanicTask;
+namespace Application.UseCase.MechanicTask;
 
 public sealed record UpdateMechanicTask(
     Guid Id,
@@ -15,3 +16,4 @@ public sealed record UpdateMechanicTask(
     DateTime FechaFin,
     string Status
 ) : IRequest<Unit>;
+

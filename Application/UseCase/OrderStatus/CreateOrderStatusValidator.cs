@@ -1,6 +1,7 @@
 using FluentValidation;
+using OrderStatusEntity = Domain.Entities.OrderStatus.OrderStatus;
 
-namespace Application.UseCases.OrderStatus;
+namespace Application.UseCase.OrderStatus;
 
 public sealed class CreateOrderStatusValidator
     : AbstractValidator<CreateOrderStatus>
@@ -15,8 +16,8 @@ public sealed class CreateOrderStatusValidator
 
         RuleFor(x => x.Description)
             .NotEmpty()
-            .WithMessage("La descripción del estado de la orden es obligatorio.")
+            .WithMessage("La descripciÃ³n del estado de la orden es obligatorio.")
             .MaximumLength(200)
-            .WithMessage("La descripción no puede superar los 200 caracteres.");
+            .WithMessage("La descripciÃ³n no puede superar los 200 caracteres.");
     }
 }

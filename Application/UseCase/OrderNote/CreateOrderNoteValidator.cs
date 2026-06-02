@@ -1,7 +1,8 @@
 using System;
 using FluentValidation;
+using OrderNoteEntity = Domain.Entities.OrderNote.OrderNote;
 
-namespace Application.UseCases.OrderNote;
+namespace Application.UseCase.OrderNote;
 
 public sealed class CreateOrderNoteValidator
     : AbstractValidator<CreateOrderNote>

@@ -24,11 +24,11 @@ public sealed class CitiesController : BaseApiController
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyList<CityDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<IReadOnlyList<CityDto>>> GetAll(CancellationToken ct)
+    [ProducesResponseType(typeof(IReadOnlyList<CitysDto>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<IReadOnlyList<CitysDto>>> GetAll(CancellationToken ct)
     {
         var items = await _uow.Cities.GetAllAsync(ct);
-        return Ok(_mapper.Map<IReadOnlyList<CityDto>>(items));
+        return Ok(_mapper.Map<IReadOnlyList<CitysDto>>(items));
     }
 
     [HttpGet("paged")]
@@ -40,35 +40,35 @@ public sealed class CitiesController : BaseApiController
 
         var items = await _uow.Cities.GetPagedAsync(page, pageSize, search, ct);
         var total = await _uow.Cities.CountAsync(search, ct);
-        var mapped = _mapper.Map<IReadOnlyList<CityDto>>(items);
+        var mapped = _mapper.Map<IReadOnlyList<CitysDto>>(items);
         return Ok(new { page, pageSize, total, items = mapped });
     }
 
     [HttpGet("{id:guid}")]
-    [ProducesResponseType(typeof(CityDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(CitysDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<CityDto>> GetById(Guid id, CancellationToken ct)
+    public async Task<ActionResult<CitysDto>> GetById(Guid id, CancellationToken ct)
     {
         var item = await _uow.Cities.GetByIdAsync(id, ct);
         if (item is null) return NotFound();
-        return Ok(_mapper.Map<CityDto>(item));
+        return Ok(_mapper.Map<CitysDto>(item));
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(CityDto), StatusCodes.Status201Created)]
-    public async Task<IActionResult> Create([FromBody] CreateCityRequest request, CancellationToken ct)
+    [ProducesResponseType(typeof(CitysDto), StatusCodes.Status201Created)]
+    public async Task<IActionResult> Create([FromBody] CreateCitysRequest request, CancellationToken ct)
     {
         var command = _mapper.Map<CreateCity>(request);
         var id = await _sender.Send(command, ct);
         var item = await _uow.Cities.GetByIdAsync(id, ct);
         if (item is null) return NotFound();
-        return CreatedAtAction(nameof(GetById), new { id }, _mapper.Map<CityDto>(item));
+        return CreatedAtAction(nameof(GetById), new { id }, _mapper.Map<CitysDto>(item));
     }
 
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Update(Guid id, [FromBody] UpdateCityRequest request, CancellationToken ct)
+    public async Task<IActionResult> Update(Guid id, [FromBody] UpdateCitysRequest request, CancellationToken ct)
     {
         var entity = await _uow.Cities.GetByIdAsync(id, ct);
         if (entity is null) return NotFound();

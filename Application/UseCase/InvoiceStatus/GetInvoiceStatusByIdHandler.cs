@@ -1,13 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.InvoiceStatus;
 using MediatR;
+using InvoiceStatusEntity = Domain.Entities.InvoiceStatus.InvoiceStatus;
 
-namespace Application.UseCases.InvoiceStatus;
+namespace Application.UseCase.InvoiceStatus;
 
 public sealed class GetInvoiceStatusByIdHandler
-    : IRequestHandler<GetInvoiceStatusById, InvoiceStatus>
+    : IRequestHandler<GetInvoiceStatusById, InvoiceStatusEntity>
 {
     private readonly IUnitOfWork _uow;
 
@@ -16,15 +16,16 @@ public sealed class GetInvoiceStatusByIdHandler
         _uow = uow;
     }
 
-    public async Task<InvoiceStatus> Handle(
+    public async Task<InvoiceStatusEntity> Handle(
         GetInvoiceStatusById request,
         CancellationToken ct)
     {
         var entity = await _uow.InvoiceStatuses.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("InvoiceStatus no encontrado.");
+            throw new KeyNotFoundException("InvoiceStatusEntity no encontrado.");
 
         return entity;
     }
 }
+

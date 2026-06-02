@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using MediatR;
+using City = Domain.Entities.Citys.City;
 
-namespace Application.UseCases.Citys;
+namespace Application.UseCase.Citys;
 
 public sealed record UpdateCity(
     Guid Id,
@@ -9,3 +10,4 @@ public sealed record UpdateCity(
     string Name,
     string Code
 ) : IRequest<Unit>;
+

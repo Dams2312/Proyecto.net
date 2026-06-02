@@ -1,7 +1,8 @@
 using System;
 using FluentValidation;
+using OrderServiceEntity = Domain.Entities.OrderService.OrderService;
 
-namespace Application.UseCases.OrderService;
+namespace Application.UseCase.OrderService;
 
 public sealed class CreateOrderServiceValidator
     : AbstractValidator<CreateOrderService>
@@ -10,7 +11,7 @@ public sealed class CreateOrderServiceValidator
     {
         RuleFor(x => x.VehicleId)
             .NotEqual(Guid.Empty)
-            .WithMessage("El id del vehículo debe ser mayor a 0.");
+            .WithMessage("El id del vehÃ­culo debe ser mayor a 0.");
 
         RuleFor(x => x.ReceptionistId)
             .NotEqual(Guid.Empty)

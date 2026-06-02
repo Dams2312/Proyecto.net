@@ -2,8 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using OrderNoteEntity = Domain.Entities.OrderNote.OrderNote;
 
-namespace Application.UseCases.OrderNote;
+namespace Application.UseCase.OrderNote;
 
 public sealed class DeleteOrderNoteHandler
     : IRequestHandler<DeleteOrderNote, Unit>
@@ -22,7 +23,7 @@ public sealed class DeleteOrderNoteHandler
         var entity = await _uow.OrderNotes.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderNote no encontrado.");
+            throw new KeyNotFoundException("OrderNoteEntity no encontrado.");
 
         await _uow.OrderNotes.RemoveAsync(entity, ct);
         await _uow.SaveChangesAsync(ct);
@@ -30,3 +31,4 @@ public sealed class DeleteOrderNoteHandler
         return Unit.Value;
     }
 }
+

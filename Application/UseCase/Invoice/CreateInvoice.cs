@@ -1,6 +1,7 @@
 using MediatR;
+using InvoiceEntity = Domain.Entities.Invoice.Invoice;
 
-namespace Application.UseCases.Invoice;
+namespace Application.UseCase.Invoice;
 
 public sealed record CreateInvoice(
     Guid OrderId,

@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.OrderStatusHistory;
 using MediatR;
+using OrderStatusHistoryEntity = Domain.Entities.OrderStatusHistory.OrderStatusHistory;
 
-namespace Application.UseCases.OrderStatusHistory;
+namespace Application.UseCase.OrderStatusHistory;
 
 public sealed class GetOrderStatusHistoriesPagedHandler
-    : IRequestHandler<GetOrderStatusHistoriesPaged, IReadOnlyList<OrderStatusHistory>>
+    : IRequestHandler<GetOrderStatusHistoriesPaged, IReadOnlyList<OrderStatusHistoryEntity>>
 {
     private readonly IUnitOfWork _uow;
 
@@ -17,7 +17,7 @@ public sealed class GetOrderStatusHistoriesPagedHandler
         _uow = uow;
     }
 
-    public async Task<IReadOnlyList<OrderStatusHistory>> Handle(
+    public async Task<IReadOnlyList<OrderStatusHistoryEntity>> Handle(
         GetOrderStatusHistoriesPaged request,
         CancellationToken ct)
     {
@@ -28,3 +28,4 @@ public sealed class GetOrderStatusHistoriesPagedHandler
             ct);
     }
 }
+

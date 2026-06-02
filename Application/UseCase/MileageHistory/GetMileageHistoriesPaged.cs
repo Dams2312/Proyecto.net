@@ -1,11 +1,12 @@
 using System.Collections.Generic;
-using Domain.Entities.MileageHistory;
 using MediatR;
+using MileageHistoryEntity = Domain.Entities.MileageHistory.MileageHistory;
 
-namespace Application.UseCases.MileageHistory;
+namespace Application.UseCase.MileageHistory;
 
 public sealed record GetMileageHistoriesPaged(
     int Page,
     int PageSize,
     string? Search
-) : IRequest<IReadOnlyList<MileageHistory>>;
+) : IRequest<IReadOnlyList<MileageHistoryEntity>>;
+

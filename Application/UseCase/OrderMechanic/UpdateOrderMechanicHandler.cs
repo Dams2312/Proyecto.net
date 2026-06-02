@@ -1,11 +1,11 @@
+using Domain.ValueObject.OrderMechanic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.OrderMechanic;
-using Domain.ValueObject.OrderMechanic;
 using MediatR;
+using OrderMechanicEntity = Domain.Entities.OrderMechanic.OrderMechanic;
 
-namespace Application.UseCases.OrderMechanic;
+namespace Application.UseCase.OrderMechanic;
 
 public sealed class UpdateOrderMechanicHandler
     : IRequestHandler<UpdateOrderMechanic, Unit>
@@ -24,11 +24,11 @@ public sealed class UpdateOrderMechanicHandler
         var entity = await _uow.OrderMechanics.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderMechanic no encontrado.");
+            throw new KeyNotFoundException("OrderMechanicEntity no encontrado.");
 
         entity.UpdateOrderId(OrderMechanicOrderId.Create(request.OrderId));
         entity.UpdateMechanicId(OrderMechanicMechanicId.Create(request.MechanicId));
-        entity.UpdateFechaAsignacion(OrderMechanicFechaAsignacion.Create(request.FechaAsignacion));
+        entity.UpdateFechaAsignacion(OrderMechanicFechaAsignacion.Create(DateOnly.FromDateTime(request.FechaAsignacion)));
 
         await _uow.OrderMechanics.UpdateAsync(entity, ct);
         await _uow.SaveChangesAsync(ct);
@@ -36,3 +36,4 @@ public sealed class UpdateOrderMechanicHandler
         return Unit.Value;
     }
 }
+

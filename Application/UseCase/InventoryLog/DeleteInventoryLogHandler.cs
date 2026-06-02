@@ -2,8 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using InventoryLogEntity = Domain.Entities.InventoryLog.InventoryLog;
 
-namespace Application.UseCases.InventoryLog;
+namespace Application.UseCase.InventoryLog;
 
 public sealed class DeleteInventoryLogHandler
     : IRequestHandler<DeleteInventoryLog, Unit>
@@ -22,7 +23,7 @@ public sealed class DeleteInventoryLogHandler
         var entity = await _uow.InventoryLogs.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("InventoryLog no encontrado.");
+            throw new KeyNotFoundException("InventoryLogEntity no encontrado.");
 
         await _uow.InventoryLogs.RemoveAsync(entity, ct);
         await _uow.SaveChangesAsync(ct);
@@ -30,3 +31,4 @@ public sealed class DeleteInventoryLogHandler
         return Unit.Value;
     }
 }
+

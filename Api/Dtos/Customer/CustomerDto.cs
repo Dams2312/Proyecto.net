@@ -1,3 +1,6 @@
+using Api.Dtos.CustomerPhone;
+using Api.Dtos.CustomerEmail;
+using Api.Dtos.CustomerAddress;
 using System;
 using System.Collections.Generic;
 using System.Linq;

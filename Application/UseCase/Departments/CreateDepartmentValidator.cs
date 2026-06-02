@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using FluentValidation;
+using Department = Domain.Entities.Departments.Department;
 
-namespace Application.UseCases.Departments;
+namespace Application.UseCase.Departament;
 
 public sealed class CreateDepartmentValidator
     : AbstractValidator<CreateDepartment>
@@ -10,9 +11,9 @@ public sealed class CreateDepartmentValidator
     {
         RuleFor(x => x.Code)
             .NotEmpty()
-            .WithMessage("El código del departamento es obligatorio.")
+            .WithMessage("El cÃ³digo del departamento es obligatorio.")
             .Length(4)
-            .WithMessage("El código del departamento debe tener exactamente 4 caracteres.");
+            .WithMessage("El cÃ³digo del departamento debe tener exactamente 4 caracteres.");
 
         RuleFor(x => x.Name)
             .NotEmpty()
@@ -24,6 +25,6 @@ public sealed class CreateDepartmentValidator
 
         RuleFor(x => x.CountryId)
             .NotEqual(Guid.Empty)
-            .WithMessage("El ID del país debe ser un número positivo.");
+            .WithMessage("El ID del paÃ­s debe ser un nÃºmero positivo.");
     }
 }

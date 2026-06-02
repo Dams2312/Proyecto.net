@@ -1,10 +1,9 @@
-using Application.Abstractions;
-using Domain.Entities.OrderMechanic;
 using Domain.ValueObject.OrderMechanic;
+using Application.Abstractions;
 using MediatR;
 using OrderMechanicEntity = Domain.Entities.OrderMechanic.OrderMechanic;
 
-namespace Application.UseCases.OrderMechanic;
+namespace Application.UseCase.OrderMechanic;
 
 public sealed class CreateOrderMechanicHandler
     : IRequestHandler<CreateOrderMechanic, Guid>

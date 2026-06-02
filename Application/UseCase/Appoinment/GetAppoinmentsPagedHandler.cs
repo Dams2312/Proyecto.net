@@ -1,11 +1,12 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.Entities.Appointment;
 using MediatR;
+using AppointmentEntity = Domain.Entities.Appointment.Appointment;
 
-namespace Application.UseCases.Appoinment;
+namespace Application.UseCase.AppointmentEntity;
 
 public sealed class GetAppoinmentsPagedHandler
     : IRequestHandler<GetAppoinmentsPaged, IReadOnlyList<Appointment>>
@@ -28,3 +29,4 @@ public sealed class GetAppoinmentsPagedHandler
             ct);
     }
 }
+

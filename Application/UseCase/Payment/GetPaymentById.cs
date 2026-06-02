@@ -1,9 +1,9 @@
 using System;
-using Domain.Entities.Payment;
 using MediatR;
+using PaymentEntity = Domain.Entities.Payment.Payment;
 
-namespace Application.UseCases.Payment;
+namespace Application.UseCase.Payment;
 
 public sealed record GetPaymentById(
     Guid Id
-) : IRequest<Payment>;
+) : IRequest<PaymentEntity>;

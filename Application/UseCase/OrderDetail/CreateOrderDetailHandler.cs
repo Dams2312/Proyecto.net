@@ -1,10 +1,9 @@
-using Application.Abstractions;
-using Domain.Entities.OrderDetail;
 using Domain.ValueObject.OrderDetail;
+using Application.Abstractions;
 using MediatR;
 using OrderDetailEntity = Domain.Entities.OrderDetail.OrderDetail;
 
-namespace Application.UseCases.OrderDetail;
+namespace Application.UseCase.OrderDetail;
 
 public sealed class CreateOrderDetailHandler
     : IRequestHandler<CreateOrderDetail, Guid>

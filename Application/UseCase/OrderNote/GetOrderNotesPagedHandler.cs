@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.OrderNote;
 using MediatR;
+using OrderNoteEntity = Domain.Entities.OrderNote.OrderNote;
 
-namespace Application.UseCases.OrderNote;
+namespace Application.UseCase.OrderNote;
 
 public sealed class GetOrderNotesPagedHandler
-    : IRequestHandler<GetOrderNotesPaged, IReadOnlyList<OrderNote>>
+    : IRequestHandler<GetOrderNotesPaged, IReadOnlyList<OrderNoteEntity>>
 {
     private readonly IUnitOfWork _uow;
 
@@ -17,7 +17,7 @@ public sealed class GetOrderNotesPagedHandler
         _uow = uow;
     }
 
-    public async Task<IReadOnlyList<OrderNote>> Handle(
+    public async Task<IReadOnlyList<OrderNoteEntity>> Handle(
         GetOrderNotesPaged request,
         CancellationToken ct)
     {
@@ -28,3 +28,4 @@ public sealed class GetOrderNotesPagedHandler
             ct);
     }
 }
+

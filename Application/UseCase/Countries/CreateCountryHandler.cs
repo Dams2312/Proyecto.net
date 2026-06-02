@@ -1,12 +1,13 @@
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.Entities.Countries;
 using Domain.ValueObject.Country;
 using MediatR;
+using Country = Domain.Entities.Countries.Country;
 
-namespace Application.UseCases.Countries;
+namespace Application.UseCase.Countries;
 
 public sealed class CreateCountryHandler
     : IRequestHandler<CreateCountry, Guid>
@@ -33,3 +34,4 @@ public sealed class CreateCountryHandler
         return country.Id;
     }
 }
+

@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.Purchase;
 using MediatR;
+using PurchaseEntity = Domain.Entities.Purchase.Purchase;
 
-namespace Application.UseCases.Purchase;
+namespace Application.UseCase.Purchase;
 
 public sealed class GetPurchasesPagedHandler
-    : IRequestHandler<GetPurchasesPaged, IReadOnlyList<Purchase>>
+    : IRequestHandler<GetPurchasesPaged, IReadOnlyList<PurchaseEntity>>
 {
     private readonly IUnitOfWork _uow;
 
@@ -17,7 +17,7 @@ public sealed class GetPurchasesPagedHandler
         _uow = uow;
     }
 
-    public async Task<IReadOnlyList<Purchase>> Handle(
+    public async Task<IReadOnlyList<PurchaseEntity>> Handle(
         GetPurchasesPaged request,
         CancellationToken ct)
     {

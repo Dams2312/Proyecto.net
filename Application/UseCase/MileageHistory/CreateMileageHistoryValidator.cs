@@ -1,7 +1,8 @@
 using System;
 using FluentValidation;
+using MileageHistoryEntity = Domain.Entities.MileageHistory.MileageHistory;
 
-namespace Application.UseCases.MileageHistory;
+namespace Application.UseCase.MileageHistory;
 
 public sealed class CreateMileageHistoryValidator
     : AbstractValidator<CreateMileageHistory>
@@ -10,7 +11,7 @@ public sealed class CreateMileageHistoryValidator
     {
         RuleFor(x => x.VehicleId)
             .NotEqual(Guid.Empty)
-            .WithMessage("El id del vehículo debe ser mayor a 0.");
+            .WithMessage("El id del vehÃ­culo debe ser mayor a 0.");
 
         RuleFor(x => x.Kilometraje)
             .GreaterThanOrEqualTo(0)

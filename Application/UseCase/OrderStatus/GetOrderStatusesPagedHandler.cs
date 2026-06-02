@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.OrderStatus;
 using MediatR;
+using OrderStatusEntity = Domain.Entities.OrderStatus.OrderStatus;
 
-namespace Application.UseCases.OrderStatus;
+namespace Application.UseCase.OrderStatus;
 
 public sealed class GetOrderStatusesPagedHandler
-    : IRequestHandler<GetOrderStatusesPaged, IReadOnlyList<OrderStatus>>
+    : IRequestHandler<GetOrderStatusesPaged, IReadOnlyList<OrderStatusEntity>>
 {
     private readonly IUnitOfWork _uow;
 
@@ -17,7 +17,7 @@ public sealed class GetOrderStatusesPagedHandler
         _uow = uow;
     }
 
-    public async Task<IReadOnlyList<OrderStatus>> Handle(
+    public async Task<IReadOnlyList<OrderStatusEntity>> Handle(
         GetOrderStatusesPaged request,
         CancellationToken ct)
     {
@@ -28,3 +28,4 @@ public sealed class GetOrderStatusesPagedHandler
             ct);
     }
 }
+

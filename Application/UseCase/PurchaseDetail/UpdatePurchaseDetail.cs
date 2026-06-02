@@ -1,7 +1,8 @@
 using System;
 using MediatR;
+using PurchaseDetailEntity = Domain.Entities.PurchaseDetail.PurchaseDetail;
 
-namespace Application.UseCases.PurchaseDetail;
+namespace Application.UseCase.PurchaseDetail;
 
 public sealed record UpdatePurchaseDetail(
     Guid Id,
@@ -10,3 +11,4 @@ public sealed record UpdatePurchaseDetail(
     int Quantity,
     decimal UnitPrice
 ) : IRequest<Unit>;
+

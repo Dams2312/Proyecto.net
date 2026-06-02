@@ -1,7 +1,8 @@
 using System;
 using MediatR;
+using InvoiceEntity = Domain.Entities.Invoice.Invoice;
 
-namespace Application.UseCases.Invoice;
+namespace Application.UseCase.Invoice;
 
 public sealed record UpdateInvoice(
     Guid Id,
@@ -14,3 +15,4 @@ public sealed record UpdateInvoice(
     decimal Descuento,
     decimal Total
 ) : IRequest<Unit>;
+

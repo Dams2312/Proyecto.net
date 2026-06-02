@@ -1,11 +1,12 @@
 using System.Collections.Generic;
-using Domain.Entities.InventoryLog;
 using MediatR;
+using InventoryLogEntity = Domain.Entities.InventoryLog.InventoryLog;
 
-namespace Application.UseCases.InventoryLog;
+namespace Application.UseCase.InventoryLog;
 
 public sealed record GetInventoryLogsPaged(
     int Page,
     int PageSize,
     string? Search
-) : IRequest<IReadOnlyList<InventoryLog>>;
+) : IRequest<IReadOnlyList<InventoryLogEntity>>;
+

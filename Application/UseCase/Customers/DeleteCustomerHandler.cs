@@ -1,9 +1,10 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using Customer = Domain.Entities.Customers.Customer;
 
-namespace Application.UseCases.Customers;
+namespace Application.UseCase.Customers;
 
 public sealed class DeleteCustomerHandler
     : IRequestHandler<DeleteCustomer, Unit>
@@ -30,3 +31,4 @@ public sealed class DeleteCustomerHandler
         return Unit.Value;
     }
 }
+

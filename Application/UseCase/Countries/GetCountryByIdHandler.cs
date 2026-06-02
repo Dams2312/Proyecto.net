@@ -1,10 +1,11 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.Entities.Countries;
 using MediatR;
+using Country = Domain.Entities.Countries.Country;
 
-namespace Application.UseCases.Countries;
+namespace Application.UseCase.Countries;
 
 public sealed class GetCountryByIdHandler
     : IRequestHandler<GetCountryById, Country>
@@ -23,8 +24,9 @@ public sealed class GetCountryByIdHandler
         var country = await _uow.Countries.GetByIdAsync(request.Id, ct);
 
         if (country is null)
-            throw new KeyNotFoundException("País no encontrado.");
+            throw new KeyNotFoundException("PaÃ­s no encontrado.");
 
         return country;
     }
 }
+

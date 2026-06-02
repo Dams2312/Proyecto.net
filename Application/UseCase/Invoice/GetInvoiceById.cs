@@ -1,9 +1,9 @@
 using System;
-using Domain.Entities.Invoice;
 using MediatR;
+using InvoiceEntity = Domain.Entities.Invoice.Invoice;
 
-namespace Application.UseCases.Invoice;
+namespace Application.UseCase.Invoice;
 
 public sealed record GetInvoiceById(
     Guid Id
-) : IRequest<Invoice>;
+) : IRequest<InvoiceEntity>;

@@ -1,8 +1,10 @@
-using System;
+﻿using System;
 using MediatR;
+using AppointmentEntity = Domain.Entities.Appointment.Appointment;
 
-namespace Application.UseCases.Appoinment;
+namespace Application.UseCase.AppointmentEntity;
 
 public sealed record DeleteAppoinment(
     Guid Id
 ) : IRequest<Unit>;
+

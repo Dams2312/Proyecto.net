@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using MediatR;
+using AppointmentEntity = Domain.Entities.Appointment.Appointment;
 
-namespace Application.UseCases.Appoinment;
+namespace Application.UseCase.AppointmentEntity;
 
 public sealed record CreateAppoinment(
     Guid VehicleId,
@@ -13,3 +14,4 @@ public sealed record CreateAppoinment(
     string Status,
     string? Observations
 ) : IRequest<Guid>;
+

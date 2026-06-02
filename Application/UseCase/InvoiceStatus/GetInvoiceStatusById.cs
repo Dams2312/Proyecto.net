@@ -1,9 +1,10 @@
 using System;
-using Domain.Entities.InvoiceStatus;
 using MediatR;
+using InvoiceStatusEntity = Domain.Entities.InvoiceStatus.InvoiceStatus;
 
-namespace Application.UseCases.InvoiceStatus;
+namespace Application.UseCase.InvoiceStatus;
 
 public sealed record GetInvoiceStatusById(
     Guid Id
-) : IRequest<InvoiceStatus>;
+) : IRequest<InvoiceStatusEntity>;
+

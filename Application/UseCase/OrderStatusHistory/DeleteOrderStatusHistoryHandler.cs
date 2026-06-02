@@ -2,8 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using OrderStatusHistoryEntity = Domain.Entities.OrderStatusHistory.OrderStatusHistory;
 
-namespace Application.UseCases.OrderStatusHistory;
+namespace Application.UseCase.OrderStatusHistory;
 
 public sealed class DeleteOrderStatusHistoryHandler
     : IRequestHandler<DeleteOrderStatusHistory, Unit>
@@ -22,7 +23,7 @@ public sealed class DeleteOrderStatusHistoryHandler
         var entity = await _uow.OrderStatusHistories.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderStatusHistory no encontrado.");
+            throw new KeyNotFoundException("OrderStatusHistoryEntity no encontrado.");
 
         await _uow.OrderStatusHistories.RemoveAsync(entity, ct);
         await _uow.SaveChangesAsync(ct);
@@ -30,3 +31,4 @@ public sealed class DeleteOrderStatusHistoryHandler
         return Unit.Value;
     }
 }
+

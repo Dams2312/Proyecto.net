@@ -1,11 +1,12 @@
 using System.Collections.Generic;
-using Domain.Entities.OrderMechanic;
 using MediatR;
+using OrderMechanicEntity = Domain.Entities.OrderMechanic.OrderMechanic;
 
-namespace Application.UseCases.OrderMechanic;
+namespace Application.UseCase.OrderMechanic;
 
 public sealed record GetOrderMechanicsPaged(
     int Page,
     int PageSize,
     string? Search
-) : IRequest<IReadOnlyList<OrderMechanic>>;
+) : IRequest<IReadOnlyList<OrderMechanicEntity>>;
+

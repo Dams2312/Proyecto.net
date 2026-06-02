@@ -1,11 +1,11 @@
+using Domain.ValueObject.OrderNote;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.OrderNote;
-using Domain.ValueObject.OrderNote;
 using MediatR;
+using OrderNoteEntity = Domain.Entities.OrderNote.OrderNote;
 
-namespace Application.UseCases.OrderNote;
+namespace Application.UseCase.OrderNote;
 
 public sealed class UpdateOrderNoteHandler
     : IRequestHandler<UpdateOrderNote, Unit>
@@ -24,7 +24,7 @@ public sealed class UpdateOrderNoteHandler
         var entity = await _uow.OrderNotes.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderNote no encontrado.");
+            throw new KeyNotFoundException("OrderNoteEntity no encontrado.");
 
         entity.UpdateOrderId(OrderNoteOrderId.Create(request.OrderId));
         entity.UpdateUserId(OrderNoteUserId.Create(request.UserId));
@@ -37,3 +37,4 @@ public sealed class UpdateOrderNoteHandler
         return Unit.Value;
     }
 }
+

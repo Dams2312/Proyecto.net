@@ -1,8 +1,10 @@
 using System;
 using MediatR;
+using OrderServiceEntity = Domain.Entities.OrderService.OrderService;
 
-namespace Application.UseCases.OrderService;
+namespace Application.UseCase.OrderService;
 
 public sealed record DeleteOrderService(
     Guid Id
 ) : IRequest<Unit>;
+

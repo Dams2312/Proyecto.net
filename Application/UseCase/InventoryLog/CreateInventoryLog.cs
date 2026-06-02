@@ -1,6 +1,7 @@
 using MediatR;
+using InventoryLogEntity = Domain.Entities.InventoryLog.InventoryLog;
 
-namespace Application.UseCases.InventoryLog;
+namespace Application.UseCase.InventoryLog;
 
 public sealed record CreateInventoryLog(
     Guid SparePartId,
@@ -13,3 +14,4 @@ public sealed record CreateInventoryLog(
     Guid PurchaseId,
     string Motivo
 ) : IRequest<Guid>;
+

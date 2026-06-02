@@ -1,10 +1,11 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.ValueObject.Audit;
 using MediatR;
+using Audit = Domain.Entities.Audit.Audit;
 
-namespace Application.UseCases.Audit;
+namespace Application.UseCase.Audit;
 
 public sealed class UpdateAuditHandler
     : IRequestHandler<UpdateAudit, Unit>
@@ -23,7 +24,7 @@ public sealed class UpdateAuditHandler
         var audit = await _uow.Audits.GetByIdAsync(request.Id, ct);
 
         if (audit is null)
-            throw new KeyNotFoundException("Auditoría no encontrada.");
+            throw new KeyNotFoundException("AuditorÃ­a no encontrada.");
 
         audit.UpdateEntidad(AuditEntidad.Create(request.Entity));
         audit.UpdateFecha(AuditFecha.Create(request.Date));
@@ -38,3 +39,4 @@ public sealed class UpdateAuditHandler
         return Unit.Value;
     }
 }
+

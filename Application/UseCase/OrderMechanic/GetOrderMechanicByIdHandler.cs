@@ -1,13 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.OrderMechanic;
 using MediatR;
+using OrderMechanicEntity = Domain.Entities.OrderMechanic.OrderMechanic;
 
-namespace Application.UseCases.OrderMechanic;
+namespace Application.UseCase.OrderMechanic;
 
 public sealed class GetOrderMechanicByIdHandler
-    : IRequestHandler<GetOrderMechanicById, OrderMechanic>
+    : IRequestHandler<GetOrderMechanicById, OrderMechanicEntity>
 {
     private readonly IUnitOfWork _uow;
 
@@ -16,15 +16,16 @@ public sealed class GetOrderMechanicByIdHandler
         _uow = uow;
     }
 
-    public async Task<OrderMechanic> Handle(
+    public async Task<OrderMechanicEntity> Handle(
         GetOrderMechanicById request,
         CancellationToken ct)
     {
         var entity = await _uow.OrderMechanics.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderMechanic no encontrado.");
+            throw new KeyNotFoundException("OrderMechanicEntity no encontrado.");
 
         return entity;
     }
 }
+

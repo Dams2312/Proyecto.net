@@ -1,7 +1,8 @@
 using System;
 using FluentValidation;
+using OrderStatusHistoryEntity = Domain.Entities.OrderStatusHistory.OrderStatusHistory;
 
-namespace Application.UseCases.OrderStatusHistory;
+namespace Application.UseCase.OrderStatusHistory;
 
 public sealed class CreateOrderStatusHistoryValidator
     : AbstractValidator<CreateOrderStatusHistory>

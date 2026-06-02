@@ -1,6 +1,7 @@
-using FluentValidation;
+﻿using FluentValidation;
+using Audit = Domain.Entities.Audit.Audit;
 
-namespace Application.UseCases.Audit;
+namespace Application.UseCase.Audit;
 
 public sealed class UpdateAuditValidator
     : AbstractValidator<UpdateAudit>
@@ -31,3 +32,4 @@ public sealed class UpdateAuditValidator
             .MaximumLength(100);
     }
 }
+

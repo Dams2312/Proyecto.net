@@ -1,11 +1,11 @@
+using Domain.ValueObject.InvoiceStatus;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.InvoiceStatus;
-using Domain.ValueObject.InvoiceStatus;
 using MediatR;
+using InvoiceStatusEntity = Domain.Entities.InvoiceStatus.InvoiceStatus;
 
-namespace Application.UseCases.InvoiceStatus;
+namespace Application.UseCase.InvoiceStatus;
 
 public sealed class UpdateInvoiceStatusHandler
     : IRequestHandler<UpdateInvoiceStatus, Unit>
@@ -24,7 +24,7 @@ public sealed class UpdateInvoiceStatusHandler
         var entity = await _uow.InvoiceStatuses.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("InvoiceStatus no encontrado.");
+            throw new KeyNotFoundException("InvoiceStatusEntity no encontrado.");
 
         entity.UpdateName(InvoiceStatusName.Create(request.Name));
 
@@ -34,3 +34,4 @@ public sealed class UpdateInvoiceStatusHandler
         return Unit.Value;
     }
 }
+

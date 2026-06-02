@@ -2,8 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using OrderDetailEntity = Domain.Entities.OrderDetail.OrderDetail;
 
-namespace Application.UseCases.OrderDetail;
+namespace Application.UseCase.OrderDetail;
 
 public sealed class DeleteOrderDetailHandler
     : IRequestHandler<DeleteOrderDetail, Unit>
@@ -22,7 +23,7 @@ public sealed class DeleteOrderDetailHandler
         var entity = await _uow.OrderDetails.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderDetail no encontrado.");
+            throw new KeyNotFoundException("OrderDetailEntity no encontrado.");
 
         await _uow.OrderDetails.RemoveAsync(entity, ct);
         await _uow.SaveChangesAsync(ct);
@@ -30,3 +31,4 @@ public sealed class DeleteOrderDetailHandler
         return Unit.Value;
     }
 }
+

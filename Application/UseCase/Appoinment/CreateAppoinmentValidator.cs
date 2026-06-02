@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using FluentValidation;
+using AppointmentEntity = Domain.Entities.Appointment.Appointment;
 
-namespace Application.UseCases.Appoinment;
+namespace Application.UseCase.AppointmentEntity;
 
 public sealed class CreateAppoinmentValidator
     : AbstractValidator<CreateAppoinment>
@@ -10,7 +11,7 @@ public sealed class CreateAppoinmentValidator
     {
         RuleFor(x => x.VehicleId)
             .NotEqual(Guid.Empty)
-            .WithMessage("El id del vehículo debe ser mayor a 0.");
+            .WithMessage("El id del vehÃ­culo debe ser mayor a 0.");
 
         RuleFor(x => x.ServiceTypeId)
             .NotEqual(Guid.Empty)
@@ -36,10 +37,11 @@ public sealed class CreateAppoinmentValidator
             .NotEmpty()
             .WithMessage("El estado de la cita es obligatorio.")
             .Must(s => s is "pendiente" or "confirmada" or "cancelada" or "completada")
-            .WithMessage("El estado de la cita no es válido.");
+            .WithMessage("El estado de la cita no es vÃ¡lido.");
 
         RuleFor(x => x.Observations)
             .MaximumLength(2000)
             .WithMessage("Las observaciones no pueden superar los 2000 caracteres.");
     }
 }
+

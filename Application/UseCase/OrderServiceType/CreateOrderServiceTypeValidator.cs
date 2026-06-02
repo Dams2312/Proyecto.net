@@ -1,7 +1,8 @@
 using System;
 using FluentValidation;
+using OrderServiceTypeEntity = Domain.Entities.OrderServiceType.OrderServiceType;
 
-namespace Application.UseCases.OrderServiceType;
+namespace Application.UseCase.OrderServiceType;
 
 public sealed class CreateOrderServiceTypeValidator
     : AbstractValidator<CreateOrderServiceType>

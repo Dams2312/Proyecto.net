@@ -1,6 +1,7 @@
 using FluentValidation;
+using InvoiceStatusEntity = Domain.Entities.InvoiceStatus.InvoiceStatus;
 
-namespace Application.UseCases.InvoiceStatus;
+namespace Application.UseCase.InvoiceStatus;
 
 public sealed class CreateInvoiceStatusValidator
     : AbstractValidator<CreateInvoiceStatus>

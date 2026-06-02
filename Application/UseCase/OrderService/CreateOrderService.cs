@@ -1,6 +1,7 @@
 using MediatR;
+using OrderServiceEntity = Domain.Entities.OrderService.OrderService;
 
-namespace Application.UseCases.OrderService;
+namespace Application.UseCase.OrderService;
 
 public sealed record CreateOrderService(
     Guid VehicleId,
@@ -13,3 +14,4 @@ public sealed record CreateOrderService(
     Guid? AppointmentId,
     string Observaciones
 ) : IRequest<Guid>;
+

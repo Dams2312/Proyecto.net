@@ -1,13 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.OrderService;
 using MediatR;
+using OrderServiceEntity = Domain.Entities.OrderService.OrderService;
 
-namespace Application.UseCases.OrderService;
+namespace Application.UseCase.OrderService;
 
 public sealed class GetOrderServiceByIdHandler
-    : IRequestHandler<GetOrderServiceById, OrderService>
+    : IRequestHandler<GetOrderServiceById, OrderServiceEntity>
 {
     private readonly IUnitOfWork _uow;
 
@@ -16,15 +16,16 @@ public sealed class GetOrderServiceByIdHandler
         _uow = uow;
     }
 
-    public async Task<OrderService> Handle(
+    public async Task<OrderServiceEntity> Handle(
         GetOrderServiceById request,
         CancellationToken ct)
     {
         var entity = await _uow.OrderServices.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderService no encontrado.");
+            throw new KeyNotFoundException("OrderServiceEntity no encontrado.");
 
         return entity;
     }
 }
+

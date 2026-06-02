@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.InvoiceStatus;
 using MediatR;
+using InvoiceStatusEntity = Domain.Entities.InvoiceStatus.InvoiceStatus;
 
-namespace Application.UseCases.InvoiceStatus;
+namespace Application.UseCase.InvoiceStatus;
 
 public sealed class GetInvoiceStatusesPagedHandler
-    : IRequestHandler<GetInvoiceStatusesPaged, IReadOnlyList<InvoiceStatus>>
+    : IRequestHandler<GetInvoiceStatusesPaged, IReadOnlyList<InvoiceStatusEntity>>
 {
     private readonly IUnitOfWork _uow;
 
@@ -17,7 +17,7 @@ public sealed class GetInvoiceStatusesPagedHandler
         _uow = uow;
     }
 
-    public async Task<IReadOnlyList<InvoiceStatus>> Handle(
+    public async Task<IReadOnlyList<InvoiceStatusEntity>> Handle(
         GetInvoiceStatusesPaged request,
         CancellationToken ct)
     {
@@ -28,3 +28,4 @@ public sealed class GetInvoiceStatusesPagedHandler
             ct);
     }
 }
+

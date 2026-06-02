@@ -1,11 +1,11 @@
+using Domain.ValueObject.Purchase;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.Purchase;
-using Domain.ValueObject.Purchase;
 using MediatR;
+using PurchaseEntity = Domain.Entities.Purchase.Purchase;
 
-namespace Application.UseCases.Purchase;
+namespace Application.UseCase.Purchase;
 
 public sealed class UpdatePurchaseHandler
     : IRequestHandler<UpdatePurchase, Unit>
@@ -24,9 +24,9 @@ public sealed class UpdatePurchaseHandler
         var entity = await _uow.Purchases.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("Purchase no encontrado.");
+            throw new KeyNotFoundException("PurchaseEntity no encontrado.");
 
-        entity.UpdateDate(PurchaseDate.Create(request.Date));
+        entity.UpdateDate(PurchaseDate.Create(DateOnly.FromDateTime(request.Date)));
         entity.UpdateSupplierId(PurchaseSupplierId.Create(request.SupplierId));
         entity.UpdateUserId(PurchaseUserId.Create(request.UserId));
         entity.UpdateStatus(PurchaseStatus.Create(request.Status));
@@ -39,3 +39,4 @@ public sealed class UpdatePurchaseHandler
         return Unit.Value;
     }
 }
+

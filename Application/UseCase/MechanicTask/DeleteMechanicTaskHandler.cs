@@ -2,8 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using MechanicTaskEntity = Domain.Entities.MechanicTask.MechanicTask;
 
-namespace Application.UseCases.MechanicTask;
+namespace Application.UseCase.MechanicTask;
 
 public sealed class DeleteMechanicTaskHandler
     : IRequestHandler<DeleteMechanicTask, Unit>
@@ -22,7 +23,7 @@ public sealed class DeleteMechanicTaskHandler
         var entity = await _uow.MechanicTasks.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("MechanicTask no encontrado.");
+            throw new KeyNotFoundException("MechanicTaskEntity no encontrado.");
 
         await _uow.MechanicTasks.RemoveAsync(entity, ct);
         await _uow.SaveChangesAsync(ct);
@@ -30,3 +31,4 @@ public sealed class DeleteMechanicTaskHandler
         return Unit.Value;
     }
 }
+

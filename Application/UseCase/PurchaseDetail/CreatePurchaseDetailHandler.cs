@@ -1,10 +1,9 @@
-using Application.Abstractions;
-using Domain.Entities.PurchaseDetail;
 using Domain.ValueObject.PurchaseDetail;
+using Application.Abstractions;
 using MediatR;
 using PurchaseDetailEntity = Domain.Entities.PurchaseDetail.PurchaseDetail;
 
-namespace Application.UseCases.PurchaseDetail;
+namespace Application.UseCase.PurchaseDetail;
 
 public sealed class CreatePurchaseDetailHandler
     : IRequestHandler<CreatePurchaseDetail, Guid>

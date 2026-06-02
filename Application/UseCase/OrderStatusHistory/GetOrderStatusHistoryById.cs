@@ -1,9 +1,10 @@
 using System;
-using Domain.Entities.OrderStatusHistory;
 using MediatR;
+using OrderStatusHistoryEntity = Domain.Entities.OrderStatusHistory.OrderStatusHistory;
 
-namespace Application.UseCases.OrderStatusHistory;
+namespace Application.UseCase.OrderStatusHistory;
 
 public sealed record GetOrderStatusHistoryById(
     Guid Id
-) : IRequest<OrderStatusHistory>;
+) : IRequest<OrderStatusHistoryEntity>;
+

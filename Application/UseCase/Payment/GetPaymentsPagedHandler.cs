@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.Payment;
 using MediatR;
+using PaymentEntity = Domain.Entities.Payment.Payment;
 
-namespace Application.UseCases.Payment;
+namespace Application.UseCase.Payment;
 
 public sealed class GetPaymentsPagedHandler
-    : IRequestHandler<GetPaymentsPaged, IReadOnlyList<Payment>>
+    : IRequestHandler<GetPaymentsPaged, IReadOnlyList<PaymentEntity>>
 {
     private readonly IUnitOfWork _uow;
 
@@ -17,7 +17,7 @@ public sealed class GetPaymentsPagedHandler
         _uow = uow;
     }
 
-    public async Task<IReadOnlyList<Payment>> Handle(
+    public async Task<IReadOnlyList<PaymentEntity>> Handle(
         GetPaymentsPaged request,
         CancellationToken ct)
     {

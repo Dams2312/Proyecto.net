@@ -2,8 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using PaymentEntity = Domain.Entities.Payment.Payment;
 
-namespace Application.UseCases.Payment;
+namespace Application.UseCase.Payment;
 
 public sealed class DeletePaymentHandler
     : IRequestHandler<DeletePayment, Unit>
@@ -22,7 +23,7 @@ public sealed class DeletePaymentHandler
         var entity = await _uow.Payments.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("Payment no encontrado.");
+            throw new KeyNotFoundException("PaymentEntity no encontrado.");
 
         await _uow.Payments.RemoveAsync(entity, ct);
         await _uow.SaveChangesAsync(ct);
@@ -30,3 +31,4 @@ public sealed class DeletePaymentHandler
         return Unit.Value;
     }
 }
+

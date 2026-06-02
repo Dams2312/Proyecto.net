@@ -1,11 +1,11 @@
+using Domain.ValueObject.Payment;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.Payment;
-using Domain.ValueObject.Payment;
 using MediatR;
+using PaymentEntity = Domain.Entities.Payment.Payment;
 
-namespace Application.UseCases.Payment;
+namespace Application.UseCase.Payment;
 
 public sealed class UpdatePaymentHandler
     : IRequestHandler<UpdatePayment, Unit>
@@ -24,7 +24,7 @@ public sealed class UpdatePaymentHandler
         var entity = await _uow.Payments.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("Payment no encontrado.");
+            throw new KeyNotFoundException("PaymentEntity no encontrado.");
 
         entity.UpdateInvoiceId(request.InvoiceId);
         entity.UpdatePaymentMethodId(request.PaymentMethodId);
@@ -39,3 +39,4 @@ public sealed class UpdatePaymentHandler
         return Unit.Value;
     }
 }
+

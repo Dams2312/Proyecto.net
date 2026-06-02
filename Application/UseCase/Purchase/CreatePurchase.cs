@@ -1,6 +1,7 @@
 using MediatR;
+using PurchaseEntity = Domain.Entities.Purchase.Purchase;
 
-namespace Application.UseCases.Purchase;
+namespace Application.UseCase.Purchase;
 
 public sealed record CreatePurchase(
     DateOnly Date,
@@ -10,3 +11,4 @@ public sealed record CreatePurchase(
     string Observations,
     decimal Total
 ) : IRequest<Guid>;
+

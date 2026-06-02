@@ -1,10 +1,9 @@
-using Application.Abstractions;
-using Domain.Entities.OrderNote;
 using Domain.ValueObject.OrderNote;
+using Application.Abstractions;
 using MediatR;
 using OrderNoteEntity = Domain.Entities.OrderNote.OrderNote;
 
-namespace Application.UseCases.OrderNote;
+namespace Application.UseCase.OrderNote;
 
 public sealed class CreateOrderNoteHandler
     : IRequestHandler<CreateOrderNote, Guid>

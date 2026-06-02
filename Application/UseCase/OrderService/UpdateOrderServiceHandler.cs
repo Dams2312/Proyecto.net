@@ -1,11 +1,11 @@
+using Domain.ValueObject.OrderService;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.OrderService;
-using Domain.ValueObject.OrderService;
 using MediatR;
+using OrderServiceEntity = Domain.Entities.OrderService.OrderService;
 
-namespace Application.UseCases.OrderService;
+namespace Application.UseCase.OrderService;
 
 public sealed class UpdateOrderServiceHandler
     : IRequestHandler<UpdateOrderService, Unit>
@@ -24,7 +24,7 @@ public sealed class UpdateOrderServiceHandler
         var entity = await _uow.OrderServices.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderService no encontrado.");
+            throw new KeyNotFoundException("OrderServiceEntity no encontrado.");
 
         entity.UpdateVehicleId(OrderServiceVehicleId.Create(request.VehicleId));
         entity.UpdateReceptionistId(OrderServiceReceptionistId.Create(request.ReceptionistId));
@@ -42,3 +42,4 @@ public sealed class UpdateOrderServiceHandler
         return Unit.Value;
     }
 }
+

@@ -1,6 +1,7 @@
 using MediatR;
+using MileageHistoryEntity = Domain.Entities.MileageHistory.MileageHistory;
 
-namespace Application.UseCases.MileageHistory;
+namespace Application.UseCase.MileageHistory;
 
 public sealed record CreateMileageHistory(
     Guid VehicleId,
@@ -8,3 +9,4 @@ public sealed record CreateMileageHistory(
     DateOnly Date,
     string Source
 ) : IRequest<Guid>;
+

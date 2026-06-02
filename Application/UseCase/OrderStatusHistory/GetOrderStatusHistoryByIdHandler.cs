@@ -1,13 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.OrderStatusHistory;
 using MediatR;
+using OrderStatusHistoryEntity = Domain.Entities.OrderStatusHistory.OrderStatusHistory;
 
-namespace Application.UseCases.OrderStatusHistory;
+namespace Application.UseCase.OrderStatusHistory;
 
 public sealed class GetOrderStatusHistoryByIdHandler
-    : IRequestHandler<GetOrderStatusHistoryById, OrderStatusHistory>
+    : IRequestHandler<GetOrderStatusHistoryById, OrderStatusHistoryEntity>
 {
     private readonly IUnitOfWork _uow;
 
@@ -16,15 +16,16 @@ public sealed class GetOrderStatusHistoryByIdHandler
         _uow = uow;
     }
 
-    public async Task<OrderStatusHistory> Handle(
+    public async Task<OrderStatusHistoryEntity> Handle(
         GetOrderStatusHistoryById request,
         CancellationToken ct)
     {
         var entity = await _uow.OrderStatusHistories.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderStatusHistory no encontrado.");
+            throw new KeyNotFoundException("OrderStatusHistoryEntity no encontrado.");
 
         return entity;
     }
 }
+

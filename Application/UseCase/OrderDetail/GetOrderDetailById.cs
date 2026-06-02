@@ -1,9 +1,10 @@
 using System;
-using Domain.Entities.OrderDetail;
 using MediatR;
+using OrderDetailEntity = Domain.Entities.OrderDetail.OrderDetail;
 
-namespace Application.UseCases.OrderDetail;
+namespace Application.UseCase.OrderDetail;
 
 public sealed record GetOrderDetailById(
     Guid Id
-) : IRequest<OrderDetail>;
+) : IRequest<OrderDetailEntity>;
+

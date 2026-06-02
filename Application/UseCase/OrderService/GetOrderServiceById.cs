@@ -1,9 +1,10 @@
 using System;
-using Domain.Entities.OrderService;
 using MediatR;
+using OrderServiceEntity = Domain.Entities.OrderService.OrderService;
 
-namespace Application.UseCases.OrderService;
+namespace Application.UseCase.OrderService;
 
 public sealed record GetOrderServiceById(
     Guid Id
-) : IRequest<OrderService>;
+) : IRequest<OrderServiceEntity>;
+

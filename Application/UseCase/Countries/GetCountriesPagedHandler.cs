@@ -1,11 +1,12 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.Entities.Countries;
 using MediatR;
+using Country = Domain.Entities.Countries.Country;
 
-namespace Application.UseCases.Countries;
+namespace Application.UseCase.Countries;
 
 public sealed class GetCountriesPagedHandler
     : IRequestHandler<GetCountriesPaged, IReadOnlyList<Country>>
@@ -28,3 +29,4 @@ public sealed class GetCountriesPagedHandler
             ct);
     }
 }
+

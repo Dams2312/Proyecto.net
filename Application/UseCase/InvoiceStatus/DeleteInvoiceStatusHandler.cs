@@ -2,8 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using InvoiceStatusEntity = Domain.Entities.InvoiceStatus.InvoiceStatus;
 
-namespace Application.UseCases.InvoiceStatus;
+namespace Application.UseCase.InvoiceStatus;
 
 public sealed class DeleteInvoiceStatusHandler
     : IRequestHandler<DeleteInvoiceStatus, Unit>
@@ -22,7 +23,7 @@ public sealed class DeleteInvoiceStatusHandler
         var entity = await _uow.InvoiceStatuses.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("InvoiceStatus no encontrado.");
+            throw new KeyNotFoundException("InvoiceStatusEntity no encontrado.");
 
         await _uow.InvoiceStatuses.RemoveAsync(entity, ct);
         await _uow.SaveChangesAsync(ct);
@@ -30,3 +31,4 @@ public sealed class DeleteInvoiceStatusHandler
         return Unit.Value;
     }
 }
+

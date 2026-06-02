@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.OrderMechanic;
 using MediatR;
+using OrderMechanicEntity = Domain.Entities.OrderMechanic.OrderMechanic;
 
-namespace Application.UseCases.OrderMechanic;
+namespace Application.UseCase.OrderMechanic;
 
 public sealed class GetOrderMechanicsPagedHandler
-    : IRequestHandler<GetOrderMechanicsPaged, IReadOnlyList<OrderMechanic>>
+    : IRequestHandler<GetOrderMechanicsPaged, IReadOnlyList<OrderMechanicEntity>>
 {
     private readonly IUnitOfWork _uow;
 
@@ -17,7 +17,7 @@ public sealed class GetOrderMechanicsPagedHandler
         _uow = uow;
     }
 
-    public async Task<IReadOnlyList<OrderMechanic>> Handle(
+    public async Task<IReadOnlyList<OrderMechanicEntity>> Handle(
         GetOrderMechanicsPaged request,
         CancellationToken ct)
     {
@@ -28,3 +28,4 @@ public sealed class GetOrderMechanicsPagedHandler
             ct);
     }
 }
+

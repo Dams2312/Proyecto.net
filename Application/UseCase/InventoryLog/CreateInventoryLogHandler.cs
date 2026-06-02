@@ -1,10 +1,9 @@
-using Application.Abstractions;
-using Domain.Entities.InventoryLog;
 using Domain.ValueObject.InventoryLog;
+using Application.Abstractions;
 using MediatR;
 using InventoryLogEntity = Domain.Entities.InventoryLog.InventoryLog;
 
-namespace Application.UseCases.InventoryLog;
+namespace Application.UseCase.InventoryLog;
 
 public sealed class CreateInventoryLogHandler
     : IRequestHandler<CreateInventoryLog, Guid>

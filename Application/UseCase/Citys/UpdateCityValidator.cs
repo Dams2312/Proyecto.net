@@ -1,6 +1,7 @@
-using FluentValidation;
+﻿using FluentValidation;
+using City = Domain.Entities.Citys.City;
 
-namespace Application.UseCases.Citys;
+namespace Application.UseCase.Citys;
 
 public sealed class UpdateCityValidator
     : AbstractValidator<UpdateCity>
@@ -22,3 +23,4 @@ public sealed class UpdateCityValidator
             .Length(3);
     }
 }
+

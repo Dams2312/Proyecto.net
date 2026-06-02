@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using Domain.Entities.Invoice;
 using MediatR;
+using InvoiceEntity = Domain.Entities.Invoice.Invoice;
 
-namespace Application.UseCases.Invoice;
+namespace Application.UseCase.Invoice;
 
 public sealed record GetInvoicesPaged(
     int Page,
     int PageSize,
     string? Search
-) : IRequest<IReadOnlyList<Invoice>>;
+) : IRequest<IReadOnlyList<InvoiceEntity>>;

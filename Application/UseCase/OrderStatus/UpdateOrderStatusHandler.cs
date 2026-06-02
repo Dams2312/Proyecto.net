@@ -1,11 +1,11 @@
+using Domain.ValueObject.OrderStatus;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.OrderStatus;
-using Domain.ValueObject.OrderStatus;
 using MediatR;
+using OrderStatusEntity = Domain.Entities.OrderStatus.OrderStatus;
 
-namespace Application.UseCases.OrderStatus;
+namespace Application.UseCase.OrderStatus;
 
 public sealed class UpdateOrderStatusHandler
     : IRequestHandler<UpdateOrderStatus, Unit>
@@ -24,7 +24,7 @@ public sealed class UpdateOrderStatusHandler
         var entity = await _uow.OrderStatuses.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderStatus no encontrado.");
+            throw new KeyNotFoundException("OrderStatusEntity no encontrado.");
 
         entity.UpdateName(OrderStatusName.Create(request.Name));
         entity.UpdateDescription(OrderStatusDescription.Create(request.Description));
@@ -35,3 +35,4 @@ public sealed class UpdateOrderStatusHandler
         return Unit.Value;
     }
 }
+

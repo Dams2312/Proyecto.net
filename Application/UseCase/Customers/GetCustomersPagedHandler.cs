@@ -1,11 +1,12 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.Entities.Customers;
 using MediatR;
+using Customer = Domain.Entities.Customers.Customer;
 
-namespace Application.UseCases.Customers;
+namespace Application.UseCase.Customers;
 
 public sealed class GetCustomersPagedHandler
     : IRequestHandler<GetCustomersPaged, IReadOnlyList<Customer>>
@@ -28,3 +29,4 @@ public sealed class GetCustomersPagedHandler
             ct);
     }
 }
+

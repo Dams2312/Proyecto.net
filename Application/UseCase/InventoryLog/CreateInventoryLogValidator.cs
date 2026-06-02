@@ -1,7 +1,8 @@
 using System;
 using FluentValidation;
+using InventoryLogEntity = Domain.Entities.InventoryLog.InventoryLog;
 
-namespace Application.UseCases.InventoryLog;
+namespace Application.UseCase.InventoryLog;
 
 public sealed class CreateInventoryLogValidator
     : AbstractValidator<CreateInventoryLog>
@@ -24,7 +25,7 @@ public sealed class CreateInventoryLogValidator
             .NotEmpty()
             .WithMessage("El tipo de movimiento es obligatorio.")
             .Must(m => m is "entrada" or "salida" or "ajuste")
-            .WithMessage("El tipo de movimiento no es válido. Debe ser 'entrada', 'salida' o 'ajuste'.");
+            .WithMessage("El tipo de movimiento no es vÃ¡lido. Debe ser 'entrada', 'salida' o 'ajuste'.");
 
         RuleFor(x => x.UserId)
             .NotEqual(Guid.Empty)

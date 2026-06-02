@@ -2,8 +2,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using OrderServiceTypeEntity = Domain.Entities.OrderServiceType.OrderServiceType;
 
-namespace Application.UseCases.OrderServiceType;
+namespace Application.UseCase.OrderServiceType;
 
 public sealed class DeleteOrderServiceTypeHandler
     : IRequestHandler<DeleteOrderServiceType, Unit>
@@ -22,7 +23,7 @@ public sealed class DeleteOrderServiceTypeHandler
         var entity = await _uow.OrderServiceTypes.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderServiceType no encontrado.");
+            throw new KeyNotFoundException("OrderServiceTypeEntity no encontrado.");
 
         await _uow.OrderServiceTypes.RemoveAsync(entity, ct);
         await _uow.SaveChangesAsync(ct);
@@ -30,3 +31,4 @@ public sealed class DeleteOrderServiceTypeHandler
         return Unit.Value;
     }
 }
+

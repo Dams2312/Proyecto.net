@@ -1,10 +1,9 @@
-using Application.Abstractions;
-using Domain.Entities.MechanicTask;
 using Domain.ValueObject.MechanicTask;
+using Application.Abstractions;
 using MediatR;
 using MechanicTaskEntity = Domain.Entities.MechanicTask.MechanicTask;
 
-namespace Application.UseCases.MechanicTask;
+namespace Application.UseCase.MechanicTask;
 
 public sealed class CreateMechanicTaskHandler
     : IRequestHandler<CreateMechanicTask, Guid>

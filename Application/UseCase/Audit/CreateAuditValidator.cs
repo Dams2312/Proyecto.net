@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using FluentValidation;
+using Audit = Domain.Entities.Audit.Audit;
 
-namespace Application.UseCases.Audit;
+namespace Application.UseCase.Audit;
 
 public sealed class CreateAuditValidator
     : AbstractValidator<CreateAudit>
@@ -18,9 +19,9 @@ public sealed class CreateAuditValidator
 
         RuleFor(x => x.TipoAccion)
             .NotEmpty()
-            .WithMessage("El tipo de acción es obligatorio.")
+            .WithMessage("El tipo de acciÃ³n es obligatorio.")
             .Must(t => new[] { "INSERT", "UPDATE", "DELETE", "LOGIN", "LOGOUT" }.Contains(t?.ToUpperInvariant()))
-            .WithMessage("El tipo de acción debe ser INSERT, UPDATE, DELETE, LOGIN o LOGOUT.");
+            .WithMessage("El tipo de acciÃ³n debe ser INSERT, UPDATE, DELETE, LOGIN o LOGOUT.");
 
         RuleFor(x => x.Entidad)
             .NotEmpty()
@@ -41,3 +42,4 @@ public sealed class CreateAuditValidator
             .WithMessage("La IP de origen no puede superar los 45 caracteres.");
     }
 }
+

@@ -1,11 +1,12 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Domain.Entities.Citys;
 using MediatR;
+using City = Domain.Entities.Citys.City;
 
-namespace Application.UseCases.Citys;
+namespace Application.UseCase.Citys;
 
 public sealed class GetCitysPagedHandler
     : IRequestHandler<GetCitysPaged, IReadOnlyList<City>>
@@ -28,3 +29,4 @@ public sealed class GetCitysPagedHandler
             ct);
     }
 }
+

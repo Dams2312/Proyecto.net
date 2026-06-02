@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.PurchaseDetail;
 using MediatR;
+using PurchaseDetailEntity = Domain.Entities.PurchaseDetail.PurchaseDetail;
 
-namespace Application.UseCases.PurchaseDetail;
+namespace Application.UseCase.PurchaseDetail;
 
 public sealed class GetPurchaseDetailsPagedHandler
-    : IRequestHandler<GetPurchaseDetailsPaged, IReadOnlyList<PurchaseDetail>>
+    : IRequestHandler<GetPurchaseDetailsPaged, IReadOnlyList<PurchaseDetailEntity>>
 {
     private readonly IUnitOfWork _uow;
 
@@ -17,7 +17,7 @@ public sealed class GetPurchaseDetailsPagedHandler
         _uow = uow;
     }
 
-    public async Task<IReadOnlyList<PurchaseDetail>> Handle(
+    public async Task<IReadOnlyList<PurchaseDetailEntity>> Handle(
         GetPurchaseDetailsPaged request,
         CancellationToken ct)
     {
@@ -28,3 +28,4 @@ public sealed class GetPurchaseDetailsPagedHandler
             ct);
     }
 }
+

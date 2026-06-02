@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using MediatR;
+using Customer = Domain.Entities.Customers.Customer;
 
-namespace Application.UseCases.Customers;
+namespace Application.UseCase.Customers;
 
 public sealed record CreateCustomer(
     string Names,
@@ -10,3 +11,4 @@ public sealed record CreateCustomer(
     string DocumentType,
     bool Active
 ) : IRequest<Guid>;
+

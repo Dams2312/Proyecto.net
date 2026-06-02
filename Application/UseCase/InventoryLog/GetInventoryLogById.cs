@@ -1,9 +1,10 @@
 using System;
-using Domain.Entities.InventoryLog;
 using MediatR;
+using InventoryLogEntity = Domain.Entities.InventoryLog.InventoryLog;
 
-namespace Application.UseCases.InventoryLog;
+namespace Application.UseCase.InventoryLog;
 
 public sealed record GetInventoryLogById(
     Guid Id
-) : IRequest<InventoryLog>;
+) : IRequest<InventoryLogEntity>;
+

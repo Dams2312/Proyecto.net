@@ -1,6 +1,7 @@
 using MediatR;
+using OrderStatusEntity = Domain.Entities.OrderStatus.OrderStatus;
 
-namespace Application.UseCases.OrderStatus;
+namespace Application.UseCase.OrderStatus;
 
 public sealed record CreateOrderStatus(
     string Name,

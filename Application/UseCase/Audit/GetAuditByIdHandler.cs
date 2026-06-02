@@ -1,10 +1,11 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using AuditEntity = Domain.Entities.Audit.Audit;
 using MediatR;
+using Audit = Domain.Entities.Audit.Audit;
 
-namespace Application.UseCases.Audit;
+namespace Application.UseCase.Audit;
 
 public sealed class GetAuditByIdHandler
     : IRequestHandler<GetAuditById, AuditEntity>
@@ -23,8 +24,9 @@ public sealed class GetAuditByIdHandler
         var audit = await _uow.Audits.GetByIdAsync(request.Id, ct);
 
         if (audit is null)
-            throw new KeyNotFoundException("Auditoría no encontrada.");
+            throw new KeyNotFoundException("AuditorÃ­a no encontrada.");
 
         return audit;
     }
 }
+

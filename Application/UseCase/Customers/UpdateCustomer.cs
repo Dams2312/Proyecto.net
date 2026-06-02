@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using MediatR;
+using Customer = Domain.Entities.Customers.Customer;
 
-namespace Application.UseCases.Customers;
+namespace Application.UseCase.Customers;
 
 public sealed record UpdateCustomer(
     Guid Id,
@@ -11,3 +12,4 @@ public sealed record UpdateCustomer(
     string DocumentType,
     bool Active
 ) : IRequest<Unit>;
+

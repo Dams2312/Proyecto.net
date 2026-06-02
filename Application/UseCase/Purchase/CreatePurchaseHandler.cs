@@ -1,10 +1,9 @@
-using Application.Abstractions;
-using Domain.Entities.Purchase;
 using Domain.ValueObject.Purchase;
+using Application.Abstractions;
 using MediatR;
 using PurchaseEntity = Domain.Entities.Purchase.Purchase;
 
-namespace Application.UseCases.Purchase;
+namespace Application.UseCase.Purchase;
 
 public sealed class CreatePurchaseHandler
     : IRequestHandler<CreatePurchase, Guid>

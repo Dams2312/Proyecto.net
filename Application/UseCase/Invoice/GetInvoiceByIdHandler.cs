@@ -1,13 +1,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.Invoice;
 using MediatR;
+using InvoiceEntity = Domain.Entities.Invoice.Invoice;
 
-namespace Application.UseCases.Invoice;
+namespace Application.UseCase.Invoice;
 
 public sealed class GetInvoiceByIdHandler
-    : IRequestHandler<GetInvoiceById, Invoice>
+    : IRequestHandler<GetInvoiceById, InvoiceEntity>
 {
     private readonly IUnitOfWork _uow;
 
@@ -16,14 +16,14 @@ public sealed class GetInvoiceByIdHandler
         _uow = uow;
     }
 
-    public async Task<Invoice> Handle(
+    public async Task<InvoiceEntity> Handle(
         GetInvoiceById request,
         CancellationToken ct)
     {
         var entity = await _uow.Invoices.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("Invoice no encontrado.");
+            throw new KeyNotFoundException("InvoiceEntity no encontrado.");
 
         return entity;
     }

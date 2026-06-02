@@ -1,6 +1,7 @@
-using FluentValidation;
+﻿using FluentValidation;
+using Customer = Domain.Entities.Customers.Customer;
 
-namespace Application.UseCases.Customers;
+namespace Application.UseCase.Customers;
 
 public sealed class CreateCustomerValidator
     : AbstractValidator<CreateCustomer>
@@ -25,9 +26,9 @@ public sealed class CreateCustomerValidator
 
         RuleFor(x => x.DocumentNumber)
             .NotEmpty()
-            .WithMessage("El número de documento es obligatorio.")
+            .WithMessage("El nÃºmero de documento es obligatorio.")
             .MaximumLength(30)
-            .WithMessage("El número de documento no puede superar los 30 caracteres.");
+            .WithMessage("El nÃºmero de documento no puede superar los 30 caracteres.");
 
         RuleFor(x => x.DocumentType)
             .NotEmpty()
@@ -36,3 +37,4 @@ public sealed class CreateCustomerValidator
             .WithMessage("El tipo de documento no puede superar los 20 caracteres.");
     }
 }
+

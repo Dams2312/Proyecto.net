@@ -1,11 +1,11 @@
+using Domain.ValueObject.OrderServiceType;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.OrderServiceType;
-using Domain.ValueObject.OrderServiceType;
 using MediatR;
+using OrderServiceTypeEntity = Domain.Entities.OrderServiceType.OrderServiceType;
 
-namespace Application.UseCases.OrderServiceType;
+namespace Application.UseCase.OrderServiceType;
 
 public sealed class UpdateOrderServiceTypeHandler
     : IRequestHandler<UpdateOrderServiceType, Unit>
@@ -24,7 +24,7 @@ public sealed class UpdateOrderServiceTypeHandler
         var entity = await _uow.OrderServiceTypes.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("OrderServiceType no encontrado.");
+            throw new KeyNotFoundException("OrderServiceTypeEntity no encontrado.");
 
         entity.UpdateOrderId(OrderServiceTypeOrderId.Create(request.OrderId));
         entity.UpdateServiceTypeId(OrderServiceTypeServiceTypeId.Create(request.ServiceTypeId));
@@ -35,3 +35,4 @@ public sealed class UpdateOrderServiceTypeHandler
         return Unit.Value;
     }
 }
+

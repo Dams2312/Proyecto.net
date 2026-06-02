@@ -1,10 +1,9 @@
-using Application.Abstractions;
-using Domain.Entities.Invoice;
 using Domain.ValueObject.Invoice;
+using Application.Abstractions;
 using MediatR;
 using InvoiceEntity = Domain.Entities.Invoice.Invoice;
 
-namespace Application.UseCases.Invoice;
+namespace Application.UseCase.Invoice;
 
 public sealed class CreateInvoiceHandler
     : IRequestHandler<CreateInvoice, Guid>

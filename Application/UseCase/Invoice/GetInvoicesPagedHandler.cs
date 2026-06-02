@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.Invoice;
 using MediatR;
+using InvoiceEntity = Domain.Entities.Invoice.Invoice;
 
-namespace Application.UseCases.Invoice;
+namespace Application.UseCase.Invoice;
 
 public sealed class GetInvoicesPagedHandler
-    : IRequestHandler<GetInvoicesPaged, IReadOnlyList<Invoice>>
+    : IRequestHandler<GetInvoicesPaged, IReadOnlyList<InvoiceEntity>>
 {
     private readonly IUnitOfWork _uow;
 
@@ -17,7 +17,7 @@ public sealed class GetInvoicesPagedHandler
         _uow = uow;
     }
 
-    public async Task<IReadOnlyList<Invoice>> Handle(
+    public async Task<IReadOnlyList<InvoiceEntity>> Handle(
         GetInvoicesPaged request,
         CancellationToken ct)
     {

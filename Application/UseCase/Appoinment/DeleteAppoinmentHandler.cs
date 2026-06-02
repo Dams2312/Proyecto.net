@@ -1,9 +1,10 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using AppointmentEntity = Domain.Entities.Appointment.Appointment;
 
-namespace Application.UseCases.Appoinment;
+namespace Application.UseCase.AppointmentEntity;
 
 public sealed class DeleteAppoinmentHandler
     : IRequestHandler<DeleteAppoinment, Unit>
@@ -30,3 +31,4 @@ public sealed class DeleteAppoinmentHandler
         return Unit.Value;
     }
 }
+

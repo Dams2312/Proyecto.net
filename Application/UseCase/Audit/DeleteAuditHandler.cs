@@ -1,9 +1,10 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
+using Audit = Domain.Entities.Audit.Audit;
 
-namespace Application.UseCases.Audit;
+namespace Application.UseCase.Audit;
 
 public sealed class DeleteAuditHandler
     : IRequestHandler<DeleteAudit, Unit>
@@ -22,7 +23,7 @@ public sealed class DeleteAuditHandler
         var audit = await _uow.Audits.GetByIdAsync(request.Id, ct);
 
         if (audit is null)
-            throw new KeyNotFoundException("Auditoría no encontrada.");
+            throw new KeyNotFoundException("AuditorÃ­a no encontrada.");
 
         await _uow.Audits.RemoveAsync(audit, ct);
         await _uow.SaveChangesAsync(ct);
@@ -30,3 +31,4 @@ public sealed class DeleteAuditHandler
         return Unit.Value;
     }
 }
+

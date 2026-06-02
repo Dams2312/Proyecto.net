@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.InventoryLog;
 using MediatR;
+using InventoryLogEntity = Domain.Entities.InventoryLog.InventoryLog;
 
-namespace Application.UseCases.InventoryLog;
+namespace Application.UseCase.InventoryLog;
 
 public sealed class GetInventoryLogsPagedHandler
-    : IRequestHandler<GetInventoryLogsPaged, IReadOnlyList<InventoryLog>>
+    : IRequestHandler<GetInventoryLogsPaged, IReadOnlyList<InventoryLogEntity>>
 {
     private readonly IUnitOfWork _uow;
 
@@ -17,7 +17,7 @@ public sealed class GetInventoryLogsPagedHandler
         _uow = uow;
     }
 
-    public async Task<IReadOnlyList<InventoryLog>> Handle(
+    public async Task<IReadOnlyList<InventoryLogEntity>> Handle(
         GetInventoryLogsPaged request,
         CancellationToken ct)
     {
@@ -28,3 +28,4 @@ public sealed class GetInventoryLogsPagedHandler
             ct);
     }
 }
+

@@ -1,9 +1,10 @@
 using System;
-using Domain.Entities.OrderMechanic;
 using MediatR;
+using OrderMechanicEntity = Domain.Entities.OrderMechanic.OrderMechanic;
 
-namespace Application.UseCases.OrderMechanic;
+namespace Application.UseCase.OrderMechanic;
 
 public sealed record GetOrderMechanicById(
     Guid Id
-) : IRequest<OrderMechanic>;
+) : IRequest<OrderMechanicEntity>;
+

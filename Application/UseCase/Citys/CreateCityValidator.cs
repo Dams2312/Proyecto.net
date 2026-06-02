@@ -1,7 +1,8 @@
-using System;
+﻿using System;
 using FluentValidation;
+using City = Domain.Entities.Citys.City;
 
-namespace Application.UseCases.Citys;
+namespace Application.UseCase.Citys;
 
 public sealed class CreateCityValidator
     : AbstractValidator<CreateCity>
@@ -20,8 +21,9 @@ public sealed class CreateCityValidator
 
         RuleFor(x => x.Code)
             .NotEmpty()
-            .WithMessage("El código de la ciudad es obligatorio.")
+            .WithMessage("El cÃ³digo de la ciudad es obligatorio.")
             .MaximumLength(10)
-            .WithMessage("El código de la ciudad no puede superar los 10 caracteres.");
+            .WithMessage("El cÃ³digo de la ciudad no puede superar los 10 caracteres.");
     }
 }
+

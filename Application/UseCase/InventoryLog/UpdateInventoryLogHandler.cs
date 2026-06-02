@@ -1,11 +1,11 @@
+using Domain.ValueObject.InventoryLog;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Abstractions;
-using Domain.Entities.InventoryLog;
-using Domain.ValueObject.InventoryLog;
 using MediatR;
+using InventoryLogEntity = Domain.Entities.InventoryLog.InventoryLog;
 
-namespace Application.UseCases.InventoryLog;
+namespace Application.UseCase.InventoryLog;
 
 public sealed class UpdateInventoryLogHandler
     : IRequestHandler<UpdateInventoryLog, Unit>
@@ -24,7 +24,7 @@ public sealed class UpdateInventoryLogHandler
         var entity = await _uow.InventoryLogs.GetByIdAsync(request.Id, ct);
 
         if (entity is null)
-            throw new KeyNotFoundException("InventoryLog no encontrado.");
+            throw new KeyNotFoundException("InventoryLogEntity no encontrado.");
 
         entity.UpdateSparePartId(request.SparePartId);
         entity.UpdateQuantity(InventoryLogQuantity.Create(request.Quantity));
@@ -42,3 +42,4 @@ public sealed class UpdateInventoryLogHandler
         return Unit.Value;
     }
 }
+

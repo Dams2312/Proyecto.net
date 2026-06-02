@@ -1,7 +1,8 @@
 using System;
 using FluentValidation;
+using OrderDetailEntity = Domain.Entities.OrderDetail.OrderDetail;
 
-namespace Application.UseCases.OrderDetail;
+namespace Application.UseCase.OrderDetail;
 
 public sealed class CreateOrderDetailValidator
     : AbstractValidator<CreateOrderDetail>

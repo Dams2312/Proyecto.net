@@ -1,9 +1,10 @@
-using Application.Abstractions;
+﻿using Application.Abstractions;
 using Domain.Entities.Departments;
 using Domain.ValueObject.Department;
 using MediatR;
+using Department = Domain.Entities.Departments.Department;
 
-namespace Application.UseCases.Departments;
+namespace Application.UseCase.Departament;
 
 public sealed class CreateDepartmentHandler
     : IRequestHandler<CreateDepartment, Guid>
