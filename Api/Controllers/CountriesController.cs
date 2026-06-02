@@ -1,6 +1,6 @@
 using Api.Dtos.Contries;
 using Application.Abstractions;
-using Application.UseCases.Countries;
+using Application.UseCase.Countries;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
