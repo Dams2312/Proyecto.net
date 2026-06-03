@@ -49,8 +49,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
-builder.Services.ConfigureCors();
-builder.Services.AddApplicationServices();
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddScoped<IAppointment, AppointmentRepository>();
 builder.Services.AddScoped<IAudit, AuditRepository>();
@@ -90,7 +89,13 @@ builder.Services.AddScoped<IVehicleMake, VehicleMakeRepository>();
 builder.Services.AddScoped<IVehicleModel, VehicleModelRepository>();
 builder.Services.AddScoped<IWarranty, WarrantyRepository>();
 
+builder.Services.ConfigureCors();
+
+builder.Services.AddApplicationServices();
+
 builder.Services.AddInfrastructureServices(builder.Configuration);
+
+builder.Services.AddMapsterConfiguration();
 
 var app = builder.Build();
 
