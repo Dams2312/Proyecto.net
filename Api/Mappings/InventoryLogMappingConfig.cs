@@ -25,7 +25,7 @@ public sealed class InventoryLogMappingConfig : IRegister
             .MapWith(src => new CreateInventoryLog(
                 src.SparePartId,
                 src.Quantity,
-                src.StockResultant,
+                0,              // StockResultante: no viene en el request, se calcula en el handler
                 src.TypeMovement,
                 src.UserId,
                 src.Date,
@@ -39,7 +39,7 @@ public sealed class InventoryLogMappingConfig : IRegister
                 Guid.Empty,
                 src.SparePartId,
                 src.Quantity,
-                src.StockResultant,
+                0,              // StockResultante: no viene en el request, se calcula en el handler
                 src.TypeMovement,
                 src.UserId,
                 src.Date,

@@ -1,3 +1,4 @@
+using System;
 using Api.Dtos.VehicleModel;
 using Application.UseCase.VehicleModel;
 using Domain.Entities.Vehiclemodel;
@@ -9,18 +10,12 @@ public sealed class VehicleModelMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        // VehicleModel -> VehicleModelDto
         config.NewConfig<VehicleModel, VehicleModelDto>()
-            .Map(dest => dest.BrandId,
-                src => src.BrandId.Value)
-            .Map(dest => dest.Name,
-                src => src.Name.Value)
-            .Map(dest => dest.YearFrom,
-                src => src.YearFrom != null ? src.YearFrom.Value : null)
-            .Map(dest => dest.YearTo,
-                src => src.YearTo != null ? src.YearTo.Value : null);
+            .Map(dest => dest.BrandId, src => src.BrandId.Value)
+            .Map(dest => dest.Name, src => src.Name.Value)
+            .Map(dest => dest.YearFrom, src => src.YearFrom != null ? src.YearFrom.Value : (int?)null)
+            .Map(dest => dest.YearTo, src => src.YearTo != null ? src.YearTo.Value : (int?)null);
 
-        // CreateVehicleModelRequest -> CreateVehicleModel
         config.NewConfig<CreateVehicleModelRequest, CreateVehicleModel>()
             .MapWith(src => new CreateVehicleModel(
                 src.BrandId,
@@ -29,7 +24,6 @@ public sealed class VehicleModelMappingConfig : IRegister
                 src.YearTo
             ));
 
-        // UpdateVehicleModelRequest -> UpdateVehicleModel
         config.NewConfig<UpdateVehicleModelRequest, UpdateVehicleModel>()
             .MapWith(src => new UpdateVehicleModel(
                 Guid.Empty,

@@ -1,11 +1,11 @@
 using System;
 using MediatR;
-using WarrantyEntity = Domain.Entities.Warranty.Warranty;
 
 namespace Application.UseCase.Warranty;
 
 public sealed record CreateWarranty(
-    string Name,
-    Guid DepartmentId,
-    string Code
+    DateTime StartDate,
+    DateTime EndDate,
+    string Status,
+    string Conditions
 ) : IRequest<Guid>;

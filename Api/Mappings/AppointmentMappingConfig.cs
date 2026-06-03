@@ -11,7 +11,7 @@ public sealed class AppointmentMappingConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<Appointment, AppointmentDto>()
-            .Map(dest => dest.Date, src => src.Date.Value)
+            .Map(dest => dest.Date, src => src.Date.Value.ToDateTime(TimeOnly.MinValue))
             .Map(dest => dest.StartTime, src => src.StartTime.Value)
             .Map(dest => dest.EndTime, src => src.EndTime.Value)
             .Map(dest => dest.Status, src => src.Status.Value)
@@ -22,7 +22,7 @@ public sealed class AppointmentMappingConfig : IRegister
                 src.VehicleId,
                 src.ServiceTypeId,
                 src.ReceptionistId,
-                src.Date,
+                DateOnly.FromDateTime(src.Date),
                 src.StartTime,
                 src.EndTime,
                 src.Status,
@@ -35,7 +35,7 @@ public sealed class AppointmentMappingConfig : IRegister
                 src.VehicleId,
                 src.ServiceTypeId,
                 src.ReceptionistId,
-                src.Date,
+                DateOnly.FromDateTime(src.Date),
                 src.StartTime,
                 src.EndTime,
                 src.Status,

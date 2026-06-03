@@ -1,22 +1,12 @@
 using FluentValidation;
-using ServiceTypeEntity = Domain.Entities.ServiceType.ServiceType;
-
 namespace Application.UseCase.ServiceType;
-
 public sealed class UpdateServiceTypeValidator : AbstractValidator<UpdateServiceType>
 {
     public UpdateServiceTypeValidator()
     {
-        RuleFor(x => x.Name)
-            .NotEmpty()
-            .WithMessage("El nombre es obligatorio.")
-            .MaximumLength(100)
-            .WithMessage("El nombre no puede superar los 100 caracteres.");
-
-        RuleFor(x => x.Code)
-            .NotEmpty()
-            .WithMessage("El cÃ³digo es obligatorio.")
-            .MaximumLength(10)
-            .WithMessage("El cÃ³digo no puede superar los 10 caracteres.");
+        RuleFor(x => x.Id).NotEmpty();
+        RuleFor(x => x.Name).NotEmpty().MaximumLength(100);
+        RuleFor(x => x.Description).NotEmpty().MaximumLength(200);
+        RuleFor(x => x.EstimatedDays).GreaterThanOrEqualTo(0);
     }
 }

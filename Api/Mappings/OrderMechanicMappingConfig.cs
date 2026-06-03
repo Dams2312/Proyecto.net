@@ -13,13 +13,13 @@ public sealed class OrderMechanicMappingConfig : IRegister
         config.NewConfig<OrderMechanic, OrderMechanicDto>()
             .Map(dest => dest.OrderId, src => src.OrderId)
             .Map(dest => dest.MechanicId, src => src.MechanicId)
-            .Map(dest => dest.FechaAsignacion, src => src.FechaAsignacion.Value);
+            .Map(dest => dest.FechaAsignacion, src => src.FechaAsignacion.Value.ToDateTime(TimeOnly.MinValue));
 
         config.NewConfig<CreateOrderMechanicRequest, CreateOrderMechanic>()
             .MapWith(src => new CreateOrderMechanic(
                 src.OrderId,
                 src.MechanicId,
-                src.FechaAsignacion
+                DateOnly.FromDateTime(src.FechaAsignacion)
             ));
 
         config.NewConfig<UpdateOrderMechanicRequest, UpdateOrderMechanic>()

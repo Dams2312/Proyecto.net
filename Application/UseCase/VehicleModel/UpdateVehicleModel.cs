@@ -1,12 +1,12 @@
 using System;
 using MediatR;
-using VehicleModelEntity = Domain.Entities.Vehiclemodel.VehicleModel;
 
 namespace Application.UseCase.VehicleModel;
 
 public sealed record UpdateVehicleModel(
     Guid Id,
-    Guid CountryId,
+    Guid BrandId,
     string Name,
-    string Code
+    int? YearFrom,
+    int? YearTo
 ) : IRequest<Unit>;

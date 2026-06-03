@@ -1,3 +1,4 @@
+using System;
 using Api.Dtos.SparePart;
 using Application.UseCase.SparePart;
 using Domain.Entities.SparePart;
@@ -15,11 +16,11 @@ public sealed class SparePartMappingConfig : IRegister
                 src => src.Code.Value)
             .Map(dest => dest.Description,
                 src => src.Description.Value)
-            .Map(dest => dest.PrecioUnitario,
+            .Map(dest => dest.UnitPrice,
                 src => src.PrecioUnitario.Value)
             .Map(dest => dest.StockActual,
                 src => src.StockActual.Value)
-            .Map(dest => dest.StockMinimo,
+            .Map(dest => dest.StockMin,
                 src => src.StockMinimo.Value)
             .Map(dest => dest.CategoryId,
                 src => src.CategoryId.Value)
@@ -33,9 +34,9 @@ public sealed class SparePartMappingConfig : IRegister
             .MapWith(src => new CreateSparePart(
                 src.Code,
                 src.Description,
-                src.PrecioUnitario,
+                src.UnitPrice,
                 src.StockActual,
-                src.StockMinimo,
+                src.StockMin,
                 src.CategoryId,
                 src.UnitId,
                 src.Active
@@ -47,9 +48,9 @@ public sealed class SparePartMappingConfig : IRegister
                 Guid.Empty,
                 src.Code,
                 src.Description,
-                src.PrecioUnitario,
+                src.UnitPrice,
                 src.StockActual,
-                src.StockMinimo,
+                src.StockMin,
                 src.CategoryId,
                 src.UnitId,
                 src.Active

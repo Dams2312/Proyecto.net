@@ -1,11 +1,11 @@
 using System;
 using MediatR;
-using VehicleModelEntity = Domain.Entities.Vehiclemodel.VehicleModel;
 
 namespace Application.UseCase.VehicleModel;
 
 public sealed record CreateVehicleModel(
+    Guid BrandId,
     string Name,
-    Guid DepartmentId,
-    string Code
+    int? YearFrom,
+    int? YearTo
 ) : IRequest<Guid>;

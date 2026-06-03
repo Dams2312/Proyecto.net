@@ -1,3 +1,4 @@
+using System;
 using Api.Dtos.Warranty;
 using Application.UseCase.Warranty;
 using Domain.Entities.Warranty;
@@ -9,40 +10,27 @@ public sealed class WarrantyMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        // Warranty -> WarrantyDto
         config.NewConfig<Warranty, WarrantyDto>()
-            .Map(dest => dest.FechaInicio,
-                src => src.FechaInicio.Value)
-            .Map(dest => dest.FechaVencimiento,
-                src => src.FechaVencimiento.Value)
-            .Map(dest => dest.Estado,
-                src => src.Estado.Value)
-            .Map(dest => dest.Condiciones,
-                src => src.Condiciones != null ? src.Condiciones.Value : null);
+            .Map(dest => dest.StartDate, src => src.FechaInicio.Value.ToDateTime(TimeOnly.MinValue))
+            .Map(dest => dest.EndDate, src => src.FechaVencimiento.Value.ToDateTime(TimeOnly.MinValue))
+            .Map(dest => dest.Status, src => src.Estado.Value)
+            .Map(dest => dest.Conditions, src => src.Condiciones != null ? src.Condiciones.Value : null);
 
-        // CreateWarrantyRequest -> CreateWarranty
         config.NewConfig<CreateWarrantyRequest, CreateWarranty>()
             .MapWith(src => new CreateWarranty(
-                src.OrderId,
-                src.ServiceTypeId,
-                src.MechanicId,
-                src.FechaInicio,
-                src.FechaVencimiento,
-                src.Estado,
-                src.Condiciones
+                src.StartDate,
+                src.EndDate,
+                src.Status,
+                src.Conditions
             ));
 
-        // UpdateWarrantyRequest -> UpdateWarranty
         config.NewConfig<UpdateWarrantyRequest, UpdateWarranty>()
             .MapWith(src => new UpdateWarranty(
                 Guid.Empty,
-                src.OrderId,
-                src.ServiceTypeId,
-                src.MechanicId,
-                src.FechaInicio,
-                src.FechaVencimiento,
-                src.Estado,
-                src.Condiciones
+                src.StartDate,
+                src.EndDate,
+                src.Status,
+                src.Conditions
             ));
     }
 }

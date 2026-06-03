@@ -1,11 +1,12 @@
 using System;
 using MediatR;
-using UserEntity = Domain.Entities.Users.User;
 
 namespace Application.UseCase.Users;
 
 public sealed record CreateUser(
-    string Name,
-    Guid DepartmentId,
-    string Code
+    Guid RoleId,
+    string Email,
+    string Password,
+    string Names,
+    string LastNames
 ) : IRequest<Guid>;

@@ -1,3 +1,4 @@
+using System;
 using Api.Dtos.Purchase;
 using Application.UseCase.Purchase;
 using Domain.Entities.Purchase;
@@ -9,25 +10,17 @@ public sealed class PurchaseMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        // Purchase -> PurchaseDto
         config.NewConfig<Purchase, PurchaseDto>()
-            .Map(dest => dest.Date,
-                src => src.Date.Value)
-            .Map(dest => dest.SupplierId,
-                src => src.SupplierId.Value)
-            .Map(dest => dest.UserId,
-                src => src.UserId.Value)
-            .Map(dest => dest.Status,
-                src => src.Status.Value)
-            .Map(dest => dest.Observations,
-                src => src.Observations.Value)
-            .Map(dest => dest.Total,
-                src => src.Total.Value);
+            .Map(dest => dest.Date, src => src.Date.Value.ToDateTime(TimeOnly.MinValue))
+            .Map(dest => dest.SupplierId, src => src.SupplierId.Value)
+            .Map(dest => dest.UserId, src => src.UserId.Value)
+            .Map(dest => dest.Status, src => src.Status.Value)
+            .Map(dest => dest.Observations, src => src.Observations.Value)
+            .Map(dest => dest.Total, src => src.Total.Value);
 
-        // CreatePurchaseRequest -> CreatePurchase
         config.NewConfig<CreatePurchaseRequest, CreatePurchase>()
             .MapWith(src => new CreatePurchase(
-                src.Date,
+                DateOnly.FromDateTime(src.Date),
                 src.SupplierId,
                 src.UserId,
                 src.Status,
@@ -35,7 +28,6 @@ public sealed class PurchaseMappingConfig : IRegister
                 src.Total
             ));
 
-        // UpdatePurchaseRequest -> UpdatePurchase
         config.NewConfig<UpdatePurchaseRequest, UpdatePurchase>()
             .MapWith(src => new UpdatePurchase(
                 Guid.Empty,

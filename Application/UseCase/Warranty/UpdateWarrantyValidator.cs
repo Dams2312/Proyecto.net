@@ -1,22 +1,12 @@
 using FluentValidation;
-using WarrantyEntity = Domain.Entities.Warranty.Warranty;
-
 namespace Application.UseCase.Warranty;
-
 public sealed class UpdateWarrantyValidator : AbstractValidator<UpdateWarranty>
 {
     public UpdateWarrantyValidator()
     {
-        RuleFor(x => x.Name)
-            .NotEmpty()
-            .WithMessage("El nombre es obligatorio.")
-            .MaximumLength(100)
-            .WithMessage("El nombre no puede superar los 100 caracteres.");
-
-        RuleFor(x => x.Code)
-            .NotEmpty()
-            .WithMessage("El cÃ³digo es obligatorio.")
-            .MaximumLength(10)
-            .WithMessage("El cÃ³digo no puede superar los 10 caracteres.");
+        RuleFor(x => x.Id).NotEmpty();
+        RuleFor(x => x.Status).NotEmpty().MaximumLength(50);
+        RuleFor(x => x.StartDate).NotEqual(default(System.DateTime));
+        RuleFor(x => x.EndDate).NotEqual(default(System.DateTime));
     }
 }

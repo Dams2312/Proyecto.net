@@ -13,14 +13,14 @@ public sealed class MileageHistoryMappingConfig : IRegister
         config.NewConfig<MileageHistory, MileageHistoryDto>()
             .Map(dest => dest.VehicleId, src => src.VehicleId)
             .Map(dest => dest.Mileage, src => src.Kilometraje.Value)
-            .Map(dest => dest.Date, src => src.Date.Value)
+            .Map(dest => dest.Date, src => src.Date.Value.ToDateTime(TimeOnly.MinValue))
             .Map(dest => dest.Source, src => src.Source.Value);
 
         config.NewConfig<CreateMileageHistoryRequest, CreateMileageHistory>()
             .MapWith(src => new CreateMileageHistory(
                 src.VehicleId,
                 src.Mileage,
-                src.Date,
+                DateOnly.FromDateTime(src.Date),
                 src.Source
             ));
 

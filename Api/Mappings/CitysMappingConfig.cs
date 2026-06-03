@@ -10,20 +10,20 @@ public sealed class CitysMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<Citys, CitysDto>()
-            .Map(dest => dest.CountryId, src => src.CountryId)
+        config.NewConfig<City, CitysDto>()
+            .Map(dest => dest.CountryId, src => src.DepartmentId)
             .Map(dest => dest.Name, src => src.Name)
             .Map(dest => dest.Code, src => src.Code);
 
-        config.NewConfig<CreateCitysRequest, CreateCitys>()
-            .MapWith(src => new CreateCitys(
+        config.NewConfig<CreateCitysRequest, CreateCity>()
+            .MapWith(src => new CreateCity(
                 src.Name,
                 src.CountryId,
                 src.Code
             ));
 
-        config.NewConfig<UpdateCitysRequest, UpdateCitys>()
-            .MapWith(src => new UpdateCitys(
+        config.NewConfig<UpdateCitysRequest, UpdateCity>()
+            .MapWith(src => new UpdateCity(
                 Guid.Empty,
                 src.CountryId,
                 src.Name,

@@ -29,8 +29,8 @@ public sealed class MechanicTaskMappingConfig : IRegister
                 src.Description,
                 src.HourlyCost,
                 src.HoursWorked,
-                src.FechaInicio,
-                src.FechaFin,
+                src.FechaInicio.GetValueOrDefault(),
+                src.FechaFin.GetValueOrDefault(),
                 src.Status
             ));
 
@@ -43,8 +43,8 @@ public sealed class MechanicTaskMappingConfig : IRegister
                 src.Description,
                 src.HourlyCost,
                 src.HoursWorked,
-                src.FechaInicio,
-                src.FechaFin,
+                src.FechaInicio.GetValueOrDefault(),
+                src.FechaFin.GetValueOrDefault(),
                 src.Status
             ));
     }

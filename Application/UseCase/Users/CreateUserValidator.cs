@@ -1,22 +1,14 @@
+using System;
 using FluentValidation;
-using UserEntity = Domain.Entities.Users.User;
-
 namespace Application.UseCase.Users;
-
 public sealed class CreateUserValidator : AbstractValidator<CreateUser>
 {
     public CreateUserValidator()
     {
-        RuleFor(x => x.Name)
-            .NotEmpty()
-            .WithMessage("El nombre es obligatorio.")
-            .MaximumLength(100)
-            .WithMessage("El nombre no puede superar los 100 caracteres.");
-
-        RuleFor(x => x.Code)
-            .NotEmpty()
-            .WithMessage("El cÃ³digo es obligatorio.")
-            .MaximumLength(10)
-            .WithMessage("El cÃ³digo no puede superar los 10 caracteres.");
+        RuleFor(x => x.Names).NotEmpty().MaximumLength(100);
+        RuleFor(x => x.LastNames).NotEmpty().MaximumLength(100);
+        RuleFor(x => x.Email).NotEmpty().MaximumLength(150);
+        RuleFor(x => x.Password).NotEmpty().MaximumLength(100);
+        RuleFor(x => x.RoleId).NotEqual(Guid.Empty);
     }
 }
