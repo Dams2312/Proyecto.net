@@ -18,16 +18,16 @@ public sealed class AuditMappingConfig : IRegister
             .Map(dest => dest.NewData, src => src.DatosNuevos != null ? src.DatosNuevos.Value : null)
             .Map(dest => dest.IpOrigin, src => src.IpOrigen != null ? src.IpOrigen.Value : null);
 
-        config.NewConfig<CreateAuditRequest, CreateAudit>()
-            .MapWith(src => new CreateAudit(
-                Guid.Empty,
-                Guid.Empty,
-                src.ActionType,
-                src.Entity,
-                src.NewData,
-                src.PreviousData,
-                src.IpOrigin
-            ));
+            config.NewConfig<CreateAuditRequest, CreateAudit>()
+                .MapWith(src => new CreateAudit(
+                    src.UserId,
+                    src.EntidadId,
+                    src.ActionType,
+                    src.Entity,
+                    src.NewData,
+                    src.PreviousData,
+                    src.IpOrigin
+                ));
 
         config.NewConfig<UpdateAuditRequest, UpdateAudit>()
             .MapWith(src => new UpdateAudit(

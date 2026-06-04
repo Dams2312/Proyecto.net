@@ -23,8 +23,9 @@ public sealed class CreatePaymentHandler
 
         var paymentMethodId = request.PaymentMethodId;
 
-        var fechaPago = PaymentFechaPago.Create(request.FechaPago);
-
+        var fechaPago = PaymentFechaPago.Create(
+            DateTime.SpecifyKind(request.FechaPago, DateTimeKind.Utc));
+            
         var monto = PaymentMonto.Create(request.Monto);
 
         var referencia = PaymentReferencia.Create(request.Referencia);

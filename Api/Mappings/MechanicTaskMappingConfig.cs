@@ -11,9 +11,9 @@ public sealed class MechanicTaskMappingConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<MechanicTask, MechanicTaskDto>()
-            .Map(dest => dest.OrderId, src => src.OrderId)
-            .Map(dest => dest.MechanicId, src => src.MechanicId)
-            .Map(dest => dest.ServiceTypeId, src => src.ServiceTypeId)
+            .Map(dest => dest.OrderId, src => src.OrderId.Value)
+            .Map(dest => dest.MechanicId, src => src.MechanicId.Value)
+            .Map(dest => dest.ServiceTypeId, src => src.ServiceTypeId.Value)
             .Map(dest => dest.Description, src => src.Description.Value)
             .Map(dest => dest.Status, src => src.Status.Value)
             .Map(dest => dest.FechaInicio, src => src.FechaInicio.Value)

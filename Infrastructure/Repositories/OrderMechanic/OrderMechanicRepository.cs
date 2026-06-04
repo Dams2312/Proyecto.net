@@ -19,11 +19,11 @@ public sealed class OrderMechanicRepository : IOrderMechanic
         _context = context;
     }
 
-    public Task<OrderMechanics?> GetByIdAsync(Guid id, CancellationToken ct = default)
+   public Task<OrderMechanics?> GetByIdAsync(Guid id, CancellationToken ct = default)
     {
         return _context.Set<OrderMechanics>()
             .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Id == id, ct);
+            .FirstOrDefaultAsync(x => x.OrderId.Value == id, ct);
     }
 
     public Task<IReadOnlyList<OrderMechanics>> GetAllAsync(CancellationToken ct = default)

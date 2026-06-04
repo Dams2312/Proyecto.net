@@ -11,9 +11,11 @@ public sealed class OrderMechanicMappingConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<OrderMechanic, OrderMechanicDto>()
-            .Map(dest => dest.OrderId, src => src.OrderId)
-            .Map(dest => dest.MechanicId, src => src.MechanicId)
-            .Map(dest => dest.FechaAsignacion, src => src.FechaAsignacion.Value.ToDateTime(TimeOnly.MinValue));
+            .Map(dest => dest.OrderId, src => src.OrderId.Value)
+            .Map(dest => dest.MechanicId, src => src.MechanicId.Value)
+            .Map(dest => dest.FechaAsignacion, src => src.FechaAsignacion.Value.ToDateTime(TimeOnly.MinValue))
+            .Ignore(dest => dest.Id)
+            .Ignore(dest => dest.MechanicName);
 
         config.NewConfig<CreateOrderMechanicRequest, CreateOrderMechanic>()
             .MapWith(src => new CreateOrderMechanic(

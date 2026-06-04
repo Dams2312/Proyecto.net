@@ -61,14 +61,13 @@ public sealed class InvoiceConfiguration : IEntityTypeConfiguration<Domain.Entit
             .HasColumnType("decimal(5,2)")
             .IsRequired();
 
-        // subtotal y total son columnas GENERATED en MySQL → solo lectura
         builder.Property(x => x.Total)
             .HasConversion(
                 x => x.Value,
                 x => InvoiceTotal.Create(x))
             .HasColumnName("total")
             .HasColumnType("decimal(14,2)")
-            .ValueGeneratedOnAddOrUpdate();
+            .IsRequired();
 
         // Relación 1-a-1 con orden_servicio (UNIQUE en SQL)
         builder.HasIndex(x => x.OrderId)

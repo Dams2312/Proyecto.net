@@ -1,8 +1,8 @@
 using System;
 using Api.Dtos.Invoice;
 using Application.UseCase.Invoice;
-using Domain.Entities.Invoice;
 using Mapster;
+using InvoiceEntity = Domain.Entities.Invoice.Invoice;
 
 namespace Api.Mappings;
 
@@ -10,15 +10,17 @@ public sealed class InvoiceMappingConfig : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
-        config.NewConfig<Invoice, InvoiceDto>()
-            .Map(dest => dest.OrderId, src => src.OrderId)
-            .Map(dest => dest.StatusId, src => src.StatusId)
-            .Map(dest => dest.UserId, src => src.UserId)
-            .Map(dest => dest.PartsCost, src => src.CostoRepuestos.Value)
-            .Map(dest => dest.LaborCost, src => src.ManoDeObra.Value)
-            .Map(dest => dest.TaxPct, src => src.ImpuestoPct.Value)
-            .Map(dest => dest.Discount, src => src.Descuento.Value)
-            .Map(dest => dest.Total, src => src.Total.Value);
+        config.NewConfig<InvoiceEntity, InvoiceDto>()
+    .Map(dest => dest.OrderId, (InvoiceEntity src) => src.OrderId)
+    .Map(dest => dest.StatusId, (InvoiceEntity src) => src.StatusId)
+    .Map(dest => dest.UserId, (InvoiceEntity src) => src.UserId)
+    .Map(dest => dest.PartsCost, (InvoiceEntity src) => src.CostoRepuestos.Value)
+    .Map(dest => dest.LaborCost, (InvoiceEntity src) => src.ManoDeObra.Value)
+    .Map(dest => dest.TaxPct, (InvoiceEntity src) => src.ImpuestoPct.Value)
+    .Map(dest => dest.Discount, (InvoiceEntity src) => src.Descuento.Value)
+    .Map(dest => dest.Total, (InvoiceEntity src) => src.Total.Value)
+    .Ignore(dest => dest.StatusName)
+    .Ignore(dest => dest.UserName);
 
         config.NewConfig<CreateInvoiceRequest, CreateInvoice>()
             .MapWith(src => new CreateInvoice(

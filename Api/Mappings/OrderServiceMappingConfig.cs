@@ -11,9 +11,9 @@ public sealed class OrderServiceMappingConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<OrderServiceEntity, OrderServiceDto>()  // <-- usa el alias
-            .Map(dest => dest.VehicleId, src => src.VehicleId)
-            .Map(dest => dest.ReceptionistId, src => src.ReceptionistId)
-            .Map(dest => dest.StatusId, src => src.StatusId)
+            .Map(dest => dest.VehicleId, src => src.VehicleId.Value)
+            .Map(dest => dest.ReceptionistId, src => src.ReceptionistId.Value)
+            .Map(dest => dest.StatusId, src => src.StatusId.Value)
             .Map(dest => dest.KilometrajeIngreso, src => src.KilometrajeIngreso.Value)
             .Map(dest => dest.FechaIngreso, src => src.FechaIngreso.Value.ToDateTime(TimeOnly.MinValue))
             .Map(dest => dest.FechaEstimada, src => src.FechaEstimada != null ? (DateTime?)src.FechaEstimada.Value.Value.ToDateTime(TimeOnly.MinValue) : null)
