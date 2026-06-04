@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
 using UserEntity = Domain.Entities.Users.User;
@@ -11,15 +8,10 @@ public sealed class GetUsersPagedHandler : IRequestHandler<GetUsersPaged, IReadO
 {
     private readonly IUnitOfWork _uow;
 
-    public GetUsersPagedHandler(IUnitOfWork uow)
-    {
-        _uow = uow;
-    }
+    public GetUsersPagedHandler(IUnitOfWork uow) => _uow = uow;
 
-    public async Task<IReadOnlyList<UserEntity>> Handle(
-        GetUsersPaged request,
-        CancellationToken ct)
+    public async Task<IReadOnlyList<UserEntity>> Handle(GetUsersPaged request, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        return await _uow.Users.GetPagedAsync(request.Page, request.PageSize, request.Search, ct);
     }
 }

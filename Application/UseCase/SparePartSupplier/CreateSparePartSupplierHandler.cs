@@ -1,7 +1,5 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Abstractions;
+using Domain.ValueObject.SparePartSupplier;
 using MediatR;
 using SparePartSupplierEntity = Domain.Entities.SparePartSupplier.SparePartSupplier;
 
@@ -11,15 +9,20 @@ public sealed class CreateSparePartSupplierHandler : IRequestHandler<CreateSpare
 {
     private readonly IUnitOfWork _uow;
 
-    public CreateSparePartSupplierHandler(IUnitOfWork uow)
-    {
-        _uow = uow;
-    }
+    public CreateSparePartSupplierHandler(IUnitOfWork uow) => _uow = uow;
 
-    public async Task<Guid> Handle(
-        CreateSparePartSupplier request,
-        CancellationToken ct)
+    public async Task<Guid> Handle(CreateSparePartSupplier request, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        var entity = new SparePartSupplierEntity(
+            SparePartSupplierSparePartId.Create(request.SparePartId),
+            SparePartSupplierSupplierId.Create(request.SupplierId),
+            SparePartSupplierPurchasePrice.Create(request.PurchasePrice),
+            SparePartSupplierPrincipal.Create(request.Principal)
+        );
+
+        await _uow.SparePartSuppliers.AddAsync(entity, ct);
+        await _uow.SaveChangesAsync(ct);
+
+        return entity.Id;
     }
 }

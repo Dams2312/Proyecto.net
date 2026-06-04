@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
 using SparePartSupplierEntity = Domain.Entities.SparePartSupplier.SparePartSupplier;
@@ -11,15 +8,10 @@ public sealed class GetSparePartSuppliersPagedHandler : IRequestHandler<GetSpare
 {
     private readonly IUnitOfWork _uow;
 
-    public GetSparePartSuppliersPagedHandler(IUnitOfWork uow)
-    {
-        _uow = uow;
-    }
+    public GetSparePartSuppliersPagedHandler(IUnitOfWork uow) => _uow = uow;
 
-    public async Task<IReadOnlyList<SparePartSupplierEntity>> Handle(
-        GetSparePartSuppliersPaged request,
-        CancellationToken ct)
+    public async Task<IReadOnlyList<SparePartSupplierEntity>> Handle(GetSparePartSuppliersPaged request, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        return await _uow.SparePartSuppliers.GetPagedAsync(request.Page, request.PageSize, request.Search, ct);
     }
 }

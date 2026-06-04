@@ -11,9 +11,9 @@ public sealed class OrderStatusHistoryMappingConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<OrderStatusHistory, OrderStatusHistoryDto>()
-            .Map(dest => dest.OrderId, src => src.OrderId)
-            .Map(dest => dest.StatusId, src => src.StatusId)
-            .Map(dest => dest.UserId, src => src.UserId)
+            .Map(dest => dest.OrderId, src => src.OrderId.Value)
+            .Map(dest => dest.StatusId, src => src.StatusId.Value)
+            .Map(dest => dest.UserId, src => src.UserId.Value)
             .Map(dest => dest.ChangeDate, src => src.FechaCambio.Value);
 
         config.NewConfig<CreateOrderStatusHistoryRequest, CreateOrderStatusHistory>()

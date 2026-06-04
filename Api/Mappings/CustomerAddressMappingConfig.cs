@@ -17,7 +17,7 @@ public sealed class CustomerAddressMappingConfig : IRegister
 
         config.NewConfig<CreateCustomerAddressRequest, CreateCustomerAddress>()
             .MapWith(src => new CreateCustomerAddress(
-                Guid.Empty,
+                src.CustomerId,
                 src.CityId,
                 src.Street,
                 src.Principal
@@ -26,7 +26,7 @@ public sealed class CustomerAddressMappingConfig : IRegister
         config.NewConfig<UpdateCustomerAddressRequest, UpdateCustomerAddress>()
             .MapWith(src => new UpdateCustomerAddress(
                 src.Id,
-                Guid.Empty,
+                src.CustomerId,
                 src.CityId,
                 src.Street,
                 src.Principal

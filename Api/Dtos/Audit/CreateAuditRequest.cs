@@ -1,7 +1,3 @@
-using System;
-
-namespace Api.Dtos.Audit;
-
 public sealed class CreateAuditRequest
 {
     public Guid UserId { get; init; }

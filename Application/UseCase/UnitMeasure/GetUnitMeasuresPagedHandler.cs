@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
 using UnitMeasureEntity = Domain.Entities.UnitMeasure.UnitMeasure;
@@ -11,15 +8,10 @@ public sealed class GetUnitMeasuresPagedHandler : IRequestHandler<GetUnitMeasure
 {
     private readonly IUnitOfWork _uow;
 
-    public GetUnitMeasuresPagedHandler(IUnitOfWork uow)
-    {
-        _uow = uow;
-    }
+    public GetUnitMeasuresPagedHandler(IUnitOfWork uow) => _uow = uow;
 
-    public async Task<IReadOnlyList<UnitMeasureEntity>> Handle(
-        GetUnitMeasuresPaged request,
-        CancellationToken ct)
+    public async Task<IReadOnlyList<UnitMeasureEntity>> Handle(GetUnitMeasuresPaged request, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        return await _uow.UnitMeasures.GetPagedAsync(request.Page, request.PageSize, request.Search, ct);
     }
 }

@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
 using SupplierEntity = Domain.Entities.Supplier.Supplier;
@@ -11,15 +8,10 @@ public sealed class GetSuppliersPagedHandler : IRequestHandler<GetSuppliersPaged
 {
     private readonly IUnitOfWork _uow;
 
-    public GetSuppliersPagedHandler(IUnitOfWork uow)
-    {
-        _uow = uow;
-    }
+    public GetSuppliersPagedHandler(IUnitOfWork uow) => _uow = uow;
 
-    public async Task<IReadOnlyList<SupplierEntity>> Handle(
-        GetSuppliersPaged request,
-        CancellationToken ct)
+    public async Task<IReadOnlyList<SupplierEntity>> Handle(GetSuppliersPaged request, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        return await _uow.Suppliers.GetPagedAsync(request.Page, request.PageSize, request.Search, ct);
     }
 }

@@ -11,8 +11,8 @@ public sealed class OrderNoteMappingConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<OrderNote, OrderNoteDto>()
-            .Map(dest => dest.OrderId, src => src.OrderId)
-            .Map(dest => dest.UserId, src => src.UserId)
+            .Map(dest => dest.OrderId, src => src.OrderId.Value)
+            .Map(dest => dest.UserId, src => src.UserId.Value)
             .Map(dest => dest.FechaNota, src => src.FechaNota.Value)
             .Map(dest => dest.Content, src => src.Content.Value);
 

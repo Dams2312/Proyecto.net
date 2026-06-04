@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
 using UnitMeasureEntity = Domain.Entities.UnitMeasure.UnitMeasure;
@@ -11,15 +8,11 @@ public sealed class GetUnitMeasureByIdHandler : IRequestHandler<GetUnitMeasureBy
 {
     private readonly IUnitOfWork _uow;
 
-    public GetUnitMeasureByIdHandler(IUnitOfWork uow)
-    {
-        _uow = uow;
-    }
+    public GetUnitMeasureByIdHandler(IUnitOfWork uow) => _uow = uow;
 
-    public async Task<UnitMeasureEntity> Handle(
-        GetUnitMeasureById request,
-        CancellationToken ct)
+    public async Task<UnitMeasureEntity> Handle(GetUnitMeasureById request, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        return await _uow.UnitMeasures.GetByIdAsync(request.Id, ct)
+            ?? throw new KeyNotFoundException($"Unidad de medida con id {request.Id} no encontrada.");
     }
 }

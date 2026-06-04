@@ -11,8 +11,8 @@ public sealed class OrderDetailMappingConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<OrderDetail, OrderDetailDto>()
-            .Map(dest => dest.OrderId, src => src.OrderId)
-            .Map(dest => dest.SparePartId, src => src.SparePartId)
+            .Map(dest => dest.OrderId, src => src.OrderId.Value)
+            .Map(dest => dest.SparePartId, src => src.SparePartId.Value)
             .Map(dest => dest.Quantity, src => src.Quantity.Value)
             .Map(dest => dest.PriceSnapshot, src => src.PriceSnapshot.Value);
 

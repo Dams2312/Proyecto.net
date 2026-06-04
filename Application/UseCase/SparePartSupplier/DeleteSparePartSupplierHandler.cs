@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
 using SparePartSupplierEntity = Domain.Entities.SparePartSupplier.SparePartSupplier;
@@ -11,15 +8,16 @@ public sealed class DeleteSparePartSupplierHandler : IRequestHandler<DeleteSpare
 {
     private readonly IUnitOfWork _uow;
 
-    public DeleteSparePartSupplierHandler(IUnitOfWork uow)
-    {
-        _uow = uow;
-    }
+    public DeleteSparePartSupplierHandler(IUnitOfWork uow) => _uow = uow;
 
-    public async Task<Unit> Handle(
-        DeleteSparePartSupplier request,
-        CancellationToken ct)
+    public async Task<Unit> Handle(DeleteSparePartSupplier request, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        var entity = await _uow.SparePartSuppliers.GetByIdAsync(request.Id, ct)
+            ?? throw new KeyNotFoundException($"Relación repuesto-proveedor con id {request.Id} no encontrada.");
+
+        await _uow.SparePartSuppliers.RemoveAsync(entity, ct);
+        await _uow.SaveChangesAsync(ct);
+
+        return Unit.Value;
     }
 }

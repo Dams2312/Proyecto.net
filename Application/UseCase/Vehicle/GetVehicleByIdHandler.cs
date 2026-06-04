@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
 using VehicleEntity = Domain.Entities.Vehicle.Vehicle;
@@ -11,15 +8,11 @@ public sealed class GetVehicleByIdHandler : IRequestHandler<GetVehicleById, Vehi
 {
     private readonly IUnitOfWork _uow;
 
-    public GetVehicleByIdHandler(IUnitOfWork uow)
-    {
-        _uow = uow;
-    }
+    public GetVehicleByIdHandler(IUnitOfWork uow) => _uow = uow;
 
-    public async Task<VehicleEntity> Handle(
-        GetVehicleById request,
-        CancellationToken ct)
+    public async Task<VehicleEntity> Handle(GetVehicleById request, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        return await _uow.Vehicles.GetByIdAsync(request.Id, ct)
+            ?? throw new KeyNotFoundException($"Vehículo con id {request.Id} no encontrado.");
     }
 }

@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
 using ServiceTypeEntity = Domain.Entities.ServiceType.ServiceType;
@@ -11,15 +8,16 @@ public sealed class DeleteServiceTypeHandler : IRequestHandler<DeleteServiceType
 {
     private readonly IUnitOfWork _uow;
 
-    public DeleteServiceTypeHandler(IUnitOfWork uow)
-    {
-        _uow = uow;
-    }
+    public DeleteServiceTypeHandler(IUnitOfWork uow) => _uow = uow;
 
-    public async Task<Unit> Handle(
-        DeleteServiceType request,
-        CancellationToken ct)
+    public async Task<Unit> Handle(DeleteServiceType request, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        var entity = await _uow.ServiceTypes.GetByIdAsync(request.Id, ct)
+            ?? throw new KeyNotFoundException($"Tipo de servicio con id {request.Id} no encontrado.");
+
+        await _uow.ServiceTypes.RemoveAsync(entity, ct);
+        await _uow.SaveChangesAsync(ct);
+
+        return Unit.Value;
     }
 }

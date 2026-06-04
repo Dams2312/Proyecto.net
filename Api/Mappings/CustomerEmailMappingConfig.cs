@@ -17,7 +17,7 @@ public sealed class CustomerEmailMappingConfig : IRegister
 
         config.NewConfig<CreateCustomerEmailRequest, CreateCustomerEmail>()
             .MapWith(src => new CreateCustomerEmail(
-                Guid.Empty,
+                src.CustomerId,
                 src.Email,
                 src.Principal
             ));
@@ -25,7 +25,7 @@ public sealed class CustomerEmailMappingConfig : IRegister
         config.NewConfig<UpdateCustomerEmailRequest, UpdateCustomerEmail>()
             .MapWith(src => new UpdateCustomerEmail(
                 src.Id,
-                Guid.Empty,
+                src.CustomerId,
                 src.Email,
                 src.Principal
             ));

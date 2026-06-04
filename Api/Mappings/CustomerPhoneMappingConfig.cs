@@ -19,7 +19,7 @@ public sealed class CustomerPhoneMappingConfig : IRegister
             .MapWith(src => new CreateCustomerPhone(
                 src.Phone,
                 src.Type,
-                Guid.Empty
+                src.CustomerId
             ));
 
         config.NewConfig<UpdateCustomerPhoneRequest, UpdateCustomerPhone>()
@@ -27,7 +27,7 @@ public sealed class CustomerPhoneMappingConfig : IRegister
                 src.Id,
                 src.Phone,
                 src.Type,
-                Guid.Empty
+                src.CustomerId
             ));
     }
 }
