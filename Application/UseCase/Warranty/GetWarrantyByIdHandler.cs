@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
 using WarrantyEntity = Domain.Entities.Warranty.Warranty;
@@ -11,15 +8,11 @@ public sealed class GetWarrantyByIdHandler : IRequestHandler<GetWarrantyById, Wa
 {
     private readonly IUnitOfWork _uow;
 
-    public GetWarrantyByIdHandler(IUnitOfWork uow)
-    {
-        _uow = uow;
-    }
+    public GetWarrantyByIdHandler(IUnitOfWork uow) => _uow = uow;
 
-    public async Task<WarrantyEntity> Handle(
-        GetWarrantyById request,
-        CancellationToken ct)
+    public async Task<WarrantyEntity> Handle(GetWarrantyById request, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        return await _uow.Warranties.GetByIdAsync(request.Id, ct)
+            ?? throw new KeyNotFoundException($"Garantía con id {request.Id} no encontrada.");
     }
 }

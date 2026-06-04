@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Abstractions;
 using MediatR;
 using RoleEntity = Domain.Entities.Roles.Role;
@@ -11,15 +8,10 @@ public sealed class GetRolesPagedHandler : IRequestHandler<GetRolesPaged, IReadO
 {
     private readonly IUnitOfWork _uow;
 
-    public GetRolesPagedHandler(IUnitOfWork uow)
-    {
-        _uow = uow;
-    }
+    public GetRolesPagedHandler(IUnitOfWork uow) => _uow = uow;
 
-    public async Task<IReadOnlyList<RoleEntity>> Handle(
-        GetRolesPaged request,
-        CancellationToken ct)
+    public async Task<IReadOnlyList<RoleEntity>> Handle(GetRolesPaged request, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        return await _uow.Roles.GetPagedAsync(request.Page, request.PageSize, request.Search, ct);
     }
 }
