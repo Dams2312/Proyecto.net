@@ -476,4 +476,5 @@ Proyecto.net/
 
 <p align="center">
   <em>AutoTallerManager — Desarrollado con ASP.NET Core 10 · Arquitectura Hexagonal · Entity Framework Core</em>
-</p>
+</p>#   P a r c i a l . N e t  
+ 
