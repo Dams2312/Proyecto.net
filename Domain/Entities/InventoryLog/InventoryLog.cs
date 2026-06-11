@@ -26,7 +26,7 @@ public sealed class InventoryLog : BaseEntity<Guid>
     // FK COMO GUID
     public Guid PurchaseId { get; private set; }
 
-    public InventoryLogMotivo Motivo { get; private set; }
+    public InventoryLogMotivo? Motivo { get; private set; }
 
     private InventoryLog() { }
 
@@ -39,7 +39,7 @@ public sealed class InventoryLog : BaseEntity<Guid>
         InventoryLogFecha fecha,
         Guid orderId,
         Guid purchaseId,
-        InventoryLogMotivo motivo)
+        InventoryLogMotivo? motivo)
     {
         if (sparePartId == Guid.Empty)
             throw new ArgumentException("El repuesto es obligatorio.", nameof(sparePartId));
@@ -69,7 +69,7 @@ public sealed class InventoryLog : BaseEntity<Guid>
 
         PurchaseId = purchaseId;
 
-        Motivo = motivo ?? throw new ArgumentNullException(nameof(motivo));
+        Motivo = motivo;
 
         ValidateMovementConsistency(quantity, typeMovement);
     }
@@ -130,9 +130,9 @@ public sealed class InventoryLog : BaseEntity<Guid>
         PurchaseId = purchaseId;
     }
 
-    public void UpdateMotivo(InventoryLogMotivo motivo)
+    public void UpdateMotivo(InventoryLogMotivo? motivo)
     {
-        Motivo = motivo ?? throw new ArgumentNullException(nameof(motivo));
+        Motivo = motivo;
     }
 
     private static void ValidateMovementConsistency(

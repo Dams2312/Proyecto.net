@@ -28,16 +28,5 @@ public sealed class OrderMechanicConfiguration : IEntityTypeConfiguration<Domain
             .HasColumnName("fecha_asignacion")
             .IsRequired();
 
-        builder.HasOne<Domain.Entities.OrderService.OrderService>()
-            .WithMany()
-            .HasForeignKey("orden_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasOne<Domain.Entities.Users.User>()
-            .WithMany()
-            .HasForeignKey("mecanico_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

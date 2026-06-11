@@ -39,10 +39,5 @@ public sealed class MileageHistoryConfiguration : IEntityTypeConfiguration<Domai
 
         builder.HasIndex(x => x.VehicleId).HasDatabaseName("idx_hkm_vehiculo");
 
-        builder.HasOne<Domain.Entities.Vehicle.Vehicle>()
-            .WithMany()
-            .HasForeignKey("vehiculo_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

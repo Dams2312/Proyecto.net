@@ -33,16 +33,5 @@ public sealed class SparePartSupplierConfiguration : IEntityTypeConfiguration<Do
             .HasColumnName("principal")
             .IsRequired();
 
-        builder.HasOne<Domain.Entities.SparePart.SparePart>()
-            .WithMany()
-            .HasForeignKey("repuesto_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne<Domain.Entities.Supplier.Supplier>()
-            .WithMany()
-            .HasForeignKey("proveedor_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

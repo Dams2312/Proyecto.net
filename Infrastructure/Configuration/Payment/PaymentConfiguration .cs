@@ -40,9 +40,9 @@ public sealed class PaymentConfiguration : IEntityTypeConfiguration<Domain.Entit
             .IsRequired();
 
         builder.Property(x => x.Referencia)
-            .HasConversion(
-                x => x == null ? null : x.Value,
-                x => x == null ? null : PaymentReferencia.Create(x))
+            .HasConversion(new Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<PaymentReferencia?, string?>(
+                x => x == null ? (string?)null : x.Value,
+                x => x == null ? null : PaymentReferencia.Create(x)))
             .HasColumnName("referencia")
             .HasMaxLength(100);
 

@@ -48,7 +48,7 @@ public sealed class InventoryLogRepository : IInventoryLog
 
             query = query.Where(x =>
                 x.TypeMovement.Value.Contains(normalized) ||
-                x.Motivo.Value.Contains(normalized));
+                x.Motivo != null && x.Motivo.Value != null && x.Motivo.Value.Contains(normalized));
         }
 
         return await query
@@ -69,7 +69,7 @@ public sealed class InventoryLogRepository : IInventoryLog
 
             query = query.Where(x =>
                 x.TypeMovement.Value.Contains(normalized) ||
-                x.Motivo.Value.Contains(normalized));
+                x.Motivo != null && x.Motivo.Value != null && x.Motivo.Value.Contains(normalized));
         }
 
         return query.CountAsync(ct);

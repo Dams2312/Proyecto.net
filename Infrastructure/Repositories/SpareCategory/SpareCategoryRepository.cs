@@ -48,7 +48,7 @@ public sealed class SpareCategoryRepository : ISpareCategory
 
             query = query.Where(x =>
                 x.Name.Value.Contains(normalized) ||
-                x.Description.Value.Contains(normalized));
+                x.Description != null && x.Description.Value != null && x.Description.Value.Contains(normalized));
         }
 
         return await query
@@ -69,7 +69,7 @@ public sealed class SpareCategoryRepository : ISpareCategory
 
             query = query.Where(x =>
                 x.Name.Value.Contains(normalized) ||
-                x.Description.Value.Contains(normalized));
+                x.Description != null && x.Description.Value != null && x.Description.Value.Contains(normalized));
         }
 
         return query.CountAsync(ct);

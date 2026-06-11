@@ -3,6 +3,7 @@ using Application.Abstractions;
 using Application.UseCase.AppointmentEntity;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -71,6 +72,7 @@ public sealed class AppointmentsController : BaseApiController
     }
 
     [HttpPost]
+    [Authorize(Policy = "ReceptionistOrAdmin")]
     [ProducesResponseType(typeof(AppointmentDto), StatusCodes.Status201Created)]
     public async Task<IActionResult> Create(
         [FromBody] CreateAppointmentRequest request,
@@ -87,6 +89,7 @@ public sealed class AppointmentsController : BaseApiController
     }
 
     [HttpPut("{id:guid}")]
+    [Authorize(Policy = "ReceptionistOrAdmin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(
@@ -104,6 +107,7 @@ public sealed class AppointmentsController : BaseApiController
     }
 
     [HttpDelete("{id:guid}")]
+    [Authorize(Policy = "AdminOnly")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(

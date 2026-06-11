@@ -44,22 +44,11 @@ public sealed class PurchaseConfiguration : IEntityTypeConfiguration<Domain.Enti
             .IsRequired();
 
         builder.Property(x => x.Observations)
-            .HasConversion(
-                x => x == null ? null : x.Value,
-                x => x == null ? null : PurchaseObservations.Create(x))
+            .HasConversion(new Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<PurchaseObservations?, string?>(
+                x => x == null ? (string?)null : x.Value,
+                x => x == null ? null : PurchaseObservations.Create(x)))
             .HasColumnName("observaciones")
             .HasColumnType("text");
 
-        builder.HasOne<Domain.Entities.Supplier.Supplier>()
-            .WithMany()
-            .HasForeignKey("proveedor_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne<Domain.Entities.Users.User>()
-            .WithMany()
-            .HasForeignKey("usuario_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

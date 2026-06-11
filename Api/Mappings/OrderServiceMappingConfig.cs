@@ -16,10 +16,10 @@ public sealed class OrderServiceMappingConfig : IRegister
             .Map(dest => dest.StatusId, src => src.StatusId.Value)
             .Map(dest => dest.KilometrajeIngreso, src => src.KilometrajeIngreso.Value)
             .Map(dest => dest.FechaIngreso, src => src.FechaIngreso.Value.ToDateTime(TimeOnly.MinValue))
-            .Map(dest => dest.FechaEstimada, src => src.FechaEstimada != null ? (DateTime?)src.FechaEstimada.Value.Value.ToDateTime(TimeOnly.MinValue) : null)
-            .Map(dest => dest.FechaEntregaReal, src => src.FechaEntregaReal != null ? (DateTime?)src.FechaEntregaReal.Value.Value.ToDateTime(TimeOnly.MinValue) : null)
+            .Map(dest => dest.FechaEstimada, src => src.FechaEstimada != null && src.FechaEstimada.Value.HasValue ? (DateTime?)src.FechaEstimada.Value.Value.ToDateTime(TimeOnly.MinValue) : null)
+            .Map(dest => dest.FechaEntregaReal, src => src.FechaEntregaReal != null && src.FechaEntregaReal.Value.HasValue ? (DateTime?)src.FechaEntregaReal.Value.Value.ToDateTime(TimeOnly.MinValue) : null)
             .Map(dest => dest.AppointmentId, src => src.AppointmentId)
-            .Map(dest => dest.Observaciones, src => src.Observaciones.Value);
+            .Map(dest => dest.Observaciones, src => src.Observaciones != null ? src.Observaciones.Value : null);
 
         config.NewConfig<CreateOrderServiceRequest, CreateOrderService>()
             .MapWith(src => new CreateOrderService(

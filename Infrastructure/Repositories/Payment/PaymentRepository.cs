@@ -47,7 +47,7 @@ public sealed class PaymentRepository : IPayment
             var normalized = search.Trim().ToLower();
 
             query = query.Where(x =>
-                x.Referencia.Value.Contains(normalized) ||
+                x.Referencia != null && x.Referencia.Value != null && x.Referencia.Value.Contains(normalized) ||
                 x.Estado.Value.Contains(normalized));
         }
 
@@ -68,7 +68,7 @@ public sealed class PaymentRepository : IPayment
             var normalized = search.Trim().ToLower();
 
             query = query.Where(x =>
-                x.Referencia.Value.Contains(normalized) ||
+                x.Referencia != null && x.Referencia.Value != null && x.Referencia.Value.Contains(normalized) ||
                 x.Estado.Value.Contains(normalized));
         }
 

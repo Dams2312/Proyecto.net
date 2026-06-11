@@ -3,6 +3,7 @@ using Application.Abstractions;
 using Application.UseCase.Vehicle;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,6 +57,7 @@ public sealed class VehiclesController : BaseApiController
     }
 
     [HttpPost]
+    [Authorize(Policy = "ReceptionistOrAdmin")]
     [ProducesResponseType(typeof(VehicleDto), StatusCodes.Status201Created)]
     public async Task<IActionResult> Create([FromBody] CreateVehicleRequest request, CancellationToken ct)
     {
@@ -67,6 +69,7 @@ public sealed class VehiclesController : BaseApiController
     }
 
     [HttpPut("{id:guid}")]
+    [Authorize(Policy = "ReceptionistOrAdmin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateVehicleRequest request, CancellationToken ct)
@@ -80,6 +83,7 @@ public sealed class VehiclesController : BaseApiController
     }
 
     [HttpDelete("{id:guid}")]
+    [Authorize(Policy = "AdminOnly")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(Guid id, CancellationToken ct)

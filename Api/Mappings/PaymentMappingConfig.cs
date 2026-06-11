@@ -16,7 +16,7 @@ public sealed class PaymentMappingConfig : IRegister
             .Map(dest => dest.Amount,
                 src => src.Monto.Value)
             .Map(dest => dest.Reference,
-                src => src.Referencia.Value)
+                src => src.Referencia != null ? src.Referencia.Value : null)
             .Map(dest => dest.Status,
                 src => src.Estado.Value);
 

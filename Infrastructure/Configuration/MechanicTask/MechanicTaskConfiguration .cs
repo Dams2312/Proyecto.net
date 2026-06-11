@@ -27,9 +27,9 @@ public sealed class MechanicTaskConfiguration : IEntityTypeConfiguration<Domain.
             .HasColumnName("mecanico_id")
             .IsRequired();
 
-        var serviceTypeConverter = new ValueConverter<MechanicTaskServiceTypeId?, Guid?>(
-            v => v == null ? (Guid?)null : v.Value,
-            v => v == null ? null : MechanicTaskServiceTypeId.Create(v.Value));
+        var serviceTypeConverter = new ValueConverter<MechanicTaskServiceTypeId, Guid>(
+            v => v.Value,
+            v => MechanicTaskServiceTypeId.Create(v));
 
         builder.Property(x => x.ServiceTypeId)
             .HasConversion(serviceTypeConverter)
@@ -59,17 +59,17 @@ public sealed class MechanicTaskConfiguration : IEntityTypeConfiguration<Domain.
             .HasMaxLength(20)
             .IsRequired();
 
-        var fechaInicioConverter = new ValueConverter<MechanicTaskFechaInicio?, DateTime?>(
-            v => v == null ? (DateTime?)null : v.Value,
-            v => v == null ? null : MechanicTaskFechaInicio.Create(v.Value));
+        var fechaInicioConverter = new ValueConverter<MechanicTaskFechaInicio, DateTime?>(
+            v => v.Value,
+            v => MechanicTaskFechaInicio.Create(v));
 
         builder.Property(x => x.FechaInicio)
             .HasConversion(fechaInicioConverter)
             .HasColumnName("fecha_inicio");
 
-        var fechaFinConverter = new ValueConverter<MechanicTaskFechaFin?, DateTime?>(
-            v => v == null ? (DateTime?)null : v.Value,
-            v => v == null ? null : MechanicTaskFechaFin.Create(v.Value));
+        var fechaFinConverter = new ValueConverter<MechanicTaskFechaFin, DateTime?>(
+            v => v.Value,
+            v => MechanicTaskFechaFin.Create(v));
 
         builder.Property(x => x.FechaFin)
             .HasConversion(fechaFinConverter)
@@ -78,23 +78,5 @@ public sealed class MechanicTaskConfiguration : IEntityTypeConfiguration<Domain.
         builder.HasIndex(x => x.OrderId).HasDatabaseName("idx_tarea_orden");
         builder.HasIndex(x => x.MechanicId).HasDatabaseName("idx_tarea_mecanico");
 
-        builder.HasOne<Domain.Entities.OrderService.OrderService>()
-            .WithMany()
-            .HasForeignKey("orden_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasOne<Domain.Entities.Users.User>()
-            .WithMany()
-            .HasForeignKey("mecanico_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne<Domain.Entities.ServiceType.ServiceType>()
-            .WithMany()
-            .HasForeignKey("tipo_servicio_id")
-            .HasPrincipalKey("Id")
-            .IsRequired(false)
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

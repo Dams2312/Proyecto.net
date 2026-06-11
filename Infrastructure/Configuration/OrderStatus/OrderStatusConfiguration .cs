@@ -23,9 +23,9 @@ public sealed class OrderStatusConfiguration : IEntityTypeConfiguration<Domain.E
             .IsRequired();
 
         builder.Property(x => x.Description)
-            .HasConversion(
-                x => x == null ? null : x.Value,
-                x => x == null ? null : OrderStatusDescription.Create(x))
+            .HasConversion(new Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<OrderStatusDescription?, string?>(
+                x => x == null ? (string?)null : x.Value,
+                x => x == null ? null : OrderStatusDescription.Create(x)))
             .HasColumnName("descripcion")
             .HasColumnType("text");
 

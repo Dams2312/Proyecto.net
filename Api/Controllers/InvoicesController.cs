@@ -3,6 +3,7 @@ using Application.Abstractions;
 using Application.UseCase.Invoice;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,6 +55,7 @@ public sealed class InvoicesController : BaseApiController
     }
 
     [HttpPost]
+    [Authorize(Policy = "MechanicOrAdmin")]
     [ProducesResponseType(typeof(InvoiceDto), StatusCodes.Status201Created)]
     public async Task<IActionResult> Create([FromBody] CreateInvoiceRequest request, CancellationToken ct)
     {
@@ -65,6 +67,7 @@ public sealed class InvoicesController : BaseApiController
     }
 
     [HttpPut("{id:guid}")]
+    [Authorize(Policy = "MechanicOrAdmin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateInvoiceRequest request, CancellationToken ct)
@@ -77,6 +80,7 @@ public sealed class InvoicesController : BaseApiController
     }
 
     [HttpDelete("{id:guid}")]
+    [Authorize(Policy = "AdminOnly")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(Guid id, CancellationToken ct)

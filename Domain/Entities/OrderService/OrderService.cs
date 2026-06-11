@@ -16,7 +16,8 @@ public sealed class OrderService : BaseEntity<Guid>
     public OrderServiceFechaIngreso FechaIngreso { get; private set; }
     public OrderServiceFechaEstimada? FechaEstimada { get; private set; }
     public OrderServiceFechaEntregaReal? FechaEntregaReal { get; private set; }
-    public Guid? AppointmentId { get; private set; }    public OrderServiceObservaciones Observaciones { get; private set; }
+    public Guid? AppointmentId { get; private set; }
+    public OrderServiceObservaciones? Observaciones { get; private set; }
 
     private OrderService() { }
 
@@ -29,7 +30,7 @@ public sealed class OrderService : BaseEntity<Guid>
         OrderServiceFechaEstimada? fechaEstimada,
         OrderServiceFechaEntregaReal? fechaEntregaReal,
         Guid? appointmentId,
-        OrderServiceObservaciones observaciones)
+        OrderServiceObservaciones? observaciones)
     {
         ValidateDates(fechaIngreso, fechaEstimada, fechaEntregaReal);
 
@@ -41,7 +42,7 @@ public sealed class OrderService : BaseEntity<Guid>
         FechaEstimada = fechaEstimada;
         FechaEntregaReal = fechaEntregaReal;
         AppointmentId = appointmentId;
-        Observaciones = observaciones ?? throw new ArgumentNullException(nameof(observaciones));
+        Observaciones = observaciones;
     }
 
     private static void ValidateDates(
@@ -108,8 +109,8 @@ public sealed class OrderService : BaseEntity<Guid>
         AppointmentId = appointmentId;
     }
 
-    public void UpdateObservaciones(OrderServiceObservaciones observaciones)
+    public void UpdateObservaciones(OrderServiceObservaciones? observaciones)
     {
-        Observaciones = observaciones ?? throw new ArgumentNullException(nameof(observaciones));
+        Observaciones = observaciones;
     }
 }

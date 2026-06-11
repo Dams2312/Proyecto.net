@@ -3,6 +3,7 @@ using Application.Abstractions;
 using Application.UseCase.SparePart;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,6 +57,7 @@ public sealed class SparePartsController : BaseApiController
     }
 
     [HttpPost]
+    [Authorize(Policy = "AdminOnly")]
     [ProducesResponseType(typeof(SparePartDto), StatusCodes.Status201Created)]
     public async Task<IActionResult> Create([FromBody] CreateSparePartRequest request, CancellationToken ct)
     {
@@ -67,6 +69,7 @@ public sealed class SparePartsController : BaseApiController
     }
 
     [HttpPut("{id:guid}")]
+    [Authorize(Policy = "AdminOnly")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateSparePartRequest request, CancellationToken ct)
@@ -80,6 +83,7 @@ public sealed class SparePartsController : BaseApiController
     }
 
     [HttpDelete("{id:guid}")]
+    [Authorize(Policy = "AdminOnly")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(Guid id, CancellationToken ct)

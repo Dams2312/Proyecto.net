@@ -3,6 +3,7 @@ using Application.Abstractions;
 using Application.UseCase.OrderService;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,6 +55,7 @@ public sealed class OrderServicesController : BaseApiController
     }
 
     [HttpPost]
+    [Authorize(Policy = "ReceptionistOrAdmin")]
     [ProducesResponseType(typeof(OrderServiceDto), StatusCodes.Status201Created)]
     public async Task<IActionResult> Create([FromBody] CreateOrderServiceRequest request, CancellationToken ct)
     {
@@ -65,6 +67,7 @@ public sealed class OrderServicesController : BaseApiController
     }
 
     [HttpPut("{id:guid}")]
+    [Authorize(Policy = "MechanicOrAdmin")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateOrderServiceRequest request, CancellationToken ct)
@@ -77,6 +80,7 @@ public sealed class OrderServicesController : BaseApiController
     }
 
     [HttpDelete("{id:guid}")]
+    [Authorize(Policy = "AdminOnly")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(Guid id, CancellationToken ct)

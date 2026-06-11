@@ -40,16 +40,5 @@ public sealed class OrderDetailConfiguration : IEntityTypeConfiguration<Domain.E
         builder.HasIndex(x => new { x.OrderId, x.SparePartId }).IsUnique().HasDatabaseName("uq_do_orden_repuesto");
         builder.HasIndex(x => x.OrderId).HasDatabaseName("idx_do_orden");
 
-        builder.HasOne<Domain.Entities.OrderService.OrderService>()
-            .WithMany()
-            .HasForeignKey("orden_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasOne<Domain.Entities.SparePart.SparePart>()
-            .WithMany()
-            .HasForeignKey("repuesto_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

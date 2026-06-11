@@ -1,4 +1,6 @@
 using Api.Extensions;
+using Api.Infrastructure;
+using Api.Security;
 using Application;
 using Application.Abstractions;
 using Infrastructure;
@@ -39,6 +41,10 @@ using Infrastructure.Repositories.Vehicle;
 using Infrastructure.Repositories.VehicleMake;
 using Infrastructure.Repositories.VehicleModel;
 using Infrastructure.Repositories.Warranty;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,7 +52,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "AutoTallerManager API",
+        Version = "v1"
+    });
+
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Ingrese el JWT sin prefijo. Swagger enviara: Bearer {token}"
+    });
+
+});
 
 builder.Services.AddEndpointsApiExplorer();
 
@@ -87,6 +111,37 @@ builder.Services.AddScoped<IVehicle, VehicleRepository>();
 builder.Services.AddScoped<IVehicleMake, VehicleMakeRepository>();
 builder.Services.AddScoped<IVehicleModel, VehicleModelRepository>();
 builder.Services.AddScoped<IWarranty, WarrantyRepository>();
+builder.Services.AddScoped<JwtTokenService>();
+
+var jwt = builder.Configuration.GetSection("Jwt");
+var jwtKey = jwt["Key"] ?? throw new InvalidOperationException("Jwt:Key is not configured.");
+var jwtIssuer = jwt["Issuer"] ?? throw new InvalidOperationException("Jwt:Issuer is not configured.");
+var jwtAudience = jwt["Audience"] ?? throw new InvalidOperationException("Jwt:Audience is not configured.");
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = jwtIssuer,
+            ValidateAudience = true,
+            ValidAudience = jwtAudience,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.FromMinutes(2)
+        };
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole(RoleNames.Admin));
+    options.AddPolicy("MechanicOrAdmin", policy => policy.RequireRole(RoleNames.Mecanico, RoleNames.Admin));
+    options.AddPolicy("ReceptionistOrAdmin", policy => policy.RequireRole(RoleNames.Recepcionista, RoleNames.Admin));
+    options.AddPolicy("Staff", policy => policy.RequireRole(RoleNames.Admin, RoleNames.Mecanico, RoleNames.Recepcionista));
+});
 
 builder.Services.ConfigureCors();
 
@@ -97,6 +152,8 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddMapsterConfiguration();
 
 var app = builder.Build();
+
+await app.SeedAuthAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -113,7 +170,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 
-app.UseAuthorization();;
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

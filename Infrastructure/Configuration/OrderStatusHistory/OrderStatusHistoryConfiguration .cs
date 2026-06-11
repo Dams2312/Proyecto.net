@@ -38,22 +38,5 @@ public sealed class OrderStatusHistoryConfiguration : IEntityTypeConfiguration<D
 
         builder.HasIndex(x => x.OrderId).HasDatabaseName("idx_heo_orden");
 
-        builder.HasOne<Domain.Entities.OrderService.OrderService>()
-            .WithMany()
-            .HasForeignKey("orden_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasOne<Domain.Entities.OrderStatus.OrderStatus>()
-            .WithMany()
-            .HasForeignKey("estado_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne<Domain.Entities.Users.User>()
-            .WithMany()
-            .HasForeignKey("usuario_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

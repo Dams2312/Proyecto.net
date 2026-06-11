@@ -19,7 +19,7 @@ public sealed class InventoryLogMappingConfig : IRegister
             .Map(dest => dest.Date, src => src.Fecha.Value)
             .Map(dest => dest.OrderId, src => src.OrderId)
             .Map(dest => dest.PurchaseId, src => src.PurchaseId)
-            .Map(dest => dest.Reason, src => src.Motivo.Value);
+            .Map(dest => dest.Reason, src => src.Motivo != null ? src.Motivo.Value : null);
 
         config.NewConfig<CreateInventoryLogRequest, CreateInventoryLog>()
             .MapWith(src => new CreateInventoryLog(

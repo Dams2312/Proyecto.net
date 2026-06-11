@@ -47,7 +47,7 @@ public sealed class OrderServiceRepository : IOrderService
             var normalized = search.Trim().ToLower();
 
             query = query.Where(x =>
-                x.Observaciones.Value.Contains(normalized));
+                x.Observaciones != null && x.Observaciones.Value != null && x.Observaciones.Value.Contains(normalized));
         }
 
         return await query
@@ -67,7 +67,7 @@ public sealed class OrderServiceRepository : IOrderService
             var normalized = search.Trim().ToLower();
 
             query = query.Where(x =>
-                x.Observaciones.Value.Contains(normalized));
+                x.Observaciones != null && x.Observaciones.Value != null && x.Observaciones.Value.Contains(normalized));
         }
 
         return query.CountAsync(ct);

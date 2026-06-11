@@ -63,10 +63,5 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<Domain.Entities
 
         builder.HasIndex(x => x.Mail).IsUnique();
 
-        builder.HasOne<Domain.Entities.Roles.Role>()
-            .WithMany()
-            .HasForeignKey("rol_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

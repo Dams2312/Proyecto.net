@@ -12,7 +12,7 @@ public sealed class OrderStatusMappingConfig : IRegister
     {
         config.NewConfig<OrderStatus, OrderStatusDto>()
             .Map(dest => dest.Name, src => src.Name.Value)
-            .Map(dest => dest.Description, src => src.Description.Value);
+            .Map(dest => dest.Description, src => src.Description != null ? src.Description.Value : null);
 
         config.NewConfig<CreateOrderStatusRequest, CreateOrderStatus>()
             .MapWith(src => new CreateOrderStatus(

@@ -10,14 +10,14 @@ namespace Domain.Entities.OrderStatus;
 public sealed class OrderStatus : BaseEntity<Guid>
 {
     public OrderStatusName Name { get; private set; }
-    public OrderStatusDescription Description { get; private set; }
+    public OrderStatusDescription? Description { get; private set; }
 
     private OrderStatus() { }
 
-    public OrderStatus(OrderStatusName name, OrderStatusDescription description)
+    public OrderStatus(OrderStatusName name, OrderStatusDescription? description)
     {
         Name = name ?? throw new ArgumentNullException(nameof(name));
-        Description = description ?? throw new ArgumentNullException(nameof(description));
+        Description = description;
     }
 
     public void UpdateName(OrderStatusName name)
@@ -25,8 +25,8 @@ public sealed class OrderStatus : BaseEntity<Guid>
         Name = name ?? throw new ArgumentNullException(nameof(name));
     }
 
-    public void UpdateDescription(OrderStatusDescription description)
+    public void UpdateDescription(OrderStatusDescription? description)
     {
-        Description = description ?? throw new ArgumentNullException(nameof(description));
+        Description = description;
     }
 }

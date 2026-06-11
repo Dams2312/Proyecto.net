@@ -57,32 +57,14 @@ public sealed class OrderServiceConfiguration : IEntityTypeConfiguration<Domain.
             .HasColumnName("fecha_entrega_real");
 
         builder.Property(x => x.Observaciones)
-            .HasConversion(
-                x => x == null ? null : x.Value,
-                x => x == null ? null : OrderServiceObservaciones.Create(x))
+            .HasConversion(new Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<OrderServiceObservaciones?, string?>(
+                x => x == null ? (string?)null : x.Value,
+                x => x == null ? null : OrderServiceObservaciones.Create(x)))
             .HasColumnName("observaciones")
             .HasColumnType("text");
 
         builder.HasIndex(x => x.VehicleId).HasDatabaseName("idx_orden_vehiculo");
         builder.HasIndex(x => x.StatusId).HasDatabaseName("idx_orden_estado");
-
-        builder.HasOne<Domain.Entities.Vehicle.Vehicle>()
-            .WithMany()
-            .HasForeignKey("vehiculo_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne<Domain.Entities.Users.User>()
-            .WithMany()
-            .HasForeignKey("recepcionista_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne<Domain.Entities.OrderStatus.OrderStatus>()
-            .WithMany()
-            .HasForeignKey("estado_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne<Domain.Entities.Appointment.Appointment>()
             .WithMany()

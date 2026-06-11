@@ -15,7 +15,7 @@ public sealed class PurchaseMappingConfig : IRegister
             .Map(dest => dest.SupplierId, src => src.SupplierId.Value)
             .Map(dest => dest.UserId, src => src.UserId.Value)
             .Map(dest => dest.Status, src => src.Status.Value)
-            .Map(dest => dest.Observations, src => src.Observations.Value)
+            .Map(dest => dest.Observations, src => src.Observations != null ? src.Observations.Value : null)
             .Map(dest => dest.Total, src => src.Total.Value);
 
         config.NewConfig<CreatePurchaseRequest, CreatePurchase>()

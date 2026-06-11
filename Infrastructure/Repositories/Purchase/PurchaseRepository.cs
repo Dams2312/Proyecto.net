@@ -48,7 +48,7 @@ public sealed class PurchaseRepository : IPurchase
 
             query = query.Where(x =>
                 x.Status.Value.Contains(normalized) ||
-                x.Observations.Value.Contains(normalized));
+                x.Observations != null && x.Observations.Value != null && x.Observations.Value.Contains(normalized));
         }
 
         return await query
@@ -69,7 +69,7 @@ public sealed class PurchaseRepository : IPurchase
 
             query = query.Where(x =>
                 x.Status.Value.Contains(normalized) ||
-                x.Observations.Value.Contains(normalized));
+                x.Observations != null && x.Observations.Value != null && x.Observations.Value.Contains(normalized));
         }
 
         return query.CountAsync(ct);

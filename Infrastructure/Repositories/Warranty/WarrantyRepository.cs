@@ -48,7 +48,7 @@ public sealed class WarrantyRepository : IWarranty
 
             query = query.Where(x =>
                 x.Estado.Value.Contains(normalized) ||
-                x.Condiciones.Value.Contains(normalized));
+                x.Condiciones != null && x.Condiciones.Value != null && x.Condiciones.Value.Contains(normalized));
         }
 
         return await query
@@ -69,7 +69,7 @@ public sealed class WarrantyRepository : IWarranty
 
             query = query.Where(x =>
                 x.Estado.Value.Contains(normalized) ||
-                x.Condiciones.Value.Contains(normalized));
+                x.Condiciones != null && x.Condiciones.Value != null && x.Condiciones.Value.Contains(normalized));
         }
 
         return query.CountAsync(ct);

@@ -26,9 +26,9 @@ public sealed class PaymentMethodConfiguration : IEntityTypeConfiguration<Domain
 
         // descripcion es nullable en el SQL
         builder.Property(x => x.Description)
-            .HasConversion(
-                x => x == null ? null : x.Value,
-                x => x == null ? null : PaymentMethodDescription.Create(x))
+            .HasConversion(new Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<PaymentMethodDescription?, string?>(
+                x => x == null ? (string?)null : x.Value,
+                x => x == null ? null : PaymentMethodDescription.Create(x)))
             .HasColumnName("descripcion")
             .HasColumnType("text");
 

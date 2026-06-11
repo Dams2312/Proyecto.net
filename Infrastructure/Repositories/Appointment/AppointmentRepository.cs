@@ -47,7 +47,7 @@ public sealed class AppointmentRepository : IAppointment
             var normalized = search.Trim().ToLower();
 
             query = query.Where(x =>
-                x.Observations.Value.Contains(normalized));
+                x.Observations != null && x.Observations.Value != null && x.Observations.Value.Contains(normalized));
         }
 
         return await query
@@ -67,7 +67,7 @@ public sealed class AppointmentRepository : IAppointment
             var normalized = search.Trim().ToLower();
 
             query = query.Where(x =>
-                x.Observations.Value.Contains(normalized));
+                x.Observations != null && x.Observations.Value != null && x.Observations.Value.Contains(normalized));
         }
 
         return query.CountAsync(ct);

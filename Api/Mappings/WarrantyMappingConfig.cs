@@ -18,6 +18,9 @@ public sealed class WarrantyMappingConfig : IRegister
 
         config.NewConfig<CreateWarrantyRequest, CreateWarranty>()
             .MapWith(src => new CreateWarranty(
+                src.OrderId,
+                src.ServiceTypeId,
+                src.MechanicId,
                 src.StartDate,
                 src.EndDate,
                 src.Status,

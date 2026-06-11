@@ -39,10 +39,5 @@ public sealed class VehicleModelConfiguration : IEntityTypeConfiguration<Domain.
                 x => x == null ? null : VehicleModelYearTo.Create(x.Value))
             .HasColumnName("anio_hasta");
 
-        builder.HasOne<Domain.Entities.VehicleMake.VehicleMake>()
-            .WithMany()
-            .HasForeignKey("marca_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

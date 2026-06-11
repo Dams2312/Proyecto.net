@@ -11,7 +11,13 @@ namespace Application.UseCase.Users;
 public sealed class CreateUserHandler : IRequestHandler<CreateUser, Guid>
 {
     private readonly IUnitOfWork _uow;
-    public CreateUserHandler(IUnitOfWork uow) => _uow = uow;
+    private readonly IPasswordHashService _passwordHashService;
+
+    public CreateUserHandler(IUnitOfWork uow, IPasswordHashService passwordHashService)
+    {
+        _uow = uow;
+        _passwordHashService = passwordHashService;
+    }
 
     public async Task<Guid> Handle(CreateUser request, CancellationToken ct)
     {
@@ -19,7 +25,7 @@ public sealed class CreateUserHandler : IRequestHandler<CreateUser, Guid>
         var names      = UsersNames.Create(request.Names);
         var surnames   = UsersSurnames.Create(request.LastNames);
         var mail       = UsersMail.Create(request.Email);
-        var password   = UsersPassword.Create(request.Password);
+        var password   = UsersPassword.Create(_passwordHashService.HashPassword(request.Password));
         var active     = UsersActive.Create(true);
         var createDate = UsersCreateDate.Create(DateTime.UtcNow);
         var finishDate = UsersFinishDate.Create(DateTime.UtcNow.AddYears(100));

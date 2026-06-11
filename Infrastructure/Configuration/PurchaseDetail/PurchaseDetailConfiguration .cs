@@ -39,16 +39,5 @@ public sealed class PurchaseDetailConfiguration : IEntityTypeConfiguration<Domai
 
         builder.HasIndex(x => new { x.PurchaseId, x.SparePartId }).IsUnique().HasDatabaseName("uq_dc_compra_repuesto");
 
-        builder.HasOne<Domain.Entities.Purchase.Purchase>()
-            .WithMany()
-            .HasForeignKey("compra_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasOne<Domain.Entities.SparePart.SparePart>()
-            .WithMany()
-            .HasForeignKey("repuesto_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

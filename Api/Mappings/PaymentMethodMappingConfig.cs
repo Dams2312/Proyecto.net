@@ -14,7 +14,7 @@ public sealed class PaymentMethodMappingConfig : IRegister
             .Map(dest => dest.Name,
                 src => src.Name.Value)
             .Map(dest => dest.Description,
-                src => src.Description.Value);
+                src => src.Description != null ? src.Description.Value : null);
 
         // CreatePaymentMethodRequest -> CreatePaymentMethod
         config.NewConfig<CreatePaymentMethodRequest, CreatePaymentMethod>()

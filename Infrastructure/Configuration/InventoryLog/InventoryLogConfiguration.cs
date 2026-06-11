@@ -62,9 +62,9 @@ public sealed class InventoryLogConfiguration : IEntityTypeConfiguration<Domain.
             .IsRequired();
 
         builder.Property(x => x.Motivo)
-            .HasConversion(
-                x => x == null ? null : x.Value,
-                x => x == null ? null : InventoryLogMotivo.Create(x))
+            .HasConversion(new Microsoft.EntityFrameworkCore.Storage.ValueConversion.ValueConverter<InventoryLogMotivo?, string?>(
+                x => x == null ? (string?)null : x.Value,
+                x => x == null ? null : InventoryLogMotivo.Create(x)))
             .HasColumnName("motivo")
             .HasColumnType("text");
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Abstractions;
 using Infrastructure.Context;
+using Infrastructure.Security;
 using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +25,7 @@ public static class DependencyInjection
         });
 
         services.AddScoped<IUnitOfWork, EfUnitOfWork>();
+        services.AddSingleton<IPasswordHashService, PasswordHashService>();
 
         return services;
     }

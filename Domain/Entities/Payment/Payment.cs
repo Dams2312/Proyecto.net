@@ -13,7 +13,7 @@ public sealed class Payment : BaseEntity<Guid>
 
     public PaymentMonto Monto { get; private set; }
 
-    public PaymentReferencia Referencia { get; private set; }
+    public PaymentReferencia? Referencia { get; private set; }
 
     public PaymentEstado Estado { get; private set; }
 
@@ -24,7 +24,7 @@ public sealed class Payment : BaseEntity<Guid>
         Guid paymentMethodId,
         PaymentFechaPago fechaPago,
         PaymentMonto monto,
-        PaymentReferencia referencia,
+        PaymentReferencia? referencia,
         PaymentEstado estado)
     {
         InvoiceId = invoiceId;
@@ -61,9 +61,9 @@ public sealed class Payment : BaseEntity<Guid>
         Monto = monto ?? throw new ArgumentNullException(nameof(monto));
     }
 
-    public void UpdateReferencia(PaymentReferencia referencia)
+    public void UpdateReferencia(PaymentReferencia? referencia)
     {
-        Referencia = referencia ?? throw new ArgumentNullException(nameof(referencia));
+        Referencia = referencia;
     }
 
     public void UpdateEstado(PaymentEstado estado)

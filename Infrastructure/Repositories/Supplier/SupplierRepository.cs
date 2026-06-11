@@ -49,8 +49,8 @@ public sealed class SupplierRepository : ISupplier
             query = query.Where(x =>
                 x.Name.Value.Contains(normalized) ||
                 x.Nit.Value.Contains(normalized) ||
-                x.Email.Value.Contains(normalized) ||
-                x.Phone.Value.Contains(normalized));
+                x.Email != null && x.Email.Value != null && x.Email.Value.Contains(normalized) ||
+                x.Phone != null && x.Phone.Value != null && x.Phone.Value.Contains(normalized));
         }
 
         return await query
@@ -72,8 +72,8 @@ public sealed class SupplierRepository : ISupplier
             query = query.Where(x =>
                 x.Name.Value.Contains(normalized) ||
                 x.Nit.Value.Contains(normalized) ||
-                x.Email.Value.Contains(normalized) ||
-                x.Phone.Value.Contains(normalized));
+                x.Email != null && x.Email.Value != null && x.Email.Value.Contains(normalized) ||
+                x.Phone != null && x.Phone.Value != null && x.Phone.Value.Contains(normalized));
         }
 
         return query.CountAsync(ct);

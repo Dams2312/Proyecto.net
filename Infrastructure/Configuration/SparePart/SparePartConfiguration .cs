@@ -62,16 +62,5 @@ public sealed class SparePartConfiguration : IEntityTypeConfiguration<Domain.Ent
         builder.HasIndex(x => x.Code).IsUnique();
         builder.HasIndex(x => x.CategoryId);
 
-        builder.HasOne<Domain.Entities.SpareCategory.SpareCategory>()
-            .WithMany()
-            .HasForeignKey("categoria_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne<Domain.Entities.UnitMeasure.UnitMeasure>()
-            .WithMany()
-            .HasForeignKey("unidad_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

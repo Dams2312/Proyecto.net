@@ -37,16 +37,5 @@ public sealed class OrderNoteConfiguration : IEntityTypeConfiguration<Domain.Ent
             .HasColumnName("fecha_nota")
             .IsRequired();
 
-        builder.HasOne<Domain.Entities.OrderService.OrderService>()
-            .WithMany()
-            .HasForeignKey("orden_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasOne<Domain.Entities.Users.User>()
-            .WithMany()
-            .HasForeignKey("usuario_id")
-            .HasPrincipalKey("Id")
-            .OnDelete(DeleteBehavior.Restrict);
     }
 }

@@ -10,7 +10,7 @@ public sealed class Purchase : BaseEntity<Guid>
     public PurchaseSupplierId SupplierId { get; private set; }
     public PurchaseUserId UserId { get; private set; }
     public PurchaseStatus Status { get; private set; }
-    public PurchaseObservations Observations { get; private set; }
+    public PurchaseObservations? Observations { get; private set; }
     public PurchaseTotal Total { get; private set; }
 
     private Purchase() { }
@@ -20,14 +20,14 @@ public sealed class Purchase : BaseEntity<Guid>
         PurchaseSupplierId supplierId,
         PurchaseUserId userId,
         PurchaseStatus status,
-        PurchaseObservations observations,
+        PurchaseObservations? observations,
         PurchaseTotal total)
     {
         Date = date ?? throw new ArgumentNullException(nameof(date));
         SupplierId = supplierId ?? throw new ArgumentNullException(nameof(supplierId));
         UserId = userId ?? throw new ArgumentNullException(nameof(userId));
         Status = status ?? throw new ArgumentNullException(nameof(status));
-        Observations = observations ?? throw new ArgumentNullException(nameof(observations));
+        Observations = observations;
         Total = total ?? throw new ArgumentNullException(nameof(total));
     }
 
@@ -51,9 +51,9 @@ public sealed class Purchase : BaseEntity<Guid>
         Status = status ?? throw new ArgumentNullException(nameof(status));
     }
 
-    public void UpdateObservations(PurchaseObservations observations)
+    public void UpdateObservations(PurchaseObservations? observations)
     {
-        Observations = observations ?? throw new ArgumentNullException(nameof(observations));
+        Observations = observations;
     }
 
     public void UpdateTotal(PurchaseTotal total)

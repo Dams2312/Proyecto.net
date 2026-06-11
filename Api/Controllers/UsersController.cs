@@ -3,6 +3,7 @@ using Application.Abstractions;
 using Application.UseCase.Users;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,7 @@ namespace Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Policy = "AdminOnly")]
 public sealed class UsersController : BaseApiController
 {
     private readonly IUnitOfWork _uow;

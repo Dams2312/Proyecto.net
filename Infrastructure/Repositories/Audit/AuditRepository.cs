@@ -48,9 +48,9 @@ public sealed class AuditRepository : IAudit
 
             query = query.Where(x =>
                 x.Entidad.Value.Contains(normalized) ||
-                x.IpOrigen.Value.Contains(normalized) ||
-                x.DatosAnteriores.Value.Contains(normalized) ||
-                x.DatosNuevos.Value.Contains(normalized));
+                x.IpOrigen != null && x.IpOrigen.Value != null && x.IpOrigen.Value.Contains(normalized) ||
+                x.DatosAnteriores != null && x.DatosAnteriores.Value != null && x.DatosAnteriores.Value.Contains(normalized) ||
+                x.DatosNuevos != null && x.DatosNuevos.Value != null && x.DatosNuevos.Value.Contains(normalized));
         }
 
         return await query
@@ -71,9 +71,9 @@ public sealed class AuditRepository : IAudit
 
             query = query.Where(x =>
                 x.Entidad.Value.Contains(normalized) ||
-                x.IpOrigen.Value.Contains(normalized) ||
-                x.DatosAnteriores.Value.Contains(normalized) ||
-                x.DatosNuevos.Value.Contains(normalized));
+                x.IpOrigen != null && x.IpOrigen.Value != null && x.IpOrigen.Value.Contains(normalized) ||
+                x.DatosAnteriores != null && x.DatosAnteriores.Value != null && x.DatosAnteriores.Value.Contains(normalized) ||
+                x.DatosNuevos != null && x.DatosNuevos.Value != null && x.DatosNuevos.Value.Contains(normalized));
         }
 
         return query.CountAsync(ct);
